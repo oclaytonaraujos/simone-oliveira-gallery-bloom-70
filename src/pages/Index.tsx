@@ -62,10 +62,14 @@ const Index = () => {
             </div>
           </div>
 
-          <h1 className="font-playfair text-4xl md:text-6xl lg:text-8xl font-bold text-gray-900 mb-8 leading-tight">
-            <span className="block">SIMONE OLIVEIRA</span>
-            <span className="block text-gradient text-shimmer">ART GALLERY</span>
-          </h1>
+          {/* Logo Principal */}
+          <div className="mb-12 flex justify-center">
+            <img 
+              src="/lovable-uploads/5df87676-44a6-4e5d-82a7-4aab4b962a70.png" 
+              alt="Simone Oliveira Art Gallery"
+              className="h-32 md:h-40 lg:h-48 w-auto hover-lift"
+            />
+          </div>
           
           <p className="font-inter text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
             Descobrindo e celebrando a arte contemporânea através de uma curadoria excepcional que conecta 

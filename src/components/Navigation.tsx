@@ -40,9 +40,13 @@ const Navigation = () => {
           <div className="flex justify-between items-center h-20">
             <Link 
               to="/" 
-              className="font-playfair text-xl lg:text-2xl font-bold text-gray-900 hover:text-terracotta transition-all duration-300 hover:scale-105"
+              className="flex items-center hover:scale-105 transition-all duration-300"
             >
-              <span className="text-shimmer">Simone Oliveira Art Gallery</span>
+              <img 
+                src="/lovable-uploads/5df87676-44a6-4e5d-82a7-4aab4b962a70.png" 
+                alt="Simone Oliveira Art Gallery Logo"
+                className="h-12 w-auto"
+              />
             </Link>
 
             {/* Desktop Navigation */}
