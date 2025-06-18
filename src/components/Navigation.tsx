@@ -1,10 +1,11 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   const navigationItems = [
@@ -15,72 +16,102 @@ const Navigation = () => {
     { name: 'Contato', path: '/contact' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="font-playfair text-xl font-semibold text-gray-900 hover:text-terracotta transition-colors">
-            Simone Oliveira Art Gallery
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`font-inter text-sm font-medium transition-colors relative ${
-                  isActive(item.path)
-                    ? 'text-terracotta'
-                    : 'text-gray-700 hover:text-terracotta'
-                }`}
-              >
-                {item.name}
-                {isActive(item.path) && (
-                  <div className="absolute bottom-[-20px] left-0 right-0 h-0.5 bg-terracotta"></div>
-                )}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-terracotta transition-colors"
+    <>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'bg-glass border-b border-white/20 shadow-glass backdrop-blur-xl' 
+          : 'bg-transparent'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <Link 
+              to="/" 
+              className="font-playfair text-xl lg:text-2xl font-bold text-gray-900 hover:text-terracotta transition-all duration-300 hover:scale-105"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+              <span className="text-shimmer">Simone Oliveira Art Gallery</span>
+            </Link>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 shadow-lg">
-            <div className="px-4 py-4 space-y-4">
-              {navigationItems.map((item) => (
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-1">
+              {navigationItems.map((item, index) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`relative px-6 py-3 font-inter text-sm font-medium transition-all duration-300 rounded-full group ${
+                    isActive(item.path)
+                      ? 'text-white bg-terracotta shadow-lg'
+                      : 'text-gray-700 hover:text-terracotta hover:bg-white/50'
+                  }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <span className="relative z-10">{item.name}</span>
+                  {!isActive(item.path) && (
+                    <div className="absolute inset-0 rounded-full bg-terracotta/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  )}
+                </Link>
+              ))}
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="relative p-3 text-gray-700 hover:text-terracotta transition-colors duration-300 rounded-full hover:bg-white/50"
+              >
+                <div className="relative">
+                  <Menu size={24} className={`transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`} />
+                  <X size={24} className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-180'}`} />
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className={`md:hidden transition-all duration-500 ease-out ${
+            isMenuOpen 
+              ? 'max-h-96 opacity-100' 
+              : 'max-h-0 opacity-0 overflow-hidden'
+          }`}>
+            <div className="glass-card rounded-2xl mx-4 mb-4 p-6 space-y-2">
+              {navigationItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block font-inter text-sm font-medium transition-colors ${
+                  className={`block px-4 py-3 font-inter text-sm font-medium transition-all duration-300 rounded-xl stagger-animation ${
                     isActive(item.path)
-                      ? 'text-terracotta'
-                      : 'text-gray-700 hover:text-terracotta'
+                      ? 'text-white bg-terracotta shadow-lg'
+                      : 'text-gray-700 hover:text-terracotta hover:bg-white/50'
                   }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {item.name}
                 </Link>
               ))}
             </div>
           </div>
-        )}
-      </div>
-    </nav>
+        </div>
+      </nav>
+      
+      {/* Scroll Progress Indicator */}
+      <div className="scroll-indicator" style={{
+        transform: `scaleX(${typeof window !== 'undefined' ? (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) : 0})`
+      }} />
+    </>
   );
 };
 
