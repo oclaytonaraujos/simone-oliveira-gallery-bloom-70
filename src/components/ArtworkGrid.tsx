@@ -5,7 +5,6 @@ import { Eye, Heart, Share2 } from 'lucide-react';
 interface Artwork {
   id: number;
   title: string;
-  artist: string;
   image: string;
   year: string;
   medium: string;
@@ -16,12 +15,11 @@ const ArtworkGrid = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
-  // Placeholder artworks - serão substituídas por dados reais posteriormente
+  // Obras de Simone Oliveira
   const artworks: Artwork[] = [
     {
       id: 1,
       title: "Reflexões Urbanas",
-      artist: "Ana Costa",
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800",
       year: "2024",
       medium: "Óleo sobre tela",
@@ -30,7 +28,6 @@ const ArtworkGrid = () => {
     {
       id: 2,
       title: "Movimento Azul",
-      artist: "Carlos Mendes",
       image: "https://images.unsplash.com/photo-1594736797933-d0d6a5d80b62?w=600&h=800",
       year: "2023",
       medium: "Acrílica sobre tela",
@@ -39,7 +36,6 @@ const ArtworkGrid = () => {
     {
       id: 3,
       title: "Geometria Orgânica",
-      artist: "Mariana Silva",
       image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&h=800",
       year: "2024",
       medium: "Técnica mista",
@@ -48,7 +44,6 @@ const ArtworkGrid = () => {
     {
       id: 4,
       title: "Horizontes",
-      artist: "Roberto Lima",
       image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800",
       year: "2023",
       medium: "Óleo sobre tela",
@@ -57,7 +52,6 @@ const ArtworkGrid = () => {
     {
       id: 5,
       title: "Abstração Verde",
-      artist: "Lucia Santos",
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800",
       year: "2024",
       medium: "Acrílica sobre tela",
@@ -66,10 +60,9 @@ const ArtworkGrid = () => {
     {
       id: 6,
       title: "Formas em Diálogo",
-      artist: "Pedro Oliveira",
       image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&h=800",
       year: "2023",
-      medium: "Escultura em bronze",
+      medium: "Técnica mista",
       price: "R$ 22.000"
     }
   ];
@@ -135,7 +128,7 @@ const ArtworkGrid = () => {
             >
               <div className="mb-4">
                 <h3 className="font-playfair text-xl font-semibold mb-2">{artwork.title}</h3>
-                <p className="font-inter text-sm opacity-90 mb-1">{artwork.artist}</p>
+                <p className="font-inter text-sm opacity-90 mb-1">Por Simone Oliveira</p>
                 <p className="font-inter text-xs opacity-75 mb-2">{artwork.year} • {artwork.medium}</p>
                 {artwork.price && (
                   <p className="font-inter text-sm font-semibold bg-terracotta/20 backdrop-blur-sm px-3 py-1 rounded-full inline-block">
@@ -160,7 +153,7 @@ const ArtworkGrid = () => {
             <h3 className="font-playfair text-lg font-semibold text-gray-900 mb-1 group-hover:text-terracotta transition-colors duration-300">
               {artwork.title}
             </h3>
-            <p className="font-inter text-sm text-gray-600">{artwork.artist}</p>
+            <p className="font-inter text-sm text-gray-600">Simone Oliveira</p>
           </div>
         </div>
       ))}

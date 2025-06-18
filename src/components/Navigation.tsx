@@ -11,7 +11,7 @@ const Navigation = () => {
   const navigationItems = [
     { name: 'Início', path: '/' },
     { name: 'Exposições', path: '/expositions' },
-    { name: 'Artistas', path: '/artists' },
+    { name: 'Sobre a Artista', path: '/artists' },
     { name: 'Sobre Nós', path: '/about' },
     { name: 'Contato', path: '/contact' },
   ];
@@ -43,8 +43,8 @@ const Navigation = () => {
               className="flex items-center hover:scale-105 transition-all duration-300"
             >
               <img 
-                src="/lovable-uploads/5df87676-44a6-4e5d-82a7-4aab4b962a70.png" 
-                alt="Simone Oliveira Art Gallery Logo"
+                src="/lovable-uploads/c3b2ef98-4a69-407b-9d25-6ff0c37e3e11.png" 
+                alt="Simone Oliveira Art Logo"
                 className="h-12 w-auto"
               />
             </Link>

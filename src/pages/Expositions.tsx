@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 interface Exhibition {
   id: number;
   title: string;
-  artist: string;
   description: string;
   startDate: string;
   endDate: string;
   image: string;
   status: 'current' | 'upcoming' | 'past';
+  location: string;
 }
 
 const Expositions = () => {
@@ -23,42 +23,42 @@ const Expositions = () => {
     {
       id: 1,
       title: "Reflexões da Modernidade",
-      artist: "Ana Costa",
-      description: "Uma exploração profunda das tensões urbanas através de pintura e escultura contemporânea.",
+      description: "Uma exploração profunda das tensões urbanas através de pintura e técnica mista contemporânea.",
       startDate: "2024-01-15",
       endDate: "2024-03-30",
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600",
-      status: 'current'
+      status: 'current',
+      location: "Galeria Nacional de Arte, São Paulo"
     },
     {
       id: 2,
       title: "Geometrias Orgânicas",
-      artist: "Carlos Mendes & Mariana Silva",
-      description: "Um diálogo entre formas geométricas e elementos naturais em técnica mista.",
+      description: "Um diálogo entre formas geométricas e elementos naturais em uma coleção única de obras.",
       startDate: "2024-02-01",
       endDate: "2024-04-15",
       image: "https://images.unsplash.com/photo-1594736797933-d0d6a5d80b62?w=800&h=600",
-      status: 'current'
+      status: 'current',
+      location: "Centro Cultural Vila Madalena"
     },
     {
       id: 3,
       title: "Horizontes Futuros",
-      artist: "Roberto Lima",
-      description: "Paisagens reimaginadas através da perspectiva da arte digital e tradicional.",
+      description: "Paisagens reimaginadas através da perspectiva da arte contemporânea e visões futuras.",
       startDate: "2024-04-20",
       endDate: "2024-06-30",
       image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&h=600",
-      status: 'upcoming'
+      status: 'upcoming',
+      location: "Museu de Arte Moderna, Rio de Janeiro"
     },
     {
       id: 4,
       title: "Memórias Fragmentadas",
-      artist: "Lucia Santos",
-      description: "Uma investigação sobre memória e tempo através de instalações multimídia.",
+      description: "Uma investigação sobre memória e tempo através de instalações e pinturas expressivas.",
       startDate: "2023-10-01",
       endDate: "2023-12-31",
       image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=800&h=600",
-      status: 'past'
+      status: 'past',
+      location: "Pinacoteca do Estado de São Paulo"
     }
   ];
 
@@ -101,8 +101,8 @@ const Expositions = () => {
             Exposições
           </h1>
           <p className="font-inter text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed slide-up">
-            Descubra nossa programação de exposições cuidadosamente curadas, 
-            apresentando o melhor da arte contemporânea nacional e internacional.
+            Acompanhe a agenda de exposições das obras de Simone Oliveira em galerias e 
+            museus renomados pelo Brasil.
           </p>
         </div>
       </section>
@@ -156,16 +156,20 @@ const Expositions = () => {
                       {exhibition.title}
                     </h3>
                     <p className="font-inter text-terracotta font-medium mb-3">
-                      {exhibition.artist}
+                      Simone Oliveira
                     </p>
                     <p className="font-inter text-gray-600 mb-4 leading-relaxed">
                       {exhibition.description}
                     </p>
-                    <div className="flex items-center text-gray-500 text-sm mb-4">
+                    <div className="flex items-center text-gray-500 text-sm mb-2">
                       <Calendar size={16} className="mr-2" />
                       <span>
                         {formatDate(exhibition.startDate)} - {formatDate(exhibition.endDate)}
                       </span>
+                    </div>
+                    <div className="flex items-center text-gray-500 text-sm mb-4">
+                      <MapPin size={16} className="mr-2" />
+                      <span>{exhibition.location}</span>
                     </div>
                     <Link 
                       to={`/expositions/${exhibition.id}`}
