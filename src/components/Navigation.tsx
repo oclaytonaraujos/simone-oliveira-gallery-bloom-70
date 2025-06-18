@@ -43,7 +43,7 @@ const Navigation = () => {
               className="flex items-center hover:scale-105 transition-all duration-300"
             >
               <img 
-                src="/lovable-uploads/c3b2ef98-4a69-407b-9d25-6ff0c37e3e11.png" 
+                src="/lovable-uploads/60be0771-f73f-46f6-9c94-1fd11dbcf2fc.png" 
                 alt="Simone Oliveira Art Logo"
                 className="h-12 w-auto"
               />

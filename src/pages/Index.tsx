@@ -61,16 +61,9 @@ const Index = () => {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>
         
         <div className={`text-center z-10 px-4 max-w-5xl mx-auto ${isLoaded ? 'hero-reveal' : 'opacity-0'}`}>
-          <div className="mb-8 floating">
-            <div className="inline-flex items-center px-6 py-3 bg-glass rounded-full border border-white/20 shadow-glass backdrop-blur-lg mb-6">
-              <Sparkles size={16} className="mr-2 text-terracotta" />
-              <span className="text-sm font-medium text-gray-700">Arte Contemporânea de Simone Oliveira</span>
-            </div>
-          </div>
-
           {/* Logo Principal */}
           <div className="mb-12 flex justify-center">
-            <img src="/lovable-uploads/c3b2ef98-4a69-407b-9d25-6ff0c37e3e11.png" alt="Simone Oliveira Art Gallery" className="h-32 md:h-40 lg:h-48 w-auto hover-lift" />
+            <img src="/lovable-uploads/60be0771-f73f-46f6-9c94-1fd11dbcf2fc.png" alt="Simone Oliveira Art Gallery" className="h-32 md:h-40 lg:h-48 w-auto hover-lift" />
           </div>
           
           <p className="font-inter text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
@@ -116,18 +109,18 @@ const Index = () => {
               </h2>
               
               <p className="font-inter text-lg text-gray-600 leading-relaxed mb-6 font-light">
-                Simone Oliveira é uma artista contemporânea que dedica sua vida à criação de obras que 
+                Simone Oliveira é uma artista que dedica sua vida à criação de obras que 
                 desafiam convenções e exploram as profundezas da experiência humana. Cada pincelada 
                 carrega sua paixão pela arte e sua visão única do mundo.
               </p>
               
               <p className="font-inter text-lg text-gray-600 leading-relaxed mb-10 font-light">
                 Com mais de uma década de dedicação à arte, Simone desenvolveu um estilo próprio que 
-                combina técnicas tradicionais com elementos contemporâneos, criando um diálogo visual 
+                combina técnicas tradicionais com elementos modernos, criando um diálogo visual 
                 que ressoa com diferentes gerações de apreciadores da arte.
               </p>
               
-              <Link to="/about" className="inline-flex items-center text-terracotta font-inter font-medium hover:text-terracotta/80 transition-all duration-300 group">
+              <Link to="/artists" className="inline-flex items-center text-terracotta font-inter font-medium hover:text-terracotta/80 transition-all duration-300 group">
                 Conheça mais sobre Simone
                 <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -138,7 +131,7 @@ const Index = () => {
           }}>
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-terracotta/20 to-light-blue/20 rounded-3xl transform rotate-3"></div>
-                <img src="https://images.unsplash.com/photo-1524230572899-a752b3835840?w=800&h=1000" alt="Simone Oliveira em seu ateliê" className="relative w-full h-full object-cover rounded-3xl shadow-modern hover-lift" />
+                <img src="/lovable-uploads/1730db82-b48a-4890-a40a-92dcfb123144.png" alt="Simone Oliveira - Retrato" className="relative w-full h-full object-cover rounded-3xl shadow-modern hover-lift" />
               </div>
             </div>
           </div>
@@ -177,8 +170,46 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Artist in Studio Section */}
       <section className="py-32 px-4 sm:px-6 lg:px-8 bg-neutral-warm">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1">
+              <img 
+                src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" 
+                alt="Simone Oliveira pintando em seu ateliê" 
+                className="w-full h-96 object-cover rounded-3xl shadow-modern hover-lift"
+              />
+            </div>
+            <div className="lg:col-span-1">
+              <img 
+                src="/lovable-uploads/79f14aaa-ddef-4045-8d3e-50714c9dc43b.png" 
+                alt="Simone Oliveira criando arte" 
+                className="w-full h-96 object-cover rounded-3xl shadow-modern hover-lift"
+              />
+            </div>
+            <div className="lg:col-span-1 flex flex-col justify-center">
+              <h3 className="font-playfair text-3xl font-bold text-gray-900 mb-6">
+                No Ateliê
+              </h3>
+              <p className="font-inter text-gray-600 leading-relaxed mb-6">
+                Acompanhe Simone em seu processo criativo, onde cada obra nasce da paixão 
+                e dedicação à arte. Seu ateliê é um espaço de inspiração e criatividade.
+              </p>
+              <div className="space-y-4">
+                <img 
+                  src="/lovable-uploads/03348f07-97c9-429b-a76d-774e1979a3e4.png" 
+                  alt="Simone Oliveira com pincéis" 
+                  className="w-full h-64 object-cover rounded-2xl shadow-lg hover-lift"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
             <div className="reveal-up">
