@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -66,7 +67,10 @@ const Index = () => {
       
       {/* Hero Section with Artworks */}
       <section className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 md:pb-24 lg:pb-32 gradient-elegant">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>
+        {/* Parallax background - Desktop only for performance */}
+        {!isMobile && (
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>
+        )}
         
         <div className={`z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${isLoaded ? 'hero-reveal' : 'opacity-0'}`}>
           {/* Brand Identity - Compact */}
@@ -139,12 +143,12 @@ const Index = () => {
                 <span className="text-gradient-artistic"> Artística</span>
               </h2>
               
-              <p className="font-helvetica text-sm sm:text-base text-deep-black/80 leading-relaxed mb-3 sm:mb-4 font-light text-left">
+              <p className="font-helvetica text-sm sm:text-base text-deep-black/80 leading-relaxed mb-3 sm:mb-4 font-light justified-text">
                 Simone Oliveira é uma artista que dedica sua vida à criação de obras que 
                 desafiam convenções e exploram as profundezas da experiência humana.
               </p>
               
-              <p className="font-helvetica text-sm sm:text-base text-deep-black/80 leading-relaxed mb-6 sm:mb-8 font-light text-left">
+              <p className="font-helvetica text-sm sm:text-base text-deep-black/80 leading-relaxed mb-6 sm:mb-8 font-light justified-text">
                 Com mais de uma década de dedicação à arte, Simone desenvolveu um estilo próprio que 
                 combina técnicas tradicionais com elementos modernos.
               </p>
@@ -172,7 +176,7 @@ const Index = () => {
             <h2 className="font-semplicita text-2xl sm:text-3xl md:text-4xl font-light text-deep-black mb-3 sm:mb-4">
               No Ateliê
             </h2>
-            <p className="font-helvetica text-sm sm:text-base text-deep-black/80 max-w-2xl mx-auto text-center px-2">
+            <p className="font-helvetica text-sm sm:text-base text-deep-black/80 max-w-2xl mx-auto justified-text">
               Acompanhe Simone em seu processo criativo, onde cada obra nasce da paixão 
               e dedicação à arte.
             </p>
@@ -203,7 +207,7 @@ const Index = () => {
                 <h3 className="font-semplicita text-lg sm:text-xl font-light text-deep-black mb-2">
                   Processo Criativo
                 </h3>
-                <p className="font-helvetica text-xs sm:text-sm text-deep-black/80 leading-relaxed text-left">
+                <p className="font-helvetica text-xs sm:text-sm text-deep-black/80 leading-relaxed justified-text">
                   Cada obra é resultado de um processo meditativo e intuitivo.
                 </p>
               </div>

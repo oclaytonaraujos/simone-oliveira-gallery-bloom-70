@@ -189,9 +189,9 @@
     transform: scale(0.95);
   }
 
-  /* Better text rendering on mobile */
+  /* Better text rendering on mobile - Mobile-first approach */
   .justified-text {
-    text-align: justify;
+    @apply text-left md:text-justify; /* Alinhado à esquerda por padrão, justificado em telas médias e maiores */
     hyphens: auto;
     word-break: break-word;
     overflow-wrap: break-word;

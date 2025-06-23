@@ -1,5 +1,7 @@
+
 import { useState, useEffect } from 'react';
 import { Eye, Heart, Share2, ZoomIn, MessageCircle, Mail } from 'lucide-react';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface Artwork {
   id: number;
@@ -12,8 +14,10 @@ interface Artwork {
 
 const ArtworkGrid = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [touchedId, setTouchedId] = useState<number | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+  const isMobile = useIsMobile();
 
   // Obras de Simone Oliveira
   const artworks: Artwork[] = [
@@ -73,6 +77,22 @@ const ArtworkGrid = () => {
 
   const handleArtworkClick = (artwork: Artwork) => {
     setSelectedArtwork(artwork);
+    setTouchedId(null); // Reset touch state when opening modal
+  };
+
+  const handleArtworkTouch = (artworkId: number) => {
+    if (touchedId === artworkId) {
+      // Se já foi tocado, abre o modal
+      const artwork = artworks.find(a => a.id === artworkId);
+      if (artwork) {
+        handleArtworkClick(artwork);
+      }
+    } else {
+      // Se for o primeiro toque, apenas revela as informações
+      setTouchedId(artworkId);
+      // Auto-hide after 3 seconds on mobile
+      setTimeout(() => setTouchedId(null), 3000);
+    }
   };
 
   const closeModal = () => {
@@ -98,11 +118,11 @@ const ArtworkGrid = () => {
         {artworks.map((artwork, index) => (
           <div
             key={artwork.id}
-            className="group cursor-pointer stagger-animation"
+            className="group cursor-pointer stagger-animation touch-manipulation"
             style={{ animationDelay: `${index * 0.1}s` }}
-            onMouseEnter={() => setHoveredId(artwork.id)}
-            onMouseLeave={() => setHoveredId(null)}
-            onClick={() => handleArtworkClick(artwork)}
+            onClick={() => isMobile ? handleArtworkTouch(artwork.id) : handleArtworkClick(artwork)}
+            onMouseEnter={() => !isMobile && setHoveredId(artwork.id)}
+            onMouseLeave={() => !isMobile && setHoveredId(null)}
           >
             <div className="relative overflow-hidden bg-soft-beige rounded-3xl aspect-[4/5] shadow-elegant hover-lift-elegant transition-all duration-700">
               {/* Loading skeleton */}
@@ -114,7 +134,7 @@ const ArtworkGrid = () => {
                 src={artwork.image}
                 alt={artwork.title}
                 className={`w-full h-full object-cover transition-all duration-700 ease-out ${
-                  hoveredId === artwork.id ? 'scale-110 brightness-110' : 'scale-100'
+                  (hoveredId === artwork.id || touchedId === artwork.id) ? 'scale-110 brightness-110' : 'scale-100'
                 } ${loadedImages.has(artwork.id) ? 'opacity-100' : 'opacity-0'}`}
                 onLoad={() => handleImageLoad(artwork.id)}
               />
@@ -122,21 +142,25 @@ const ArtworkGrid = () => {
               {/* Enhanced gradient overlay */}
               <div 
                 className={`absolute inset-0 bg-gradient-to-t from-deep-black/90 via-deep-black/30 to-transparent transition-all duration-500 ${
-                  hoveredId === artwork.id ? 'opacity-100' : 'opacity-0'
+                  (hoveredId === artwork.id || touchedId === artwork.id) ? 'opacity-100' : 'opacity-0'
                 }`}
               />
               
               {/* Enhanced action buttons */}
               <div 
                 className={`absolute top-6 right-6 flex flex-col space-y-3 transition-all duration-500 ${
-                  hoveredId === artwork.id ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
+                  (hoveredId === artwork.id || touchedId === artwork.id) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
                 }`}
               >
                 {[ZoomIn, Heart, Share2].map((Icon, idx) => (
                   <button
                     key={idx}
-                    className="w-12 h-12 bg-soft-beige/90 rounded-full flex items-center justify-center backdrop-blur-lg border border-gentle-green/30 hover:bg-soft-beige hover:scale-110 transition-all duration-300 shadow-elegant"
-                    style={{ transitionDelay: `${idx * 0.1}s` }}
+                    className="w-12 h-12 bg-soft-beige/90 rounded-full flex items-center justify-center backdrop-blur-lg border border-gentle-green/30 hover:bg-soft-beige hover:scale-110 transition-all duration-300 shadow-elegant touch-manipulation active:scale-95"
+                    style={{ 
+                      transitionDelay: `${idx * 0.1}s`,
+                      minHeight: '48px',
+                      minWidth: '48px'
+                    }}
                     onClick={(e) => {
                       e.stopPropagation();
                       if (idx === 0) handleArtworkClick(artwork);
@@ -150,7 +174,7 @@ const ArtworkGrid = () => {
               {/* Enhanced content */}
               <div 
                 className={`absolute bottom-0 left-0 right-0 p-8 text-soft-beige transition-all duration-500 ${
-                  hoveredId === artwork.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  (hoveredId === artwork.id || touchedId === artwork.id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
                 <div className="mb-4">
@@ -164,11 +188,18 @@ const ArtworkGrid = () => {
               {/* Enhanced border glow */}
               <div 
                 className={`absolute inset-0 rounded-3xl transition-all duration-500 ${
-                  hoveredId === artwork.id 
+                  (hoveredId === artwork.id || touchedId === artwork.id)
                     ? 'ring-2 ring-warm-terracotta/40 ring-offset-4 ring-offset-soft-beige shadow-2xl' 
                     : ''
                 }`}
               />
+              
+              {/* Mobile touch indicator */}
+              {isMobile && touchedId === artwork.id && (
+                <div className="absolute top-4 left-4 bg-warm-terracotta/90 text-soft-beige px-3 py-1 rounded-full text-xs font-helvetica animate-pulse">
+                  Toque novamente para abrir
+                </div>
+              )}
             </div>
 
             {/* Enhanced bottom info */}
@@ -195,21 +226,21 @@ const ArtworkGrid = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-12 flex flex-col justify-center">
-                <h2 className="font-semplicita text-4xl font-light text-deep-black mb-4 leading-tight">
+              <div className="p-6 sm:p-12 flex flex-col justify-center">
+                <h2 className="font-semplicita text-2xl sm:text-4xl font-light text-deep-black mb-4 leading-tight">
                   {selectedArtwork.title}
                 </h2>
-                <p className="font-helvetica text-lg text-deep-black/80 mb-2">Simone Oliveira</p>
-                <p className="font-helvetica text-sm text-deep-black/60 mb-8">
+                <p className="font-helvetica text-base sm:text-lg text-deep-black/80 mb-2">Simone Oliveira</p>
+                <p className="font-helvetica text-sm text-deep-black/60 mb-6 sm:mb-8">
                   {selectedArtwork.year} • {selectedArtwork.medium}
                 </p>
-                <div className="w-16 h-px bg-warm-terracotta mb-8"></div>
-                <p className="font-helvetica text-deep-black/80 leading-relaxed justified-text mb-8">
+                <div className="w-16 h-px bg-warm-terracotta mb-6 sm:mb-8"></div>
+                <p className="font-helvetica text-deep-black/80 leading-relaxed justified-text mb-6 sm:mb-8 text-sm sm:text-base">
                   {selectedArtwork.description}
                 </p>
                 
                 {/* Contact Buttons */}
-                <div className="space-y-4 mb-8">
+                <div className="space-y-4 mb-6 sm:mb-8">
                   <p className="font-helvetica text-sm text-deep-black/70 mb-4">
                     Interessado nesta obra? Entre em contato para mais informações:
                   </p>
@@ -217,7 +248,8 @@ const ArtworkGrid = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button
                       onClick={() => handleWhatsAppContact(selectedArtwork)}
-                      className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant"
+                      className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant touch-manipulation active:scale-95"
+                      style={{ minHeight: '48px' }}
                     >
                       <MessageCircle size={18} className="mr-2" />
                       WhatsApp
@@ -225,7 +257,8 @@ const ArtworkGrid = () => {
                     
                     <button
                       onClick={() => handleEmailContact(selectedArtwork)}
-                      className="flex items-center justify-center px-6 py-3 bg-warm-terracotta hover:bg-warm-terracotta/90 text-soft-beige font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant"
+                      className="flex items-center justify-center px-6 py-3 bg-warm-terracotta hover:bg-warm-terracotta/90 text-soft-beige font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant touch-manipulation active:scale-95"
+                      style={{ minHeight: '48px' }}
                     >
                       <Mail size={18} className="mr-2" />
                       E-mail
@@ -235,7 +268,8 @@ const ArtworkGrid = () => {
 
                 <button
                   onClick={closeModal}
-                  className="self-start px-8 py-3 bg-deep-black/10 hover:bg-deep-black/20 text-deep-black font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant"
+                  className="self-start px-8 py-3 bg-deep-black/10 hover:bg-deep-black/20 text-deep-black font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant touch-manipulation active:scale-95"
+                  style={{ minHeight: '48px' }}
                 >
                   Fechar
                 </button>
