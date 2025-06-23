@@ -168,10 +168,7 @@ const Index = () => {
             <h2 className="font-semplicita text-2xl sm:text-3xl md:text-4xl font-light text-deep-black mb-3 sm:mb-4">
               No Ateliê
             </h2>
-            <p className="font-helvetica text-sm sm:text-base text-deep-black/80 max-w-2xl mx-auto justified-text font-normal text-center">
-              Acompanhe Simone em seu processo criativo, onde cada obra nasce da paixão 
-              e dedicação à arte.
-            </p>
+            <p className="font-helvetica text-sm sm:text-base text-deep-black/80 max-w-2xl mx-auto justified-text font-normal text-center">Simone tem seu processo criativo onde cada obra nasce da paixão e dedicação à arte.</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
