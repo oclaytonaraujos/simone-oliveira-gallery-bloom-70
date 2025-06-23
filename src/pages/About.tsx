@@ -1,7 +1,6 @@
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Award, Users, Calendar, Heart, Palette, Eye, Target, Globe } from 'lucide-react';
-
 const About = () => {
   const stats = [{
     icon: Calendar,
@@ -173,22 +172,12 @@ const About = () => {
                 <span className="font-helvetica text-sm font-medium text-warm-terracotta">Identidade Visual</span>
               </div>
               
-              <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6">
-                Identidade Visual – Simone Oliveira Art Gallery
-              </h2>
+              <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6">Direção da Arte</h2>
               
               <div className="space-y-4 font-helvetica text-deep-black/80 leading-relaxed">
-                <p>
-                  A identidade visual equilibra minimalismo contemporâneo e sensibilidade artística.
-                </p>
-                <p>
-                  Combina tipografia elegante e geométrica (Semplicita Pro) com traços autorais e 
-                  caligráficos (Fabiola Capitals), reforçando o contraste entre estrutura e emoção.
-                </p>
-                <p>
-                  A paleta cromática mistura tons terrosos e suaves (como o #C14417 e o #F4E8DB), 
-                  transmitindo sofisticação, acolhimento e conexão com a natureza.
-                </p>
+                <p>A direção de arte da Simone Oliveira Art Gallery nasce da busca por uma experiência visual que seja tão sensível quanto a própria criação artística.</p>
+                <p>Cada pintura é pensada para respirar: o espaço, o ritmo, o silêncio. A composição é leve, contemplativa, e convida o visitante a desacelerar o olhar, a entrar em contato com o tempo interno da obra e com sua própria percepção.</p>
+                
               </div>
             </div>
             
@@ -224,5 +213,4 @@ const About = () => {
       <Footer />
     </div>;
 };
-
 export default About;
