@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from 'react';
-import { Eye, Heart, Share2, ZoomIn, MessageCircle, Mail } from 'lucide-react';
+import { ZoomIn, MessageCircle, Mail } from 'lucide-react';
 
 interface Artwork {
   id: number;
@@ -11,12 +12,10 @@ interface Artwork {
   description?: string;
 }
 
-const ArtworkGrid = () => {
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+const ArtworkHorizontalScroll = () => {
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
-  // Obras de Simone Oliveira
   const artworks: Artwork[] = [
     {
       id: 1,
@@ -71,6 +70,24 @@ const ArtworkGrid = () => {
       medium: "Técnica mista",
       dimensions: "85 x 60 cm",
       description: "Um estudo sobre a comunicação visual, onde formas distintas se encontram e criam narrativas inesperadas."
+    },
+    {
+      id: 7,
+      title: "Paisagem Interior",
+      image: "https://images.unsplash.com/photo-1594736797933-d0d6a5d80b62?w=600&h=800",
+      year: "2024",
+      medium: "Óleo sobre tela",
+      dimensions: "95 x 70 cm",
+      description: "Uma jornada introspectiva através de cores e formas que revelam os territórios emocionais da alma."
+    },
+    {
+      id: 8,
+      title: "Luz Fragmentada",
+      image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&h=800",
+      year: "2023",
+      medium: "Técnica mista",
+      dimensions: "110 x 80 cm",
+      description: "A decomposição da luz em múltiplas facetas, criando um caleidoscópio de sensações visuais."
     }
   ];
 
@@ -87,7 +104,7 @@ const ArtworkGrid = () => {
   };
 
   const handleWhatsAppContact = (artwork: Artwork) => {
-    const whatsappNumber = "5511987654321"; // Número da Simone
+    const whatsappNumber = "5511987654321";
     const message = encodeURIComponent(`Olá Simone! Tenho interesse na obra "${artwork.title}" (${artwork.year}). Gostaria de saber mais informações sobre preço e disponibilidade.`);
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
   };
@@ -101,128 +118,85 @@ const ArtworkGrid = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {artworks.map((artwork, index) => (
-          <div
-            key={artwork.id}
-            className="group cursor-pointer stagger-animation"
-            style={{ animationDelay: `${index * 0.1}s` }}
-            onMouseEnter={() => setHoveredId(artwork.id)}
-            onMouseLeave={() => setHoveredId(null)}
-            onClick={() => handleArtworkClick(artwork)}
-          >
-            <div className="relative overflow-hidden bg-soft-beige rounded-3xl aspect-[4/5] shadow-elegant hover-lift-elegant transition-all duration-700">
-              {/* Loading skeleton */}
-              {!loadedImages.has(artwork.id) && (
-                <div className="absolute inset-0 bg-gradient-to-r from-gentle-green/20 via-light-blue/20 to-gentle-green/20 animate-pulse" />
-              )}
-              
-              <img
-                src={artwork.image}
-                alt={artwork.title}
-                className={`w-full h-full object-cover transition-all duration-700 ease-out ${
-                  hoveredId === artwork.id ? 'scale-110 brightness-110' : 'scale-100'
-                } ${loadedImages.has(artwork.id) ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={() => handleImageLoad(artwork.id)}
-              />
-              
-              {/* Enhanced gradient overlay */}
-              <div 
-                className={`absolute inset-0 bg-gradient-to-t from-deep-black/90 via-deep-black/30 to-transparent transition-all duration-500 ${
-                  hoveredId === artwork.id ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-              
-              {/* Enhanced action buttons */}
-              <div 
-                className={`absolute top-6 right-6 flex flex-col space-y-3 transition-all duration-500 ${
-                  hoveredId === artwork.id ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
-                }`}
-              >
-                {[ZoomIn, Heart, Share2].map((Icon, idx) => (
-                  <button
-                    key={idx}
-                    className="w-12 h-12 bg-soft-beige/90 rounded-full flex items-center justify-center backdrop-blur-lg border border-gentle-green/30 hover:bg-soft-beige hover:scale-110 transition-all duration-300 shadow-elegant"
-                    style={{ transitionDelay: `${idx * 0.1}s` }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (idx === 0) handleArtworkClick(artwork);
-                    }}
-                  >
-                    <Icon size={18} className="text-warm-terracotta" />
+      <div className="overflow-x-auto pb-4">
+        <div className="flex space-x-6 px-4 min-w-max">
+          {artworks.map((artwork, index) => (
+            <div
+              key={artwork.id}
+              className="flex-shrink-0 w-72 cursor-pointer group"
+              onClick={() => handleArtworkClick(artwork)}
+            >
+              <div className="relative overflow-hidden bg-soft-beige rounded-2xl aspect-[4/5] shadow-elegant hover-lift-elegant transition-all duration-500">
+                {!loadedImages.has(artwork.id) && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-gentle-green/20 via-light-blue/20 to-gentle-green/20 animate-pulse" />
+                )}
+                
+                <img
+                  src={artwork.image}
+                  alt={artwork.title}
+                  className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
+                    loadedImages.has(artwork.id) ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() => handleImageLoad(artwork.id)}
+                />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-10 h-10 bg-soft-beige/90 rounded-full flex items-center justify-center backdrop-blur-lg shadow-lg">
+                    <ZoomIn size={16} className="text-warm-terracotta" />
                   </button>
-                ))}
-              </div>
-              
-              {/* Enhanced content */}
-              <div 
-                className={`absolute bottom-0 left-0 right-0 p-8 text-soft-beige transition-all duration-500 ${
-                  hoveredId === artwork.id ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-              >
-                <div className="mb-4">
-                  <h3 className="font-semplicita text-2xl font-light mb-3 leading-tight">{artwork.title}</h3>
-                  <p className="font-helvetica text-sm opacity-90 mb-2">Por Simone Oliveira</p>
-                  <p className="font-helvetica text-xs opacity-75 mb-2">{artwork.year} • {artwork.medium}</p>
-                  <p className="font-helvetica text-xs opacity-75 mb-4">{artwork.dimensions}</p>
-                  <div className="w-12 h-px bg-gentle-green/60"></div>
+                </div>
+                
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-soft-beige opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3 className="font-semplicita text-lg font-light mb-1 leading-tight">{artwork.title}</h3>
+                  <p className="font-helvetica text-xs opacity-90">{artwork.year} • {artwork.dimensions}</p>
                 </div>
               </div>
-
-              {/* Enhanced border glow */}
-              <div 
-                className={`absolute inset-0 rounded-3xl transition-all duration-500 ${
-                  hoveredId === artwork.id 
-                    ? 'ring-2 ring-warm-terracotta/40 ring-offset-4 ring-offset-soft-beige shadow-2xl' 
-                    : ''
-                }`}
-              />
+              
+              <div className="mt-4">
+                <h3 className="font-semplicita text-base font-light text-deep-black mb-1 group-hover:text-warm-terracotta transition-colors duration-300">
+                  {artwork.title}
+                </h3>
+                <p className="font-helvetica text-sm text-deep-black/70 mb-1">Simone Oliveira</p>
+                <p className="font-helvetica text-xs text-deep-black/60">{artwork.year} • {artwork.dimensions}</p>
+              </div>
             </div>
-
-            {/* Enhanced bottom info */}
-            <div className="mt-8 px-2">
-              <h3 className="font-semplicita text-xl font-light text-deep-black mb-2 group-hover:text-warm-terracotta transition-colors duration-300 leading-tight">
-                {artwork.title}
-              </h3>
-              <p className="font-helvetica text-sm text-deep-black/70 mb-1">Simone Oliveira</p>
-              <p className="font-helvetica text-xs text-deep-black/60 mb-1">{artwork.year} • {artwork.dimensions}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* Enhanced Modal with Contact Buttons */}
+      {/* Modal */}
       {selectedArtwork && (
         <div className="fixed inset-0 bg-deep-black/90 backdrop-blur-lg flex items-center justify-center z-50 p-4" onClick={closeModal}>
-          <div className="bg-soft-beige rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-elegant" onClick={(e) => e.stopPropagation()}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-              <div className="relative">
+          <div className="bg-soft-beige rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-elegant" onClick={(e) => e.stopPropagation()}>
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="relative aspect-[4/5] lg:aspect-auto">
                 <img
                   src={selectedArtwork.image}
                   alt={selectedArtwork.title}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-12 flex flex-col justify-center">
-                <h2 className="font-semplicita text-4xl font-light text-deep-black mb-4 leading-tight">
+              <div className="p-8 lg:p-12 flex flex-col justify-center">
+                <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-4 leading-tight">
                   {selectedArtwork.title}
                 </h2>
                 <p className="font-helvetica text-lg text-deep-black/80 mb-2">Simone Oliveira</p>
                 <p className="font-helvetica text-sm text-deep-black/60 mb-2">
                   {selectedArtwork.year} • {selectedArtwork.medium}
                 </p>
-                <p className="font-helvetica text-sm text-deep-black/60 mb-8">
+                <p className="font-helvetica text-sm text-deep-black/60 mb-6">
                   Dimensões: {selectedArtwork.dimensions}
                 </p>
-                <div className="w-16 h-px bg-warm-terracotta mb-8"></div>
-                <p className="font-helvetica text-deep-black/80 leading-relaxed justified-text mb-8">
+                <div className="w-16 h-px bg-warm-terracotta mb-6"></div>
+                <p className="font-helvetica text-deep-black/80 leading-relaxed mb-8 text-sm lg:text-base">
                   {selectedArtwork.description}
                 </p>
                 
-                {/* Contact Buttons */}
-                <div className="space-y-4 mb-8">
-                  <p className="font-helvetica text-sm text-deep-black/70 mb-4">
-                    Interessado nesta obra? Entre em contato para mais informações:
+                <div className="space-y-4 mb-6">
+                  <p className="font-helvetica text-sm text-deep-black/70">
+                    Interessado nesta obra? Entre em contato:
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-3">
@@ -259,4 +233,4 @@ const ArtworkGrid = () => {
   );
 };
 
-export default ArtworkGrid;
+export default ArtworkHorizontalScroll;
