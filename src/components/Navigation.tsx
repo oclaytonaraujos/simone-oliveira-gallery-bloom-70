@@ -2,11 +2,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { useIsMobile } from '../hooks/use-mobile';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [navVisible, setNavVisible] = useState(true);
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   const navigationItems = [
     { name: 'Início', path: '/' },
@@ -18,34 +22,77 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      
+      setScrolled(currentScrollY > 20);
+      
+      // Hide/show navigation on mobile when scrolling
+      if (isMobile) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setNavVisible(false);
+          setIsMenuOpen(false);
+        } else {
+          setNavVisible(true);
+        }
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY, isMobile]);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen, isMobile]);
 
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        !navVisible && isMobile ? '-translate-y-full' : 'translate-y-0'
+      } ${
         scrolled 
           ? 'bg-soft-beige/95 border-b border-gentle-green/20 shadow-elegant backdrop-blur-xl' 
           : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
             <Link 
               to="/" 
-              className="flex items-center hover:scale-105 transition-all duration-300"
+              className="flex items-center hover:scale-105 transition-all duration-300 touch-manipulation"
+              onClick={handleLinkClick}
             >
               <img 
                 src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
                 alt="Simone Oliveira Art Gallery" 
-                className="h-12 sm:h-16 w-auto object-contain"
+                className="h-10 sm:h-12 lg:h-16 w-auto object-contain"
               />
             </Link>
 
@@ -55,7 +102,7 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`relative px-4 lg:px-6 py-3 font-helvetica text-xs lg:text-sm font-medium transition-all duration-300 rounded-full group ${
+                  className={`relative px-3 lg:px-6 py-2 lg:py-3 font-helvetica text-xs lg:text-sm font-medium transition-all duration-300 rounded-full group touch-manipulation ${
                     isActive(item.path)
                       ? 'text-soft-beige bg-warm-terracotta shadow-lg'
                       : 'text-deep-black hover:text-warm-terracotta hover:bg-gentle-green/20'
@@ -73,12 +120,13 @@ const Navigation = () => {
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="relative p-2 text-deep-black hover:text-warm-terracotta transition-colors duration-300 rounded-full hover:bg-gentle-green/20"
+                onClick={handleMenuToggle}
+                className="relative p-3 text-deep-black hover:text-warm-terracotta transition-colors duration-300 rounded-full hover:bg-gentle-green/20 touch-manipulation active:scale-95"
+                aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
               >
-                <div className="relative">
-                  <Menu size={20} className={`transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`} />
-                  <X size={20} className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-180'}`} />
+                <div className="relative w-5 h-5">
+                  <Menu size={20} className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180 scale-75' : 'opacity-100 rotate-0 scale-100'}`} />
+                  <X size={20} className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-180 scale-75'}`} />
                 </div>
               </button>
             </div>
@@ -87,34 +135,52 @@ const Navigation = () => {
           {/* Mobile Navigation */}
           <div className={`md:hidden transition-all duration-500 ease-out ${
             isMenuOpen 
-              ? 'max-h-96 opacity-100' 
-              : 'max-h-0 opacity-0 overflow-hidden'
+              ? 'max-h-screen opacity-100 visible' 
+              : 'max-h-0 opacity-0 invisible overflow-hidden'
           }`}>
-            <div className="bg-soft-beige/95 backdrop-blur-lg border border-gentle-green/20 rounded-2xl mx-2 mb-4 p-4 space-y-1">
-              {navigationItems.map((item, index) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 font-helvetica text-sm font-medium transition-all duration-300 rounded-xl stagger-animation ${
-                    isActive(item.path)
-                      ? 'text-soft-beige bg-warm-terracotta shadow-lg'
-                      : 'text-deep-black hover:text-warm-terracotta hover:bg-gentle-green/20'
-                  }`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {item.name}
-                </Link>
-              ))}
+            <div className="bg-soft-beige/98 backdrop-blur-lg border border-gentle-green/20 rounded-2xl mx-2 mb-4 overflow-hidden shadow-2xl">
+              <div className="p-2">
+                {navigationItems.map((item, index) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    onClick={handleLinkClick}
+                    className={`block px-4 py-4 font-helvetica text-base font-medium transition-all duration-300 rounded-xl touch-manipulation active:scale-98 stagger-animation ${
+                      isActive(item.path)
+                        ? 'text-soft-beige bg-warm-terracotta shadow-lg'
+                        : 'text-deep-black hover:text-warm-terracotta hover:bg-gentle-green/20 active:bg-gentle-green/30'
+                    }`}
+                    style={{ 
+                      animationDelay: `${index * 0.1}s`,
+                      minHeight: '44px' // Minimum touch target size
+                    }}
+                  >
+                    <div className="flex items-center h-full">
+                      {item.name}
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </nav>
       
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && isMobile && (
+        <div 
+          className="fixed inset-0 bg-deep-black/20 z-40 md:hidden backdrop-blur-sm"
+          onClick={handleLinkClick}
+        />
+      )}
+      
       {/* Scroll Progress Indicator */}
-      <div className="scroll-indicator" style={{
-        transform: `scaleX(${typeof window !== 'undefined' ? (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) : 0})`
-      }} />
+      <div 
+        className="scroll-indicator" 
+        style={{
+          transform: `scaleX(${typeof window !== 'undefined' ? (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) : 0})`
+        }} 
+      />
     </>
   );
 };
