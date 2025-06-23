@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -7,7 +6,6 @@ import FloatingContactButtons from '../components/FloatingContactButtons';
 import { ArrowRight, MapPin, Phone, Mail, Sparkles, Eye, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
-
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({
@@ -15,10 +13,9 @@ const Index = () => {
     y: 0
   });
   const isMobile = useIsMobile();
-
   useEffect(() => {
     setIsLoaded(true);
-    
+
     // Only track mouse position on desktop for performance
     if (!isMobile) {
       const handleMouseMove = (e: MouseEvent) => {
@@ -31,7 +28,6 @@ const Index = () => {
       return () => window.removeEventListener('mousemove', handleMouseMove);
     }
   }, [isMobile]);
-
   const stats = [{
     icon: Eye,
     label: 'Obras Criadas',
@@ -45,32 +41,26 @@ const Index = () => {
     label: 'Exposições',
     value: '25+'
   }];
-
-  return (
-    <div className="min-h-screen bg-soft-beige overflow-hidden">
+  return <div className="min-h-screen bg-soft-beige overflow-hidden">
       <Navigation />
       
       {/* Floating Elements Background - Desktop only for performance */}
-      {!isMobile && (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {!isMobile && <div className="fixed inset-0 overflow-hidden pointer-events-none">
           <div className="absolute w-96 h-96 bg-gradient-to-r from-warm-terracotta/10 to-light-blue/10 rounded-full blur-3xl floating" style={{
-            left: mousePosition.x * 0.02 + '%',
-            top: mousePosition.y * 0.02 + '%'
-          }} />
+        left: mousePosition.x * 0.02 + '%',
+        top: mousePosition.y * 0.02 + '%'
+      }} />
           <div className="absolute w-64 h-64 bg-gradient-to-r from-gentle-green/10 to-warm-terracotta/10 rounded-full blur-3xl floating" style={{
-            right: mousePosition.x * 0.01 + '%',
-            bottom: mousePosition.y * 0.01 + '%',
-            animationDelay: '2s'
-          }} />
-        </div>
-      )}
+        right: mousePosition.x * 0.01 + '%',
+        bottom: mousePosition.y * 0.01 + '%',
+        animationDelay: '2s'
+      }} />
+        </div>}
       
       {/* Hero Section with Artworks */}
       <section className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 md:pb-24 lg:pb-32 gradient-elegant">
         {/* Parallax background - Desktop only for performance */}
-        {!isMobile && (
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>
-        )}
+        {!isMobile && <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>}
         
         <div className={`z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${isLoaded ? 'hero-reveal' : 'opacity-0'}`}>
           {/* Brand Identity - Compact */}
@@ -90,15 +80,13 @@ const Index = () => {
 
             {/* Compact Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto mb-8 sm:mb-12">
-              {stats.map((stat, index) => (
-                <div key={stat.label} className="bg-soft-beige/90 backdrop-blur-lg border border-gentle-green/30 rounded-xl p-3 sm:p-4 text-center hover-lift-elegant stagger-animation touch-manipulation" style={{
-                  animationDelay: `${0.8 + index * 0.2}s`
-                }}>
+              {stats.map((stat, index) => <div key={stat.label} className="bg-soft-beige/90 backdrop-blur-lg border border-gentle-green/30 rounded-xl p-3 sm:p-4 text-center hover-lift-elegant stagger-animation touch-manipulation" style={{
+              animationDelay: `${0.8 + index * 0.2}s`
+            }}>
                   <stat.icon size={14} className="mx-auto mb-1 sm:mb-2 text-warm-terracotta sm:w-4 sm:h-4" />
                   <div className="font-semplicita text-sm sm:text-lg font-light text-deep-black">{stat.value}</div>
                   <div className="font-helvetica text-xs text-deep-black/70">{stat.label}</div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
 
@@ -118,7 +106,9 @@ const Index = () => {
             <ArtworkGrid />
             
             <div className="text-center mt-6 sm:mt-8">
-              <Link to="/expositions" className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" style={{ minHeight: '48px' }}>
+              <Link to="/expositions" className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" style={{
+              minHeight: '48px'
+            }}>
                 <span className="relative z-10 flex items-center">
                   Ver Todas as Obras
                   <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1 sm:w-5 sm:h-5" />
@@ -159,7 +149,9 @@ const Index = () => {
               </Link>
             </div>
             
-            <div className="reveal-up" style={{ animationDelay: '0.3s' }}>
+            <div className="reveal-up" style={{
+            animationDelay: '0.3s'
+          }}>
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-light-blue/20 rounded-2xl sm:rounded-3xl transform rotate-3"></div>
                 <img src="/lovable-uploads/1730db82-b48a-4890-a40a-92dcfb123144.png" alt="Simone Oliveira - Retrato" className="relative w-full h-full object-cover rounded-2xl sm:rounded-3xl shadow-elegant hover-lift-elegant" />
@@ -176,7 +168,7 @@ const Index = () => {
             <h2 className="font-semplicita text-2xl sm:text-3xl md:text-4xl font-light text-deep-black mb-3 sm:mb-4">
               No Ateliê
             </h2>
-            <p className="font-helvetica text-sm sm:text-base text-deep-black/80 max-w-2xl mx-auto justified-text">
+            <p className="font-helvetica text-sm sm:text-base text-deep-black/80 max-w-2xl mx-auto justified-text font-normal text-center">
               Acompanhe Simone em seu processo criativo, onde cada obra nasce da paixão 
               e dedicação à arte.
             </p>
@@ -184,25 +176,13 @@ const Index = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="lg:col-span-1">
-              <img 
-                src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" 
-                alt="Simone Oliveira pintando em seu ateliê" 
-                className="w-full h-48 sm:h-64 object-cover rounded-2xl shadow-elegant hover-lift-elegant touch-manipulation"
-              />
+              <img src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" alt="Simone Oliveira pintando em seu ateliê" className="w-full h-48 sm:h-64 object-cover rounded-2xl shadow-elegant hover-lift-elegant touch-manipulation" />
             </div>
             <div className="lg:col-span-1">
-              <img 
-                src="/lovable-uploads/79f14aaa-ddef-4045-8d3e-50714c9dc43b.png" 
-                alt="Simone Oliveira criando arte" 
-                className="w-full h-48 sm:h-64 object-cover rounded-2xl shadow-elegant hover-lift-elegant touch-manipulation"
-              />
+              <img src="/lovable-uploads/79f14aaa-ddef-4045-8d3e-50714c9dc43b.png" alt="Simone Oliveira criando arte" className="w-full h-48 sm:h-64 object-cover rounded-2xl shadow-elegant hover-lift-elegant touch-manipulation" />
             </div>
             <div className="lg:col-span-1 flex flex-col justify-center space-y-4">
-              <img 
-                src="/lovable-uploads/03348f07-97c9-429b-a76d-774e1979a3e4.png" 
-                alt="Simone Oliveira com pincéis" 
-                className="w-full h-32 sm:h-40 object-cover rounded-xl shadow-lg hover-lift-elegant touch-manipulation"
-              />
+              <img src="/lovable-uploads/03348f07-97c9-429b-a76d-774e1979a3e4.png" alt="Simone Oliveira com pincéis" className="w-full h-32 sm:h-40 object-cover rounded-xl shadow-lg hover-lift-elegant touch-manipulation" />
               <div className="bg-gentle-green/20 rounded-xl p-3 sm:p-4">
                 <h3 className="font-semplicita text-lg sm:text-xl font-light text-deep-black mb-2">
                   Processo Criativo
@@ -231,19 +211,18 @@ const Index = () => {
               
               <div className="space-y-4 sm:space-y-6">
                 {[{
-                  icon: MapPin,
-                  title: 'Ateliê',
-                  content: 'Rua das Artes, 123\nVila Madalena, São Paulo - SP\nCEP: 05414-001'
-                }, {
-                  icon: Phone,
-                  title: 'Telefone',
-                  content: '(11) 3456-7890'
-                }, {
-                  icon: Mail,
-                  title: 'E-mail',
-                  content: 'contato@simoneoliveira.art'
-                }].map((item, index) => (
-                  <div key={item.title} className="flex items-start space-x-3 sm:space-x-4 group touch-manipulation">
+                icon: MapPin,
+                title: 'Ateliê',
+                content: 'Rua das Artes, 123\nVila Madalena, São Paulo - SP\nCEP: 05414-001'
+              }, {
+                icon: Phone,
+                title: 'Telefone',
+                content: '(11) 3456-7890'
+              }, {
+                icon: Mail,
+                title: 'E-mail',
+                content: 'contato@simoneoliveira.art'
+              }].map((item, index) => <div key={item.title} className="flex items-start space-x-3 sm:space-x-4 group touch-manipulation">
                     <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 bg-warm-terracotta/10 rounded-xl flex items-center justify-center group-hover:bg-warm-terracotta/20 transition-colors duration-300">
                       <item.icon size={18} className="text-warm-terracotta sm:w-5 sm:h-5" />
                     </div>
@@ -251,12 +230,13 @@ const Index = () => {
                       <h3 className="font-helvetica font-semibold text-deep-black mb-1 text-sm sm:text-base">{item.title}</h3>
                       <p className="font-helvetica text-deep-black/70 whitespace-pre-line leading-relaxed text-sm sm:text-base">{item.content}</p>
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
               
               <div className="mt-6 sm:mt-8">
-                <Link to="/contact" className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" style={{ minHeight: '48px' }}>
+                <Link to="/contact" className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" style={{
+                minHeight: '48px'
+              }}>
                   <span className="relative z-10 flex items-center">
                     Entre em Contato
                     <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1 sm:w-5 sm:h-5" />
@@ -266,19 +246,11 @@ const Index = () => {
             </div>
             
             <div className="h-64 sm:h-80 md:h-96 lg:h-full min-h-[250px] sm:min-h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant hover-lift-elegant reveal-up touch-manipulation" style={{
-              animationDelay: '0.3s'
-            }}>
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0963555469983!2d-46.68266708502189!3d-23.562308084682793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce579f4b0c7b95%3A0x2b2b8b8b8b8b8b8b!2sVila%20Madalena%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt!2sbr!4v1649876543210!5m2!1spt!2sbr" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade" 
-                title="Localização do Ateliê de Simone Oliveira" 
-                className="filter grayscale hover:grayscale-0 transition-all duration-500" 
-              />
+            animationDelay: '0.3s'
+          }}>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0963555469983!2d-46.68266708502189!3d-23.562308084682793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce579f4b0c7b95%3A0x2b2b8b8b8b8b8b8b!2sVila%20Madalena%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt!2sbr!4v1649876543210!5m2!1spt!2sbr" width="100%" height="100%" style={{
+              border: 0
+            }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização do Ateliê de Simone Oliveira" className="filter grayscale hover:grayscale-0 transition-all duration-500" />
             </div>
           </div>
         </div>
@@ -288,8 +260,6 @@ const Index = () => {
       <FloatingContactButtons />
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
