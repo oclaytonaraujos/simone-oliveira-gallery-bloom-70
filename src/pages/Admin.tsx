@@ -237,7 +237,7 @@ const Admin = () => {
               Obras
             </button>
             <button
-              onClick={() => setExhibitions('exhibitions')}
+              onClick={() => setActiveTab('exhibitions')}
               className={`flex-1 py-3 px-6 rounded-xl font-helvetica font-medium text-sm transition-all duration-300 ${
                 activeTab === 'exhibitions'
                   ? 'bg-warm-terracotta text-soft-beige shadow-lg'
