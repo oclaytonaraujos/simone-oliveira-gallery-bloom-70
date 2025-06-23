@@ -14,6 +14,7 @@ const Navigation = () => {
     { name: 'Sobre a Artista', path: '/artists' },
     { name: 'Sobre Nós', path: '/about' },
     { name: 'Contato', path: '/contact' },
+    { name: 'Admin', path: '/admin' },
   ];
 
   useEffect(() => {
@@ -37,19 +38,16 @@ const Navigation = () => {
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-24">
+          <div className="flex justify-between items-center h-20">
             <Link 
               to="/" 
-              className="flex items-center hover:scale-110 transition-all duration-500 group"
+              className="flex items-center hover:scale-105 transition-all duration-300"
             >
-              <div className="relative">
-                <img 
-                  src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
-                  alt="Simone Oliveira Art Gallery" 
-                  className="h-16 w-auto object-contain drop-shadow-lg group-hover:drop-shadow-xl transition-all duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-gentle-green/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-              </div>
+              <img 
+                src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
+                alt="Simone Oliveira Art Gallery" 
+                className="h-12 w-auto object-contain"
+              />
             </Link>
 
             {/* Desktop Navigation */}

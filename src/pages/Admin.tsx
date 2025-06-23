@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import AdminAuth from '../components/AdminAuth';
 import { Plus, Edit, Trash2, Save, X, Upload } from 'lucide-react';
 
 interface Artwork {
@@ -14,8 +14,6 @@ interface Artwork {
 }
 
 const Admin = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   const [artworks, setArtworks] = useState<Artwork[]>([
     {
       id: 1,
@@ -110,27 +108,6 @@ const Admin = () => {
     }
   };
 
-  useEffect(() => {
-    // Verificar se já está autenticado
-    const authenticated = localStorage.getItem('adminAuthenticated');
-    if (authenticated === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const handleAuthenticated = () => {
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuthenticated');
-    setIsAuthenticated(false);
-  };
-
-  if (!isAuthenticated) {
-    return <AdminAuth onAuthenticated={handleAuthenticated} />;
-  }
-
   return (
     <div className="min-h-screen bg-soft-beige">
       <Navigation />
@@ -138,17 +115,9 @@ const Admin = () => {
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <div className="flex justify-between items-center mb-8">
-              <h1 className="font-semplicita text-5xl lg:text-6xl font-light text-deep-black leading-tight">
-                Administração
-              </h1>
-              <button
-                onClick={handleLogout}
-                className="px-6 py-3 bg-gentle-green/20 text-deep-black font-helvetica font-medium rounded-full hover:bg-gentle-green/30 transition-all duration-300"
-              >
-                Sair
-              </button>
-            </div>
+            <h1 className="font-semplicita text-5xl lg:text-6xl font-light text-deep-black mb-6 leading-tight">
+              Administração
+            </h1>
             <p className="font-helvetica text-lg text-deep-black/80 max-w-2xl mx-auto justified-text">
               Gerencie o acervo de obras de arte da galeria Simone Oliveira.
             </p>
