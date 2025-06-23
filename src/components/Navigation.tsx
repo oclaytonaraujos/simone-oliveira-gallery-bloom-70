@@ -33,7 +33,7 @@ const Navigation = () => {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-glass border-b border-white/20 shadow-glass backdrop-blur-xl' 
+          ? 'bg-soft-beige/95 border-b border-gentle-green/20 shadow-elegant backdrop-blur-xl' 
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,11 +42,14 @@ const Navigation = () => {
               to="/" 
               className="flex items-center hover:scale-105 transition-all duration-300"
             >
-              <img 
-                src="/lovable-uploads/60be0771-f73f-46f6-9c94-1fd11dbcf2fc.png" 
-                alt="Simone Oliveira Art Logo"
-                className="h-12 w-auto"
-              />
+              <div className="flex flex-col items-center">
+                <span className="font-semplicita text-2xl font-light text-deep-black tracking-wide">
+                  Simone Oliveira
+                </span>
+                <span className="art-gallery-tag text-sm text-warm-terracotta -mt-1">
+                  Art Gallery
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -55,16 +58,16 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`relative px-6 py-3 font-inter text-sm font-medium transition-all duration-300 rounded-full group ${
+                  className={`relative px-6 py-3 font-helvetica text-sm font-medium transition-all duration-300 rounded-full group ${
                     isActive(item.path)
-                      ? 'text-white bg-terracotta shadow-lg'
-                      : 'text-gray-700 hover:text-terracotta hover:bg-white/50'
+                      ? 'text-soft-beige bg-warm-terracotta shadow-lg'
+                      : 'text-deep-black hover:text-warm-terracotta hover:bg-gentle-green/20'
                   }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <span className="relative z-10">{item.name}</span>
                   {!isActive(item.path) && (
-                    <div className="absolute inset-0 rounded-full bg-terracotta/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 rounded-full bg-warm-terracotta/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   )}
                 </Link>
               ))}
@@ -74,7 +77,7 @@ const Navigation = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="relative p-3 text-gray-700 hover:text-terracotta transition-colors duration-300 rounded-full hover:bg-white/50"
+                className="relative p-3 text-deep-black hover:text-warm-terracotta transition-colors duration-300 rounded-full hover:bg-gentle-green/20"
               >
                 <div className="relative">
                   <Menu size={24} className={`transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`} />
@@ -90,16 +93,16 @@ const Navigation = () => {
               ? 'max-h-96 opacity-100' 
               : 'max-h-0 opacity-0 overflow-hidden'
           }`}>
-            <div className="glass-card rounded-2xl mx-4 mb-4 p-6 space-y-2">
+            <div className="bg-soft-beige/95 backdrop-blur-lg border border-gentle-green/20 rounded-2xl mx-4 mb-4 p-6 space-y-2">
               {navigationItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 font-inter text-sm font-medium transition-all duration-300 rounded-xl stagger-animation ${
+                  className={`block px-4 py-3 font-helvetica text-sm font-medium transition-all duration-300 rounded-xl stagger-animation ${
                     isActive(item.path)
-                      ? 'text-white bg-terracotta shadow-lg'
-                      : 'text-gray-700 hover:text-terracotta hover:bg-white/50'
+                      ? 'text-soft-beige bg-warm-terracotta shadow-lg'
+                      : 'text-deep-black hover:text-warm-terracotta hover:bg-gentle-green/20'
                   }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >

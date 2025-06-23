@@ -20,8 +20,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'playfair': ['Playfair Display', 'serif'],
-				'inter': ['Inter', 'sans-serif'],
+				'semplicita': ['Semplicita Pro Regular', 'sans-serif'],
+				'fabiola': ['Fabiola Capitals Thin', 'cursive'],
+				'helvetica': ['Helvetica', 'Arial', 'Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -57,13 +58,11 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				terracotta: {
-					DEFAULT: 'hsl(var(--terracotta))',
-					light: 'hsl(var(--terracotta-light))'
-				},
-				'light-blue': 'hsl(var(--light-blue))',
-				'light-green': 'hsl(var(--light-green))',
-				'neutral-warm': 'hsl(var(--neutral-warm))',
+				'warm-terracotta': '#C14417',
+				'soft-beige': '#F4E8DB',
+				'gentle-green': '#AACBB7',
+				'light-blue': '#9ED5E0',
+				'deep-black': '#1D1D1B',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

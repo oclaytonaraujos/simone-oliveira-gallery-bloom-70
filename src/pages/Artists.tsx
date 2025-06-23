@@ -6,81 +6,81 @@ import { Link } from 'react-router-dom';
 
 const Artists = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-soft-beige">
       <Navigation />
       
       {/* Header */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-neutral-warm to-white">
+      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 gradient-elegant">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-gray-900 mb-6 fade-in">
+          <h1 className="font-semplicita text-5xl md:text-6xl font-light text-deep-black mb-6 fade-in">
             Sobre Simone Oliveira
           </h1>
-          <p className="font-inter text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed slide-up">
+          <p className="font-helvetica text-xl text-deep-black/80 max-w-3xl mx-auto leading-relaxed slide-up justified-text">
             Conheça a trajetória, inspirações e processo criativo de uma das mais talentosas 
-            artistas do cenário nacional.
+            artistas do cenário nacional, cujas obras tocam a alma e despertam emoções profundas.
           </p>
         </div>
       </section>
 
       {/* Artist Profile */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-20">
+      <section className="px-4 sm:px-6 lg:px-8 pb-20 bg-soft-beige">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-terracotta/20 to-light-blue/20 rounded-3xl transform rotate-3"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-light-blue/20 rounded-3xl transform rotate-3"></div>
               <img
                 src="/lovable-uploads/1730db82-b48a-4890-a40a-92dcfb123144.png"
                 alt="Simone Oliveira"
-                className="relative w-full h-[600px] object-cover rounded-3xl shadow-modern hover-lift"
+                className="relative w-full h-[600px] object-cover rounded-3xl shadow-elegant hover-lift-elegant"
               />
             </div>
             
             <div className="space-y-8">
               <div>
-                <h2 className="font-playfair text-4xl font-bold text-gray-900 mb-4">
+                <h2 className="font-semplicita text-4xl font-light text-deep-black mb-4">
                   Simone Oliveira
                 </h2>
-                <p className="font-inter text-terracotta font-medium text-lg mb-6">
+                <p className="art-gallery-tag text-warm-terracotta text-lg mb-6">
                   Artista Visual
                 </p>
                 
-                <div className="space-y-4 text-gray-600 leading-relaxed">
-                  <p>
+                <div className="space-y-4 text-deep-black/80 leading-relaxed">
+                  <p className="font-helvetica justified-text">
                     Nascida em São Paulo, Simone Oliveira desenvolveu sua paixão pela arte desde muito jovem. 
                     Formada em Artes Visuais pela Universidade de São Paulo, dedicou sua carreira à exploração 
-                    de técnicas mistas que combinam tradição e inovação.
+                    de técnicas mistas que combinam tradição e inovação contemporânea.
                   </p>
                   
-                  <p>
-                    Suas obras refletem uma profunda conexão com questões humanas, explorando temas como 
+                  <p className="font-helvetica justified-text">
+                    Suas obras refletem uma profunda conexão com questões humanas universais, explorando temas como 
                     emoção, identidade e transformação pessoal através de uma linguagem visual única que 
-                    mescla cores vibrantes com formas expressivas.
+                    mescla cores vibrantes com formas expressivas e texturas envolventes.
                   </p>
                   
-                  <p>
+                  <p className="font-helvetica justified-text">
                     Com mais de 25 exposições realizadas e obras em coleções privadas por todo o Brasil, 
                     Simone continua a expandir os limites de sua expressão artística, sempre buscando novas 
-                    formas de conectar-se com seu público.
+                    formas de conectar-se profundamente com seu público através da arte.
                   </p>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-6">
-                <div className="text-center p-6 bg-gradient-to-br from-neutral-warm to-white rounded-xl shadow-lg">
-                  <div className="text-3xl font-bold text-terracotta mb-2">200+</div>
-                  <div className="text-sm text-gray-600">Obras Criadas</div>
+                <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">200+</div>
+                  <div className="font-helvetica text-sm text-deep-black/70">Obras Criadas</div>
                 </div>
-                <div className="text-center p-6 bg-gradient-to-br from-neutral-warm to-white rounded-xl shadow-lg">
-                  <div className="text-3xl font-bold text-terracotta mb-2">25+</div>
-                  <div className="text-sm text-gray-600">Exposições</div>
+                <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">25+</div>
+                  <div className="font-helvetica text-sm text-deep-black/70">Exposições</div>
                 </div>
-                <div className="text-center p-6 bg-gradient-to-br from-neutral-warm to-white rounded-xl shadow-lg">
-                  <div className="text-3xl font-bold text-terracotta mb-2">15+</div>
-                  <div className="text-sm text-gray-600">Anos de Carreira</div>
+                <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">15+</div>
+                  <div className="font-helvetica text-sm text-deep-black/70">Anos de Carreira</div>
                 </div>
-                <div className="text-center p-6 bg-gradient-to-br from-neutral-warm to-white rounded-xl shadow-lg">
-                  <div className="text-3xl font-bold text-terracotta mb-2">50+</div>
-                  <div className="text-sm text-gray-600">Colecionadores</div>
+                <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">50+</div>
+                  <div className="font-helvetica text-sm text-deep-black/70">Colecionadores</div>
                 </div>
               </div>
             </div>
@@ -89,14 +89,15 @@ const Artists = () => {
       </section>
 
       {/* Artist at Work Section */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-20 bg-neutral-warm">
+      <section className="px-4 sm:px-6 lg:px-8 pb-20 bg-gentle-green/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="font-semplicita text-4xl font-light text-deep-black mb-6">
               Processo Criativo
             </h2>
-            <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto">
-              Veja Simone em seu elemento natural - criando arte em seu ateliê
+            <p className="font-helvetica text-lg text-deep-black/80 max-w-2xl mx-auto justified-text">
+              Veja Simone em seu elemento natural - criando arte em seu ateliê, onde cada obra nasce 
+              da inspiração e dedicação absoluta à expressão artística.
             </p>
           </div>
           
@@ -105,11 +106,11 @@ const Artists = () => {
               <img 
                 src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" 
                 alt="Simone pintando em seu ateliê" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift"
+                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant"
               />
               <div className="text-center">
-                <h3 className="font-playfair text-lg font-semibold text-gray-900">Criação em Andamento</h3>
-                <p className="font-inter text-sm text-gray-600">Simone trabalhando em uma de suas obras</p>
+                <h3 className="font-semplicita text-lg font-light text-deep-black">Criação em Andamento</h3>
+                <p className="font-helvetica text-sm text-deep-black/70">Simone trabalhando em uma de suas obras</p>
               </div>
             </div>
             
@@ -117,11 +118,11 @@ const Artists = () => {
               <img 
                 src="/lovable-uploads/79f14aaa-ddef-4045-8d3e-50714c9dc43b.png" 
                 alt="Simone em seu ateliê" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift"
+                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant"
               />
               <div className="text-center">
-                <h3 className="font-playfair text-lg font-semibold text-gray-900">Momento de Inspiração</h3>
-                <p className="font-inter text-sm text-gray-600">No ambiente criativo do ateliê</p>
+                <h3 className="font-semplicita text-lg font-light text-deep-black">Momento de Inspiração</h3>
+                <p className="font-helvetica text-sm text-deep-black/70">No ambiente criativo do ateliê</p>
               </div>
             </div>
             
@@ -129,11 +130,11 @@ const Artists = () => {
               <img 
                 src="/lovable-uploads/03348f07-97c9-429b-a76d-774e1979a3e4.png" 
                 alt="Simone com seus pincéis" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift"
+                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant"
               />
               <div className="text-center">
-                <h3 className="font-playfair text-lg font-semibold text-gray-900">Ferramentas da Arte</h3>
-                <p className="font-inter text-sm text-gray-600">Com os instrumentos de sua paixão</p>
+                <h3 className="font-semplicita text-lg font-light text-deep-black">Ferramentas da Arte</h3>
+                <p className="font-helvetica text-sm text-deep-black/70">Com os instrumentos de sua paixão</p>
               </div>
             </div>
           </div>
@@ -141,18 +142,19 @@ const Artists = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-20">
+      <section className="px-4 sm:px-6 lg:px-8 pb-20 bg-soft-beige">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-r from-terracotta to-terracotta/80 rounded-2xl p-12 text-center text-white">
-            <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-4">
+          <div className="bg-gradient-to-r from-warm-terracotta to-warm-terracotta/80 rounded-2xl p-12 text-center text-soft-beige">
+            <h2 className="font-semplicita text-3xl md:text-4xl font-light mb-4">
               Interessado em uma Obra?
             </h2>
-            <p className="font-inter text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-              Entre em contato para conhecer as obras disponíveis ou encomendar uma peça personalizada.
+            <p className="font-helvetica text-lg mb-8 opacity-90 max-w-2xl mx-auto justified-text">
+              Entre em contato para conhecer as obras disponíveis ou encomendar uma peça personalizada 
+              que reflita sua sensibilidade e estilo únicos.
             </p>
             <Link 
               to="/contact"
-              className="inline-flex items-center px-8 py-3 bg-white text-terracotta font-inter font-medium rounded-full hover:bg-gray-100 transition-all duration-300"
+              className="inline-flex items-center px-8 py-3 bg-soft-beige text-warm-terracotta font-helvetica font-medium rounded-full hover:bg-gentle-green/20 transition-all duration-300"
             >
               Entre em Contato
               <ArrowRight size={20} className="ml-2" />
