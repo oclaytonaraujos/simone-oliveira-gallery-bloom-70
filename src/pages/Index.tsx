@@ -6,15 +6,25 @@ import FloatingContactButtons from '../components/FloatingContactButtons';
 import { ArrowRight, MapPin, Phone, Mail, Sparkles, Eye, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
+
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0
   });
   const isMobile = useIsMobile();
+
   useEffect(() => {
     setIsLoaded(true);
+
+    // Track scroll position for logo transition
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
 
     // Only track mouse position on desktop for performance
     if (!isMobile) {
@@ -25,95 +35,132 @@ const Index = () => {
         });
       };
       window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('scroll', handleScroll);
+      };
     }
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [isMobile]);
-  const stats = [{
-    icon: Eye,
-    label: 'Obras Criadas',
-    value: '200+'
-  }, {
-    icon: Users,
-    label: 'Colecionadores',
-    value: '50+'
-  }, {
-    icon: Sparkles,
-    label: 'Exposições',
-    value: '25+'
-  }];
-  return <div className="min-h-screen bg-soft-beige overflow-hidden">
+
+  const stats = [
+    {
+      icon: Eye,
+      label: 'Obras Criadas',
+      value: '200+'
+    },
+    {
+      icon: Users,
+      label: 'Colecionadores',
+      value: '50+'
+    },
+    {
+      icon: Sparkles,
+      label: 'Exposições',
+      value: '25+'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-soft-beige overflow-hidden">
       <Navigation />
       
+      {/* Central Logo - visible when not scrolled */}
+      <div className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 transition-all duration-700 ease-out ${scrolled ? 'opacity-0 pointer-events-none scale-75' : 'opacity-100 scale-100'}`}>
+        <img 
+          src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
+          alt="Simone Oliveira Art Gallery" 
+          className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto object-contain"
+        />
+      </div>
+      
       {/* Floating Elements Background - Desktop only for performance */}
-      {!isMobile && <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute w-96 h-96 bg-gradient-to-r from-warm-terracotta/10 to-light-blue/10 rounded-full blur-3xl floating" style={{
-        left: mousePosition.x * 0.02 + '%',
-        top: mousePosition.y * 0.02 + '%'
-      }} />
-          <div className="absolute w-64 h-64 bg-gradient-to-r from-gentle-green/10 to-warm-terracotta/10 rounded-full blur-3xl floating" style={{
-        right: mousePosition.x * 0.01 + '%',
-        bottom: mousePosition.y * 0.01 + '%',
-        animationDelay: '2s'
-      }} />
-        </div>}
+      {!isMobile && (
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div 
+            className="absolute w-96 h-96 bg-gradient-to-r from-warm-terracotta/10 to-light-blue/10 rounded-full blur-3xl floating" 
+            style={{
+              left: mousePosition.x * 0.02 + '%',
+              top: mousePosition.y * 0.02 + '%'
+            }}
+          />
+          <div 
+            className="absolute w-64 h-64 bg-gradient-to-r from-gentle-green/10 to-warm-terracotta/10 rounded-full blur-3xl floating" 
+            style={{
+              right: mousePosition.x * 0.01 + '%',
+              bottom: mousePosition.y * 0.01 + '%',
+              animationDelay: '2s'
+            }}
+          />
+        </div>
+      )}
       
       {/* Hero Section with Artworks */}
-      <section className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 md:pb-24 lg:pb-32 gradient-elegant">
+      <section className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 md:pb-24 lg:pb-32 gradient-elegant min-h-screen flex items-center">
         {/* Parallax background - Desktop only for performance */}
-        {!isMobile && <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>}
+        {!isMobile && (
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>
+        )}
         
-        <div className={`z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${isLoaded ? 'hero-reveal' : 'opacity-0'}`}>
-          {/* Brand Identity - Compact */}
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h1 className="font-semplicita text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-deep-black mb-2 sm:mb-3 tracking-wide leading-tight">
-              Simone Oliveira
-            </h1>
-            <div className="art-gallery-tag text-base sm:text-lg md:text-xl lg:text-2xl text-warm-terracotta mb-3 sm:mb-4 md:mb-6">
-              Art Gallery
-            </div>
-            
-            <p className="font-helvetica text-sm sm:text-base md:text-lg text-deep-black/80 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed font-light text-center px-2">
-              Explore o universo artístico de Simone Oliveira através de 
-              <span className="text-warm-terracotta font-medium"> cores vibrantes e formas expressivas </span> 
-              que tocam a alma.
-            </p>
-
-            {/* Compact Stats */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto mb-8 sm:mb-12">
-              {stats.map((stat, index) => <div key={stat.label} className="bg-soft-beige/90 backdrop-blur-lg border border-gentle-green/30 rounded-xl p-3 sm:p-4 text-center hover-lift-elegant stagger-animation touch-manipulation" style={{
-              animationDelay: `${0.8 + index * 0.2}s`
-            }}>
-                  <stat.icon size={14} className="mx-auto mb-1 sm:mb-2 text-warm-terracotta sm:w-4 sm:h-4" />
-                  <div className="font-semplicita text-sm sm:text-lg font-light text-deep-black">{stat.value}</div>
-                  <div className="font-helvetica text-xs text-deep-black/70">{stat.label}</div>
-                </div>)}
-            </div>
-          </div>
-
-          {/* Featured Artworks - Now in Hero */}
-          <div className="mb-8 sm:mb-12">
-            <div className="text-center mb-6 sm:mb-8 md:mb-12">
-              <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-warm-terracotta/10 rounded-full mb-3 sm:mb-4 touch-manipulation">
-                <Sparkles size={12} className="mr-2 text-warm-terracotta sm:w-4 sm:h-4" />
-                <span className="font-helvetica text-xs sm:text-sm font-medium text-warm-terracotta">Obras de Destaque</span>
+        <div className={`z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full ${isLoaded ? 'hero-reveal' : 'opacity-0'}`}>
+          {/* Content starts lower to accommodate the central logo */}
+          <div className="mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+            {/* Brand Identity - Compact */}
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <div className="art-gallery-tag text-base sm:text-lg md:text-xl lg:text-2xl text-warm-terracotta mb-3 sm:mb-4 md:mb-6">
+                Art Gallery
               </div>
               
-              <h2 className="font-semplicita text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-deep-black mb-3 sm:mb-4 leading-tight">
-                Criações de <span className="text-gradient-artistic">Simone</span>
-              </h2>
+              <p className="font-helvetica text-sm sm:text-base md:text-lg text-deep-black/80 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed font-light text-center px-2">
+                Explore o universo artístico de Simone Oliveira através de 
+                <span className="text-warm-terracotta font-medium"> cores vibrantes e formas expressivas </span> 
+                que tocam a alma.
+              </p>
+
+              {/* Compact Stats */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto mb-8 sm:mb-12">
+                {stats.map((stat, index) => (
+                  <div 
+                    key={stat.label} 
+                    className="bg-soft-beige/90 backdrop-blur-lg border border-gentle-green/30 rounded-xl p-3 sm:p-4 text-center hover-lift-elegant stagger-animation touch-manipulation" 
+                    style={{ animationDelay: `${0.8 + index * 0.2}s` }}
+                  >
+                    <stat.icon size={14} className="mx-auto mb-1 sm:mb-2 text-warm-terracotta sm:w-4 sm:h-4" />
+                    <div className="font-semplicita text-sm sm:text-lg font-light text-deep-black">{stat.value}</div>
+                    <div className="font-helvetica text-xs text-deep-black/70">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            
-            <ArtworkGrid />
-            
-            <div className="text-center mt-6 sm:mt-8">
-              <Link to="/expositions" className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" style={{
-              minHeight: '48px'
-            }}>
-                <span className="relative z-10 flex items-center">
-                  Ver Todas as Obras
-                  <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1 sm:w-5 sm:h-5" />
-                </span>
-              </Link>
+
+            {/* Featured Artworks - Now in Hero */}
+            <div className="mb-8 sm:mb-12">
+              <div className="text-center mb-6 sm:mb-8 md:mb-12">
+                <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-warm-terracotta/10 rounded-full mb-3 sm:mb-4 touch-manipulation">
+                  <Sparkles size={12} className="mr-2 text-warm-terracotta sm:w-4 sm:h-4" />
+                  <span className="font-helvetica text-xs sm:text-sm font-medium text-warm-terracotta">Obras de Destaque</span>
+                </div>
+                
+                <h2 className="font-semplicita text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-deep-black mb-3 sm:mb-4 leading-tight">
+                  Criações de <span className="text-gradient-artistic">Simone</span>
+                </h2>
+              </div>
+              
+              <ArtworkGrid />
+              
+              <div className="text-center mt-6 sm:mt-8">
+                <Link 
+                  to="/expositions" 
+                  className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" 
+                  style={{ minHeight: '48px' }}
+                >
+                  <span className="relative z-10 flex items-center">
+                    Ver Todas as Obras
+                    <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1 sm:w-5 sm:h-5" />
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -257,6 +304,8 @@ const Index = () => {
       <FloatingContactButtons />
 
       <Footer />
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
