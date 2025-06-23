@@ -1,181 +1,262 @@
 
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import { Award, Users, Calendar, Heart } from 'lucide-react';
+import { Award, Users, Calendar, Heart, Palette, Eye, Target, Globe } from 'lucide-react';
 
 const About = () => {
   const stats = [
     { icon: Calendar, number: "12", label: "Anos de Experiência" },
-    { icon: Users, number: "150+", label: "Artistas Representados" },
-    { icon: Award, number: "50+", label: "Exposições Realizadas" },
-    { icon: Heart, number: "1000+", label: "Obras Comercializadas" }
+    { icon: Palette, number: "100+", label: "Obras Criadas" },
+    { icon: Eye, number: "25+", label: "Exposições Realizadas" },
+    { icon: Heart, number: "500+", label: "Colecionadores Alcançados" }
   ];
 
-  const team = [
+  const galleryFeatures = [
     {
-      name: "Simone Oliveira",
-      role: "Fundadora e Curadora Chefe",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b1ab?w=400&h=400",
-      bio: "Com mais de 15 anos de experiência em curadoria de arte, Simone fundou a galeria com a visão de criar um espaço que conecte artistas emergentes e estabelecidos com colecionadores."
+      icon: Target,
+      title: "Nosso Objetivo",
+      description: "Criar uma plataforma online elegante que sirva como vitrine oficial para as obras da artista, possibilitando o contato direto para negociações personalizadas e fortalecendo o vínculo humano por trás de cada peça."
     },
     {
-      name: "Rafael Monteiro",
-      role: "Curador Assistente",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400",
-      bio: "Especialista em arte contemporânea brasileira, Rafael traz uma perspectiva inovadora para nossa seleção de artistas e exposições."
+      icon: Globe,
+      title: "Nossa Missão",
+      description: "Oferecer uma experiência estética imersiva através de obras que transitam entre o abstrato e o impressionismo, refletindo a alma, as paisagens internas e os elementos naturais do Brasil."
     },
     {
-      name: "Isabella Costa",
-      role: "Diretora de Vendas",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400",
-      bio: "Com vasta experiência no mercado de arte, Isabella é responsável por conectar colecionadores às obras perfeitas para suas coleções."
+      icon: Palette,
+      title: "Nossa Visão",
+      description: "Ser reconhecida como um espaço de contemplação e conexão emocional, onde cada obra dialoga com quem observa por meio de cores, texturas e significados únicos."
+    }
+  ];
+
+  const websiteStructure = [
+    {
+      icon: "🏠",
+      title: "Página Inicial",
+      description: "Banner impactante, apresentação da artista e destaques das principais obras com chamada para explorar a galeria completa."
+    },
+    {
+      icon: "🖼",
+      title: "Galeria de Obras",
+      description: "Grade visual completa com detalhes de cada obra, incluindo técnica, dimensões e acesso direto à artista via WhatsApp."
+    },
+    {
+      icon: "👩‍🎨",
+      title: "Sobre a Artista",
+      description: "Biografia detalhada, inspirações, influências artísticas e linha do tempo com destaques da carreira de Simone."
+    },
+    {
+      icon: "📰",
+      title: "Exposições e Imprensa",
+      description: "Histórico de exposições, reportagens, entrevistas e reconhecimentos conquistados ao longo da trajetória artística."
+    },
+    {
+      icon: "📞",
+      title: "Contato",
+      description: "Formulário direto, informações de contato, redes sociais e localização do ateliê para visitações."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-soft-beige">
       <Navigation />
       
       {/* Header */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-neutral-warm to-white">
+      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 gradient-elegant">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-gray-900 mb-6 fade-in">
-            Sobre Nós
+          <h1 className="font-semplicita text-4xl md:text-5xl lg:text-6xl font-light text-deep-black mb-6 fade-in">
+            Sobre a Galeria
           </h1>
-          <p className="font-inter text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed slide-up">
-            Conheça a história, missão e visão da Simone Oliveira Art Gallery, 
-            um espaço dedicado à excelência em arte contemporânea.
+          <p className="font-helvetica text-lg md:text-xl text-deep-black/80 max-w-4xl mx-auto leading-relaxed slide-up">
+            A Simone Oliveira Gallery é um espaço de arte contemporânea que nasce do olhar sensível 
+            e da expressão singular da artista plástica Simone Oliveira.
           </p>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Gallery Presentation */}
+      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="slide-up">
-              <img 
-                src="https://images.unsplash.com/photo-1493397212122-2b85dda8106b?w=800&h=1000" 
-                alt="Galeria"
-                className="w-full h-full object-cover rounded-lg shadow-2xl"
-              />
-            </div>
-            <div className="fade-in">
-              <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Nossa História
+              <div className="inline-flex items-center px-4 py-2 bg-warm-terracotta/10 rounded-full mb-6">
+                <Palette size={16} className="mr-2 text-warm-terracotta" />
+                <span className="font-helvetica text-sm font-medium text-warm-terracotta">Apresentação da Galeria</span>
+              </div>
+              
+              <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6 leading-tight">
+                Mais que uma Galeria Virtual
               </h2>
-              <div className="space-y-6 font-inter text-lg text-gray-600 leading-relaxed">
+              
+              <div className="space-y-4 font-helvetica text-base text-deep-black/80 leading-relaxed">
                 <p>
-                  Fundada em 2012 por Simone Oliveira, nossa galeria nasceu do sonho de criar um 
-                  espaço onde a arte contemporânea pudesse florescer e encontrar seu público ideal. 
-                  Localizada no coração cultural da Vila Madalena, em São Paulo, rapidamente se 
-                  tornou referência na promoção de artistas emergentes e consagrados.
+                  Trata-se de um ambiente de contemplação e conexão emocional, onde cada obra 
+                  dialoga com quem observa — por meio de cores, texturas e significados.
                 </p>
                 <p>
-                  Ao longo dos anos, desenvolvemos uma reputação sólida baseada na qualidade 
-                  excepcional de nossa curadoria e no relacionamento próximo com artistas e 
-                  colecionadores. Nossa abordagem única combina rigor técnico com sensibilidade 
-                  artística, resultando em exposições memoráveis e vendas bem-sucedidas.
+                  A galeria oferece uma experiência estética imersiva, com obras que transitam 
+                  entre o abstrato e o impressionismo, e que refletem a alma, as paisagens 
+                  internas e os elementos naturais do Brasil.
                 </p>
-                <p>
-                  Hoje, representamos mais de 150 artistas de diversas nacionalidades e estilos, 
-                  mantendo sempre o compromisso com a inovação e a excelência que nos define 
-                  desde o primeiro dia.
-                </p>
+              </div>
+            </div>
+            
+            <div className="fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-light-blue/20 rounded-2xl transform rotate-3"></div>
+                <img 
+                  src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" 
+                  alt="Galeria Simone Oliveira"
+                  className="relative w-full h-full object-cover rounded-2xl shadow-elegant hover-lift-elegant"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-warm">
+      {/* Objectives and Mission */}
+      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gentle-green/10">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="text-center p-8 bg-white rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-terracotta rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart className="text-white" size={32} />
+          <div className="text-center mb-12">
+            <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-4">
+              Nossos Pilares
+            </h2>
+            <p className="font-helvetica text-lg text-deep-black/70 max-w-2xl mx-auto">
+              Os fundamentos que guiam nossa galeria e definem nossa identidade artística
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {galleryFeatures.map((feature, index) => (
+              <div key={index} className="bg-soft-beige/80 backdrop-blur-sm border border-gentle-green/30 rounded-2xl p-8 text-center hover-lift-elegant">
+                <div className="w-16 h-16 bg-warm-terracotta/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <feature.icon className="text-warm-terracotta" size={24} />
+                </div>
+                <h3 className="font-semplicita text-xl font-light text-deep-black mb-4">
+                  {feature.title}
+                </h3>
+                <p className="font-helvetica text-deep-black/70 leading-relaxed text-sm">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-4">Nossa Missão</h3>
-              <p className="font-inter text-gray-600 leading-relaxed">
-                Promover e difundir a arte contemporânea de qualidade, criando pontes entre 
-                artistas talentosos e colecionadores apaixonados, contribuindo para o 
-                enriquecimento cultural da sociedade.
-              </p>
-            </div>
-            <div className="text-center p-8 bg-white rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-light-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award className="text-white" size={32} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Website Structure */}
+      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-4">
+              Estrutura do Website
+            </h2>
+            <p className="font-helvetica text-lg text-deep-black/70 max-w-2xl mx-auto">
+              Cinco páginas principais pensadas para oferecer uma experiência completa
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {websiteStructure.map((section, index) => (
+              <div key={index} className="bg-soft-beige border border-gentle-green/20 rounded-xl p-6 hover-lift-elegant">
+                <div className="text-3xl mb-4">{section.icon}</div>
+                <h3 className="font-semplicita text-lg font-light text-deep-black mb-3">
+                  {section.title}
+                </h3>
+                <p className="font-helvetica text-deep-black/70 text-sm leading-relaxed">
+                  {section.description}
+                </p>
               </div>
-              <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-4">Nossa Visão</h3>
-              <p className="font-inter text-gray-600 leading-relaxed">
-                Ser reconhecida como uma das principais galerias de arte contemporânea do Brasil, 
-                referência em curadoria de excelência e descoberta de novos talentos artísticos.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gentle-green/10">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Nossos Números
+          <div className="text-center mb-12">
+            <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-4">
+              Nossa Trajetória
             </h2>
-            <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto">
-              Mais de uma década dedicada à promoção da arte contemporânea
+            <p className="font-helvetica text-lg text-deep-black/70 max-w-2xl mx-auto">
+              Números que refletem nossa dedicação à arte contemporânea
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group">
-                <div className="w-20 h-20 bg-gradient-to-br from-terracotta to-terracotta/80 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <stat.icon className="text-white" size={32} />
+                <div className="w-20 h-20 bg-gradient-to-br from-warm-terracotta to-warm-terracotta/80 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="text-soft-beige" size={28} />
                 </div>
-                <div className="font-playfair text-3xl font-bold text-gray-900 mb-2">{stat.number}</div>
-                <div className="font-inter text-gray-600">{stat.label}</div>
+                <div className="font-semplicita text-2xl md:text-3xl font-light text-deep-black mb-2">{stat.number}</div>
+                <div className="font-helvetica text-deep-black/70 text-sm">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-neutral-warm">
+      {/* Visual Identity & Brand */}
+      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Nossa Equipe
-            </h2>
-            <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto">
-              Conheça os profissionais apaixonados que fazem a diferença na nossa galeria
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="h-64 overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold text-gray-900 mb-2">
-                    {member.name}
-                  </h3>
-                  <p className="font-inter text-terracotta font-medium mb-3">
-                    {member.role}
-                  </p>
-                  <p className="font-inter text-gray-600 text-sm leading-relaxed">
-                    {member.bio}
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <div>
+              <div className="inline-flex items-center px-4 py-2 bg-light-blue/20 rounded-full mb-6">
+                <Award size={16} className="mr-2 text-warm-terracotta" />
+                <span className="font-helvetica text-sm font-medium text-warm-terracotta">Identidade Visual</span>
               </div>
-            ))}
+              
+              <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6">
+                Design e Comunicação
+              </h2>
+              
+              <div className="space-y-4 font-helvetica text-deep-black/80 leading-relaxed">
+                <p>
+                  Nossa comunicação é fundamentada em elementos visuais artísticos, leves e 
+                  sofisticados, com foco em harmonia e originalidade.
+                </p>
+                <p>
+                  <strong className="text-warm-terracotta">Paleta de Cores:</strong> Tons terrosos 
+                  suaves como base, com destaques em vermelho terroso e tons naturais que 
+                  remetem à essência brasileira.
+                </p>
+                <p>
+                  <strong className="text-warm-terracotta">Tipografia:</strong> Semplicita Pro 
+                  Regular para títulos modernos e elegantes, Fabiola Capitals Thin para detalhes 
+                  emocionais, e Helvetica para textos legíveis.
+                </p>
+              </div>
+            </div>
+            
+            <div>
+              <div className="inline-flex items-center px-4 py-2 bg-warm-terracotta/10 rounded-full mb-6">
+                <Users size={16} className="mr-2 text-warm-terracotta" />
+                <span className="font-helvetica text-sm font-medium text-warm-terracotta">Posicionamento</span>
+              </div>
+              
+              <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6">
+                Tom de Voz da Marca
+              </h2>
+              
+              <div className="space-y-4 font-helvetica text-deep-black/80 leading-relaxed">
+                <p>
+                  A Simone Oliveira Gallery comunica-se com um tom <strong className="text-warm-terracotta">sensível, 
+                  autêntico e acolhedor</strong>. Não busca impressionar com grandiosidade, mas sim 
+                  emocionar, envolver e inspirar.
+                </p>
+                <p>
+                  Voltada para um público refinado e esteticamente exigente — como arquitetos, 
+                  designers de interiores, curadores e colecionadores — nossa marca expressa 
+                  <strong className="text-warm-terracotta"> beleza, alma e verdade</strong>.
+                </p>
+                <p>
+                  Convidamos cada visitante à contemplação e conexão genuína com a arte, 
+                  criando uma experiência que transcende o visual e toca o emocional.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
