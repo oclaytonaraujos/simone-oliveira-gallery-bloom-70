@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { BsWhatsapp } from "react-icons/bs";
 import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
@@ -89,6 +89,18 @@ const Contact = () => {
                     <h3 className="font-inter font-semibold text-gray-900 mb-2">Telefone</h3>
                     <p className="text-gray-600">(11) 3456-7890</p>
                     <p className="text-gray-600">(11) 99876-5432</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <BsWhatsapp size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-inter font-semibold text-gray-900 mb-2">WhatsApp</h3>
+                    <a href="https://wa.me/5511987654321" className="text-gray-600 hover:text-green-500 transition-colors">
+                      (11) 98765-4321
+                    </a>
                   </div>
                 </div>
 

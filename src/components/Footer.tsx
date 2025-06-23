@@ -1,5 +1,6 @@
 
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { BsWhatsapp } from "react-icons/bs";
 
 const Footer = () => {
   return (
@@ -35,6 +36,15 @@ const Footer = () => {
               >
                 <Twitter size={20} />
               </a>
+              <a 
+                href="https://wa.me/5511987654321" 
+                className="text-gray-400 hover:text-green-500 transition-colors duration-300"
+                aria-label="WhatsApp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BsWhatsapp size={20} />
+              </a>
             </div>
           </div>
 
@@ -56,6 +66,12 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-warm-terracotta flex-shrink-0" />
                 <span className="text-gray-300 text-sm">contato@gallery.com</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <BsWhatsapp size={16} className="text-green-500 flex-shrink-0" />
+                <a href="https://wa.me/5511987654321" className="text-gray-300 text-sm hover:text-green-500 transition-colors">
+                  (11) 98765-4321
+                </a>
               </div>
             </div>
           </div>
