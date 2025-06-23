@@ -37,7 +37,7 @@ const Navigation = () => {
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             <Link 
               to="/" 
               className="flex items-center hover:scale-105 transition-all duration-300"
@@ -45,7 +45,7 @@ const Navigation = () => {
               <img 
                 src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
                 alt="Simone Oliveira Art Gallery" 
-                className="h-16 w-auto object-contain"
+                className="h-12 sm:h-16 w-auto object-contain"
               />
             </Link>
 
@@ -55,7 +55,7 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`relative px-6 py-3 font-helvetica text-sm font-medium transition-all duration-300 rounded-full group ${
+                  className={`relative px-4 lg:px-6 py-3 font-helvetica text-xs lg:text-sm font-medium transition-all duration-300 rounded-full group ${
                     isActive(item.path)
                       ? 'text-soft-beige bg-warm-terracotta shadow-lg'
                       : 'text-deep-black hover:text-warm-terracotta hover:bg-gentle-green/20'
@@ -74,11 +74,11 @@ const Navigation = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="relative p-3 text-deep-black hover:text-warm-terracotta transition-colors duration-300 rounded-full hover:bg-gentle-green/20"
+                className="relative p-2 text-deep-black hover:text-warm-terracotta transition-colors duration-300 rounded-full hover:bg-gentle-green/20"
               >
                 <div className="relative">
-                  <Menu size={24} className={`transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`} />
-                  <X size={24} className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-180'}`} />
+                  <Menu size={20} className={`transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`} />
+                  <X size={20} className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-180'}`} />
                 </div>
               </button>
             </div>
@@ -90,7 +90,7 @@ const Navigation = () => {
               ? 'max-h-96 opacity-100' 
               : 'max-h-0 opacity-0 overflow-hidden'
           }`}>
-            <div className="bg-soft-beige/95 backdrop-blur-lg border border-gentle-green/20 rounded-2xl mx-4 mb-4 p-6 space-y-2">
+            <div className="bg-soft-beige/95 backdrop-blur-lg border border-gentle-green/20 rounded-2xl mx-2 mb-4 p-4 space-y-1">
               {navigationItems.map((item, index) => (
                 <Link
                   key={item.name}
