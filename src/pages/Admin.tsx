@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import AdminAuth from '../components/AdminAuth';
 import { Plus, Edit, Trash2, Save, X, Upload } from 'lucide-react';
 
 interface Artwork {
@@ -14,6 +14,7 @@ interface Artwork {
 }
 
 const Admin = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [artworks, setArtworks] = useState<Artwork[]>([
     {
       id: 1,
@@ -99,7 +100,6 @@ const Admin = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Em um app real, você faria upload para um servidor
       const reader = new FileReader();
       reader.onload = (e) => {
         setFormData({ ...formData, image: e.target?.result as string });
@@ -107,6 +107,10 @@ const Admin = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  if (!isAuthenticated) {
+    return <AdminAuth onAuthenticated={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div className="min-h-screen bg-soft-beige">

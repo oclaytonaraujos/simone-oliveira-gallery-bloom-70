@@ -14,7 +14,6 @@ const Navigation = () => {
     { name: 'Sobre a Artista', path: '/artists' },
     { name: 'Sobre Nós', path: '/about' },
     { name: 'Contato', path: '/contact' },
-    { name: 'Admin', path: '/admin' },
   ];
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const Navigation = () => {
               <img 
                 src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
                 alt="Simone Oliveira Art Gallery" 
-                className="h-12 w-auto object-contain"
+                className="h-16 w-auto object-contain"
               />
             </Link>
 
