@@ -7,7 +7,6 @@ interface Artwork {
   image: string;
   year: string;
   medium: string;
-  dimensions: string;
   description?: string;
 }
 
@@ -24,7 +23,6 @@ const ArtworkGrid = () => {
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800",
       year: "2024",
       medium: "Óleo sobre tela",
-      dimensions: "80 x 60 cm",
       description: "Uma exploração profunda dos contrastes da vida urbana moderna, onde cada pincelada revela as camadas ocultas da experiência citadina."
     },
     {
@@ -33,7 +31,6 @@ const ArtworkGrid = () => {
       image: "https://images.unsplash.com/photo-1594736797933-d0d6a5d80b62?w=600&h=800",
       year: "2023",
       medium: "Acrílica sobre tela",
-      dimensions: "100 x 70 cm",
       description: "Uma dança de tons azuis que captura a fluidez e a serenidade do movimento natural, inspirada nas ondas do oceano."
     },
     {
@@ -42,7 +39,6 @@ const ArtworkGrid = () => {
       image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&h=800",
       year: "2024",
       medium: "Técnica mista",
-      dimensions: "90 x 65 cm",
       description: "A harmoniosa fusão entre formas geométricas precisas e elementos orgânicos, criando um diálogo visual único."
     },
     {
@@ -51,7 +47,6 @@ const ArtworkGrid = () => {
       image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800",
       year: "2023",
       medium: "Óleo sobre tela",
-      dimensions: "120 x 80 cm",
       description: "Uma contemplação sobre os limites e possibilidades, onde cada horizonte representa um novo começo."
     },
     {
@@ -60,7 +55,6 @@ const ArtworkGrid = () => {
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800",
       year: "2024",
       medium: "Acrílica sobre tela",
-      dimensions: "75 x 55 cm",
       description: "Uma celebração da natureza através de formas abstratas que evocam crescimento e renovação."
     },
     {
@@ -69,7 +63,6 @@ const ArtworkGrid = () => {
       image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=600&h=800",
       year: "2023",
       medium: "Técnica mista",
-      dimensions: "85 x 60 cm",
       description: "Um estudo sobre a comunicação visual, onde formas distintas se encontram e criam narrativas inesperadas."
     }
   ];
@@ -163,8 +156,7 @@ const ArtworkGrid = () => {
                 <div className="mb-4">
                   <h3 className="font-semplicita text-2xl font-light mb-3 leading-tight">{artwork.title}</h3>
                   <p className="font-helvetica text-sm opacity-90 mb-2">Por Simone Oliveira</p>
-                  <p className="font-helvetica text-xs opacity-75 mb-2">{artwork.year} • {artwork.medium}</p>
-                  <p className="font-helvetica text-xs opacity-75 mb-4">{artwork.dimensions}</p>
+                  <p className="font-helvetica text-xs opacity-75 mb-4">{artwork.year} • {artwork.medium}</p>
                   <div className="w-12 h-px bg-gentle-green/60"></div>
                 </div>
               </div>
@@ -185,7 +177,7 @@ const ArtworkGrid = () => {
                 {artwork.title}
               </h3>
               <p className="font-helvetica text-sm text-deep-black/70 mb-1">Simone Oliveira</p>
-              <p className="font-helvetica text-xs text-deep-black/60 mb-1">{artwork.year} • {artwork.dimensions}</p>
+              <p className="font-helvetica text-xs text-deep-black/60">{artwork.year}</p>
             </div>
           </div>
         ))}
@@ -208,11 +200,8 @@ const ArtworkGrid = () => {
                   {selectedArtwork.title}
                 </h2>
                 <p className="font-helvetica text-lg text-deep-black/80 mb-2">Simone Oliveira</p>
-                <p className="font-helvetica text-sm text-deep-black/60 mb-2">
-                  {selectedArtwork.year} • {selectedArtwork.medium}
-                </p>
                 <p className="font-helvetica text-sm text-deep-black/60 mb-8">
-                  Dimensões: {selectedArtwork.dimensions}
+                  {selectedArtwork.year} • {selectedArtwork.medium}
                 </p>
                 <div className="w-16 h-px bg-warm-terracotta mb-8"></div>
                 <p className="font-helvetica text-deep-black/80 leading-relaxed justified-text mb-8">
