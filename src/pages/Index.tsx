@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -58,11 +57,20 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center gradient-elegant">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&h=1080')] bg-cover bg-center opacity-5 parallax-bg"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1920&h=1080')] bg-cover bg-center opacity-8 parallax-bg"></div>
         
         <div className={`text-center z-10 px-4 max-w-5xl mx-auto ${isLoaded ? 'hero-reveal' : 'opacity-0'}`}>
           {/* Brand Identity */}
           <div className="mb-12 flex flex-col items-center">
+            <div className="relative mb-8 group">
+              <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/30 to-gentle-green/30 rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500 scale-150"></div>
+              <img 
+                src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
+                alt="Simone Oliveira Art Gallery" 
+                className="relative h-24 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-all duration-500"
+              />
+            </div>
+            
             <h1 className="font-semplicita text-6xl md:text-7xl lg:text-8xl font-light text-deep-black mb-4 tracking-wide">
               Simone Oliveira
             </h1>
