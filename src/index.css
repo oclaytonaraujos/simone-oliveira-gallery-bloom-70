@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -227,7 +228,7 @@
 }
 
 .text-shimmer {
-  background: linear-gradient(90deg, hsl(var(--terracotta)) 0%, hsl(var(--terracotta-light)) 50%, hsl(var(--terracotta)) 100%);
+  background: linear-gradient(90deg, #C14417 0%, #AACBB7 50%, #C14417 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -236,15 +237,15 @@
 }
 
 .glass-card {
-  @apply bg-glass border border-white/20 shadow-glass backdrop-blur-lg;
+  @apply bg-soft-beige/80 border border-gentle-green/20 shadow-elegant backdrop-blur-lg;
 }
 
 .modern-input {
-  @apply relative overflow-hidden rounded-xl border-0 bg-white/80 px-6 py-4 backdrop-blur-sm transition-all duration-300 focus:bg-white focus:ring-2 focus:ring-terracotta/20 focus:shadow-lg;
+  @apply relative overflow-hidden rounded-xl border-0 bg-soft-beige/80 px-6 py-4 backdrop-blur-sm transition-all duration-300 focus:bg-soft-beige focus:ring-2 focus:ring-warm-terracotta/20 focus:shadow-lg;
 }
 
 .modern-button {
-  @apply relative overflow-hidden rounded-full bg-gradient-to-r from-terracotta to-terracotta-light px-8 py-4 font-medium text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95;
+  @apply relative overflow-hidden rounded-full bg-gradient-to-r from-warm-terracotta to-warm-terracotta px-8 py-4 font-medium text-soft-beige transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95;
 }
 
 .modern-button::before {
@@ -268,7 +269,7 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, hsl(var(--terracotta)), hsl(var(--light-blue)));
+  background: linear-gradient(to right, #C14417, #9ED5E0);
   transform-origin: 0%;
   z-index: 9999;
 }
