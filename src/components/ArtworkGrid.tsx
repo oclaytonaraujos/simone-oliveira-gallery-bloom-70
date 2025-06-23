@@ -114,7 +114,7 @@ const ArtworkGrid = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 lg:grid-cols-3 gap-4 md:gap-8">
         {artworks.map((artwork, index) => (
           <div
             key={artwork.id}
@@ -124,7 +124,7 @@ const ArtworkGrid = () => {
             onMouseEnter={() => !isMobile && setHoveredId(artwork.id)}
             onMouseLeave={() => !isMobile && setHoveredId(null)}
           >
-            <div className="relative overflow-hidden bg-soft-beige rounded-3xl aspect-[4/5] shadow-elegant hover-lift-elegant transition-all duration-700">
+            <div className="relative overflow-hidden bg-soft-beige rounded-2xl md:rounded-3xl aspect-[4/5] shadow-elegant hover-lift-elegant transition-all duration-700">
               {/* Loading skeleton */}
               {!loadedImages.has(artwork.id) && (
                 <div className="absolute inset-0 bg-gradient-to-r from-gentle-green/20 via-light-blue/20 to-gentle-green/20 animate-pulse" />
@@ -148,66 +148,66 @@ const ArtworkGrid = () => {
               
               {/* Enhanced action buttons */}
               <div 
-                className={`absolute top-6 right-6 flex flex-col space-y-3 transition-all duration-500 ${
+                className={`absolute top-3 md:top-6 right-3 md:right-6 flex flex-col space-y-2 md:space-y-3 transition-all duration-500 ${
                   (hoveredId === artwork.id || touchedId === artwork.id) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
                 }`}
               >
                 {[ZoomIn, Heart, Share2].map((Icon, idx) => (
                   <button
                     key={idx}
-                    className="w-12 h-12 bg-soft-beige/90 rounded-full flex items-center justify-center backdrop-blur-lg border border-gentle-green/30 hover:bg-soft-beige hover:scale-110 transition-all duration-300 shadow-elegant touch-manipulation active:scale-95"
+                    className="w-8 h-8 md:w-12 md:h-12 bg-soft-beige/90 rounded-full flex items-center justify-center backdrop-blur-lg border border-gentle-green/30 hover:bg-soft-beige hover:scale-110 transition-all duration-300 shadow-elegant touch-manipulation active:scale-95"
                     style={{ 
                       transitionDelay: `${idx * 0.1}s`,
-                      minHeight: '48px',
-                      minWidth: '48px'
+                      minHeight: '32px',
+                      minWidth: '32px'
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
                       if (idx === 0) handleArtworkClick(artwork);
                     }}
                   >
-                    <Icon size={18} className="text-warm-terracotta" />
+                    <Icon size={isMobile ? 14 : 18} className="text-warm-terracotta" />
                   </button>
                 ))}
               </div>
               
               {/* Enhanced content */}
               <div 
-                className={`absolute bottom-0 left-0 right-0 p-8 text-soft-beige transition-all duration-500 ${
+                className={`absolute bottom-0 left-0 right-0 p-4 md:p-8 text-soft-beige transition-all duration-500 ${
                   (hoveredId === artwork.id || touchedId === artwork.id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
-                <div className="mb-4">
-                  <h3 className="font-semplicita text-2xl font-light mb-3 leading-tight">{artwork.title}</h3>
-                  <p className="font-helvetica text-sm opacity-90 mb-2">Por Simone Oliveira</p>
-                  <p className="font-helvetica text-xs opacity-75 mb-4">{artwork.year} • {artwork.medium}</p>
-                  <div className="w-12 h-px bg-gentle-green/60"></div>
+                <div className="mb-2 md:mb-4">
+                  <h3 className="font-semplicita text-lg md:text-2xl font-light mb-2 md:mb-3 leading-tight">{artwork.title}</h3>
+                  <p className="font-helvetica text-xs md:text-sm opacity-90 mb-1 md:mb-2">Por Simone Oliveira</p>
+                  <p className="font-helvetica text-xs opacity-75 mb-2 md:mb-4">{artwork.year} • {artwork.medium}</p>
+                  <div className="w-8 md:w-12 h-px bg-gentle-green/60"></div>
                 </div>
               </div>
 
               {/* Enhanced border glow */}
               <div 
-                className={`absolute inset-0 rounded-3xl transition-all duration-500 ${
+                className={`absolute inset-0 rounded-2xl md:rounded-3xl transition-all duration-500 ${
                   (hoveredId === artwork.id || touchedId === artwork.id)
-                    ? 'ring-2 ring-warm-terracotta/40 ring-offset-4 ring-offset-soft-beige shadow-2xl' 
+                    ? 'ring-1 md:ring-2 ring-warm-terracotta/40 ring-offset-2 md:ring-offset-4 ring-offset-soft-beige shadow-2xl' 
                     : ''
                 }`}
               />
               
               {/* Mobile touch indicator */}
               {isMobile && touchedId === artwork.id && (
-                <div className="absolute top-4 left-4 bg-warm-terracotta/90 text-soft-beige px-3 py-1 rounded-full text-xs font-helvetica animate-pulse">
+                <div className="absolute top-2 left-2 bg-warm-terracotta/90 text-soft-beige px-2 py-1 rounded-full text-xs font-helvetica animate-pulse">
                   Toque novamente para abrir
                 </div>
               )}
             </div>
 
             {/* Enhanced bottom info */}
-            <div className="mt-8 px-2">
-              <h3 className="font-semplicita text-xl font-light text-deep-black mb-2 group-hover:text-warm-terracotta transition-colors duration-300 leading-tight">
+            <div className="mt-4 md:mt-8 px-1 md:px-2">
+              <h3 className="font-semplicita text-sm md:text-xl font-light text-deep-black mb-1 md:mb-2 group-hover:text-warm-terracotta transition-colors duration-300 leading-tight">
                 {artwork.title}
               </h3>
-              <p className="font-helvetica text-sm text-deep-black/70 mb-1">Simone Oliveira</p>
+              <p className="font-helvetica text-xs md:text-sm text-deep-black/70 mb-1">Simone Oliveira</p>
               <p className="font-helvetica text-xs text-deep-black/60">{artwork.year}</p>
             </div>
           </div>
