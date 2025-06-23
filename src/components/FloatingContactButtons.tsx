@@ -1,5 +1,6 @@
 
-import { MessageCircle, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { BsWhatsapp } from "react-icons/bs";
 
 const FloatingContactButtons = () => {
   const whatsappNumber = "5511987654321"; // Número da Simone (ajuste conforme necessário)
@@ -24,7 +25,7 @@ const FloatingContactButtons = () => {
         className="w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-elegant hover-lift-elegant transition-all duration-300 flex items-center justify-center group"
         title="Falar no WhatsApp"
       >
-        <MessageCircle size={24} className="group-hover:scale-110 transition-transform duration-300" />
+        <BsWhatsapp size={24} className="group-hover:scale-110 transition-transform duration-300" />
       </button>
 
       {/* Email Button */}
