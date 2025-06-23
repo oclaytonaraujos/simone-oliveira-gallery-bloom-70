@@ -12,7 +12,7 @@ const Artists = () => {
           <h1 className="font-semplicita text-5xl md:text-6xl font-light text-deep-black mb-6 fade-in">
             Sobre Simone Oliveira
           </h1>
-          <p className="font-helvetica text-xl text-deep-black/80 max-w-3xl mx-auto leading-relaxed slide-up justified-text">
+          <p className="font-helvetica text-xl text-deep-black/80 max-w-3xl mx-auto leading-relaxed slide-up justified-text text-center">
             Conheça a trajetória, inspirações e processo criativo de uma das mais talentosas 
             artistas do cenário nacional, cujas obras tocam a alma e despertam emoções profundas.
           </p>
