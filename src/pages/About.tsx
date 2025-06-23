@@ -1,3 +1,4 @@
+
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Award, Users, Calendar, Heart, Palette, Eye, Target, Globe } from 'lucide-react';
@@ -63,7 +64,7 @@ const About = () => {
             Sobre a Galeria
           </h1>
           <p className="font-helvetica text-lg md:text-xl text-deep-black/80 max-w-4xl mx-auto leading-relaxed slide-up">
-            A Simone Oliveira Gallery é um espaço de arte contemporânea que nasce do olhar sensível 
+            A Simone Oliveira Art Gallery é um espaço de arte contemporânea que nasce do olhar sensível 
             e da expressão singular da artista plástica Simone Oliveira.
           </p>
         </div>
@@ -101,7 +102,7 @@ const About = () => {
           }}>
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-light-blue/20 rounded-2xl transform rotate-3"></div>
-                <img src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" alt="Galeria Simone Oliveira" className="relative w-full h-full object-cover rounded-2xl shadow-elegant hover-lift-elegant" />
+                <img src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" alt="Simone Oliveira Art Gallery" className="relative w-full h-full object-cover rounded-2xl shadow-elegant hover-lift-elegant" />
               </div>
             </div>
           </div>
@@ -206,7 +207,7 @@ const About = () => {
               
               <div className="space-y-4 font-helvetica text-deep-black/80 leading-relaxed">
                 <p>
-                  A Simone Oliveira Gallery comunica-se com um tom <strong className="text-warm-terracotta">sensível, 
+                  A Simone Oliveira Art Gallery comunica-se com um tom <strong className="text-warm-terracotta">sensível, 
                   autêntico e acolhedor</strong>. Não busca impressionar com grandiosidade, mas sim 
                   emocionar, envolver e inspirar.
                 </p>
