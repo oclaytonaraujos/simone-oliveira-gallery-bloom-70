@@ -1,7 +1,7 @@
-
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Award, Users, Calendar, Heart, Palette, Eye, Target, Globe } from 'lucide-react';
+
 const About = () => {
   const stats = [{
     icon: Calendar,
@@ -174,23 +174,20 @@ const About = () => {
               </div>
               
               <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6">
-                Design e Comunicação
+                Identidade Visual – Simone Oliveira Art Gallery
               </h2>
               
               <div className="space-y-4 font-helvetica text-deep-black/80 leading-relaxed">
                 <p>
-                  Nossa comunicação é fundamentada em elementos visuais artísticos, leves e 
-                  sofisticados, com foco em harmonia e originalidade.
+                  A identidade visual equilibra minimalismo contemporâneo e sensibilidade artística.
                 </p>
                 <p>
-                  <strong className="text-warm-terracotta">Paleta de Cores:</strong> Tons terrosos 
-                  suaves como base, com destaques em vermelho terroso e tons naturais que 
-                  remetem à essência brasileira.
+                  Combina tipografia elegante e geométrica (Semplicita Pro) com traços autorais e 
+                  caligráficos (Fabiola Capitals), reforçando o contraste entre estrutura e emoção.
                 </p>
                 <p>
-                  <strong className="text-warm-terracotta">Tipografia:</strong> Semplicita Pro 
-                  Regular para títulos modernos e elegantes, Fabiola Capitals Thin para detalhes 
-                  emocionais, e Helvetica para textos legíveis.
+                  A paleta cromática mistura tons terrosos e suaves (como o #C14417 e o #F4E8DB), 
+                  transmitindo sofisticação, acolhimento e conexão com a natureza.
                 </p>
               </div>
             </div>
@@ -202,23 +199,21 @@ const About = () => {
               </div>
               
               <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-6">
-                Tom de Voz da Marca
+                Posicionamento
               </h2>
               
               <div className="space-y-4 font-helvetica text-deep-black/80 leading-relaxed">
                 <p>
-                  A Simone Oliveira Art Gallery comunica-se com um tom <strong className="text-warm-terracotta">sensível, 
-                  autêntico e acolhedor</strong>. Não busca impressionar com grandiosidade, mas sim 
-                  emocionar, envolver e inspirar.
+                  Simone Oliveira Art Gallery se posiciona como uma galeria de arte autoral e sensível, 
+                  voltada a um público refinado que valoriza arte contemporânea com alma.
                 </p>
                 <p>
-                  Voltada para um público refinado e esteticamente exigente — como arquitetos, 
-                  designers de interiores, curadores e colecionadores — nossa marca expressa 
-                  <strong className="text-warm-terracotta"> beleza, alma e verdade</strong>.
+                  Seu foco está em proporcionar uma experiência estética profunda, onde a contemplação, 
+                  o silêncio e a emoção são protagonistas.
                 </p>
                 <p>
-                  Convidamos cada visitante à contemplação e conexão genuína com a arte, 
-                  criando uma experiência que transcende o visual e toca o emocional.
+                  É uma marca que une autenticidade artística e elegância visual, sendo referência para 
+                  colecionadores, decoradores e apreciadores de arte com significado.
                 </p>
               </div>
             </div>
@@ -229,4 +224,5 @@ const About = () => {
       <Footer />
     </div>;
 };
+
 export default About;
