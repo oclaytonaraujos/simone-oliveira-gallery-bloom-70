@@ -1,64 +1,59 @@
-
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { Award, Users, Calendar, Heart, Palette, Eye, Target, Globe } from 'lucide-react';
-
 const About = () => {
-  const stats = [
-    { icon: Calendar, number: "12", label: "Anos de Experiência" },
-    { icon: Palette, number: "100+", label: "Obras Criadas" },
-    { icon: Eye, number: "25+", label: "Exposições Realizadas" },
-    { icon: Heart, number: "500+", label: "Colecionadores Alcançados" }
-  ];
-
-  const galleryFeatures = [
-    {
-      icon: Target,
-      title: "Nosso Objetivo",
-      description: "Criar uma plataforma online elegante que sirva como vitrine oficial para as obras da artista, possibilitando o contato direto para negociações personalizadas e fortalecendo o vínculo humano por trás de cada peça."
-    },
-    {
-      icon: Globe,
-      title: "Nossa Missão",
-      description: "Oferecer uma experiência estética imersiva através de obras que transitam entre o abstrato e o impressionismo, refletindo a alma, as paisagens internas e os elementos naturais do Brasil."
-    },
-    {
-      icon: Palette,
-      title: "Nossa Visão",
-      description: "Ser reconhecida como um espaço de contemplação e conexão emocional, onde cada obra dialoga com quem observa por meio de cores, texturas e significados únicos."
-    }
-  ];
-
-  const websiteStructure = [
-    {
-      icon: "🏠",
-      title: "Página Inicial",
-      description: "Banner impactante, apresentação da artista e destaques das principais obras com chamada para explorar a galeria completa."
-    },
-    {
-      icon: "🖼",
-      title: "Galeria de Obras",
-      description: "Grade visual completa com detalhes de cada obra, incluindo técnica, dimensões e acesso direto à artista via WhatsApp."
-    },
-    {
-      icon: "👩‍🎨",
-      title: "Sobre a Artista",
-      description: "Biografia detalhada, inspirações, influências artísticas e linha do tempo com destaques da carreira de Simone."
-    },
-    {
-      icon: "📰",
-      title: "Exposições e Imprensa",
-      description: "Histórico de exposições, reportagens, entrevistas e reconhecimentos conquistados ao longo da trajetória artística."
-    },
-    {
-      icon: "📞",
-      title: "Contato",
-      description: "Formulário direto, informações de contato, redes sociais e localização do ateliê para visitações."
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-soft-beige">
+  const stats = [{
+    icon: Calendar,
+    number: "12",
+    label: "Anos de Experiência"
+  }, {
+    icon: Palette,
+    number: "100+",
+    label: "Obras Criadas"
+  }, {
+    icon: Eye,
+    number: "25+",
+    label: "Exposições Realizadas"
+  }, {
+    icon: Heart,
+    number: "500+",
+    label: "Colecionadores Alcançados"
+  }];
+  const galleryFeatures = [{
+    icon: Target,
+    title: "Nosso Objetivo",
+    description: "Criar uma plataforma online elegante que sirva como vitrine oficial para as obras da artista, possibilitando o contato direto para negociações personalizadas e fortalecendo o vínculo humano por trás de cada peça."
+  }, {
+    icon: Globe,
+    title: "Nossa Missão",
+    description: "Oferecer uma experiência estética imersiva através de obras que transitam entre o abstrato e o impressionismo, refletindo a alma, as paisagens internas e os elementos naturais do Brasil."
+  }, {
+    icon: Palette,
+    title: "Nossa Visão",
+    description: "Ser reconhecida como um espaço de contemplação e conexão emocional, onde cada obra dialoga com quem observa por meio de cores, texturas e significados únicos."
+  }];
+  const websiteStructure = [{
+    icon: "🏠",
+    title: "Página Inicial",
+    description: "Banner impactante, apresentação da artista e destaques das principais obras com chamada para explorar a galeria completa."
+  }, {
+    icon: "🖼",
+    title: "Galeria de Obras",
+    description: "Grade visual completa com detalhes de cada obra, incluindo técnica, dimensões e acesso direto à artista via WhatsApp."
+  }, {
+    icon: "👩‍🎨",
+    title: "Sobre a Artista",
+    description: "Biografia detalhada, inspirações, influências artísticas e linha do tempo com destaques da carreira de Simone."
+  }, {
+    icon: "📰",
+    title: "Exposições e Imprensa",
+    description: "Histórico de exposições, reportagens, entrevistas e reconhecimentos conquistados ao longo da trajetória artística."
+  }, {
+    icon: "📞",
+    title: "Contato",
+    description: "Formulário direto, informações de contato, redes sociais e localização do ateliê para visitações."
+  }];
+  return <div className="min-h-screen bg-soft-beige">
       <Navigation />
       
       {/* Header */}
@@ -101,14 +96,12 @@ const About = () => {
               </div>
             </div>
             
-            <div className="fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="fade-in" style={{
+            animationDelay: '0.3s'
+          }}>
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-light-blue/20 rounded-2xl transform rotate-3"></div>
-                <img 
-                  src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" 
-                  alt="Galeria Simone Oliveira"
-                  className="relative w-full h-full object-cover rounded-2xl shadow-elegant hover-lift-elegant"
-                />
+                <img src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" alt="Galeria Simone Oliveira" className="relative w-full h-full object-cover rounded-2xl shadow-elegant hover-lift-elegant" />
               </div>
             </div>
           </div>
@@ -128,8 +121,7 @@ const About = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {galleryFeatures.map((feature, index) => (
-              <div key={index} className="bg-soft-beige/80 backdrop-blur-sm border border-gentle-green/30 rounded-2xl p-8 text-center hover-lift-elegant">
+            {galleryFeatures.map((feature, index) => <div key={index} className="bg-soft-beige/80 backdrop-blur-sm border border-gentle-green/30 rounded-2xl p-8 text-center hover-lift-elegant">
                 <div className="w-16 h-16 bg-warm-terracotta/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <feature.icon className="text-warm-terracotta" size={24} />
                 </div>
@@ -139,39 +131,13 @@ const About = () => {
                 <p className="font-helvetica text-deep-black/70 leading-relaxed text-sm">
                   {feature.description}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
 
       {/* Website Structure */}
-      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-semplicita text-3xl lg:text-4xl font-light text-deep-black mb-4">
-              Estrutura do Website
-            </h2>
-            <p className="font-helvetica text-lg text-deep-black/70 max-w-2xl mx-auto">
-              Cinco páginas principais pensadas para oferecer uma experiência completa
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {websiteStructure.map((section, index) => (
-              <div key={index} className="bg-soft-beige border border-gentle-green/20 rounded-xl p-6 hover-lift-elegant">
-                <div className="text-3xl mb-4">{section.icon}</div>
-                <h3 className="font-semplicita text-lg font-light text-deep-black mb-3">
-                  {section.title}
-                </h3>
-                <p className="font-helvetica text-deep-black/70 text-sm leading-relaxed">
-                  {section.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Stats */}
       <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gentle-green/10">
@@ -185,15 +151,13 @@ const About = () => {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
+            {stats.map((stat, index) => <div key={index} className="text-center group">
                 <div className="w-20 h-20 bg-gradient-to-br from-warm-terracotta to-warm-terracotta/80 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <stat.icon className="text-soft-beige" size={28} />
                 </div>
                 <div className="font-semplicita text-2xl md:text-3xl font-light text-deep-black mb-2">{stat.number}</div>
                 <div className="font-helvetica text-deep-black/70 text-sm">{stat.label}</div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -262,8 +226,6 @@ const About = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
