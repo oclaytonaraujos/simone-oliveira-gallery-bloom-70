@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { Lock, Eye, EyeOff } from 'lucide-react';
+import { useAdminPassword } from '../hooks/useAdminSettings';
 
 interface AdminAuthProps {
   onAuthenticated: () => void;
@@ -10,10 +11,17 @@ const AdminAuth = ({ onAuthenticated }: AdminAuthProps) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const { data: correctPassword, isLoading } = useAdminPassword();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'admin123') {
+    
+    if (isLoading) {
+      setError('Carregando...');
+      return;
+    }
+    
+    if (password === correctPassword) {
       onAuthenticated();
       setError('');
     } else {
@@ -50,6 +58,7 @@ const AdminAuth = ({ onAuthenticated }: AdminAuthProps) => {
                 className="w-full px-4 py-3 bg-soft-beige border border-gentle-green/30 rounded-xl focus:ring-2 focus:ring-warm-terracotta/20 focus:border-warm-terracotta transition-all duration-300 font-helvetica pr-12"
                 placeholder="Digite sua senha"
                 required
+                disabled={isLoading}
               />
               <button
                 type="button"
@@ -66,9 +75,10 @@ const AdminAuth = ({ onAuthenticated }: AdminAuthProps) => {
 
           <button
             type="submit"
-            className="w-full px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-xl hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant"
+            disabled={isLoading}
+            className="w-full px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-xl hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant disabled:opacity-50"
           >
-            Entrar
+            {isLoading ? 'Carregando...' : 'Entrar'}
           </button>
         </form>
       </div>
