@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import ArtworkGrid from '../components/ArtworkGrid';
+import FloatingContactButtons from '../components/FloatingContactButtons';
 import { ArrowRight, MapPin, Phone, Mail, Sparkles, Eye, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -279,6 +279,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Contact Buttons */}
+      <FloatingContactButtons />
 
       <Footer />
     </div>

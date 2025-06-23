@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from 'react';
-import { Eye, Heart, Share2, ZoomIn } from 'lucide-react';
+import { Eye, Heart, Share2, ZoomIn, MessageCircle, Mail } from 'lucide-react';
 
 interface Artwork {
   id: number;
@@ -78,6 +77,19 @@ const ArtworkGrid = () => {
 
   const closeModal = () => {
     setSelectedArtwork(null);
+  };
+
+  const handleWhatsAppContact = (artwork: Artwork) => {
+    const whatsappNumber = "5511987654321"; // Número da Simone
+    const message = encodeURIComponent(`Olá Simone! Tenho interesse na obra "${artwork.title}" (${artwork.year}). Gostaria de saber mais informações sobre preço e disponibilidade.`);
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+  };
+
+  const handleEmailContact = (artwork: Artwork) => {
+    const email = "contato@simoneoliveira.art";
+    const subject = encodeURIComponent(`Interesse na obra: ${artwork.title}`);
+    const body = encodeURIComponent(`Olá Simone,\n\nTenho interesse na obra "${artwork.title}" (${artwork.year} - ${artwork.medium}).\n\nGostaria de saber mais informações sobre:\n- Preço\n- Disponibilidade\n- Dimensões\n- Forma de pagamento\n\nAguardo seu contato.\n\nAtenciosamente.`);
+    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
   };
 
   return (
@@ -171,7 +183,7 @@ const ArtworkGrid = () => {
         ))}
       </div>
 
-      {/* Enhanced Modal */}
+      {/* Enhanced Modal with Contact Buttons */}
       {selectedArtwork && (
         <div className="fixed inset-0 bg-deep-black/90 backdrop-blur-lg flex items-center justify-center z-50 p-4" onClick={closeModal}>
           <div className="bg-soft-beige rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-elegant" onClick={(e) => e.stopPropagation()}>
@@ -195,9 +207,35 @@ const ArtworkGrid = () => {
                 <p className="font-helvetica text-deep-black/80 leading-relaxed justified-text mb-8">
                   {selectedArtwork.description}
                 </p>
+                
+                {/* Contact Buttons */}
+                <div className="space-y-4 mb-8">
+                  <p className="font-helvetica text-sm text-deep-black/70 mb-4">
+                    Interessado nesta obra? Entre em contato para mais informações:
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      onClick={() => handleWhatsAppContact(selectedArtwork)}
+                      className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant"
+                    >
+                      <MessageCircle size={18} className="mr-2" />
+                      WhatsApp
+                    </button>
+                    
+                    <button
+                      onClick={() => handleEmailContact(selectedArtwork)}
+                      className="flex items-center justify-center px-6 py-3 bg-warm-terracotta hover:bg-warm-terracotta/90 text-soft-beige font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant"
+                    >
+                      <Mail size={18} className="mr-2" />
+                      E-mail
+                    </button>
+                  </div>
+                </div>
+
                 <button
                   onClick={closeModal}
-                  className="self-start px-8 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant hover-lift-elegant"
+                  className="self-start px-8 py-3 bg-deep-black/10 hover:bg-deep-black/20 text-deep-black font-helvetica font-medium rounded-full transition-all duration-300 shadow-elegant hover-lift-elegant"
                 >
                   Fechar
                 </button>
