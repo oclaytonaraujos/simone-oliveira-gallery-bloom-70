@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -161,6 +160,27 @@
   .justified-text {
     text-align: justify;
     hyphens: auto;
+  }
+
+  .stagger-animation {
+    opacity: 0;
+    animation: staggerFade 0.8s ease-out forwards;
+  }
+
+  .reveal-up {
+    opacity: 0;
+    animation: revealUp 1s ease-out forwards;
+  }
+
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 

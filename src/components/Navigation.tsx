@@ -14,6 +14,7 @@ const Navigation = () => {
     { name: 'Sobre a Artista', path: '/artists' },
     { name: 'Sobre Nós', path: '/about' },
     { name: 'Contato', path: '/contact' },
+    { name: 'Admin', path: '/admin' },
   ];
 
   useEffect(() => {
@@ -42,14 +43,11 @@ const Navigation = () => {
               to="/" 
               className="flex items-center hover:scale-105 transition-all duration-300"
             >
-              <div className="flex flex-col items-center">
-                <span className="font-semplicita text-2xl font-light text-deep-black tracking-wide">
-                  Simone Oliveira
-                </span>
-                <span className="art-gallery-tag text-sm text-warm-terracotta -mt-1">
-                  Art Gallery
-                </span>
-              </div>
+              <img 
+                src="/lovable-uploads/f7610aad-7574-485c-9ec0-65d3fe11250b.png" 
+                alt="Simone Oliveira Art Gallery" 
+                className="h-12 w-auto object-contain"
+              />
             </Link>
 
             {/* Desktop Navigation */}
