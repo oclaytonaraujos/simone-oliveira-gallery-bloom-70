@@ -1,12 +1,9 @@
-
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const Artists = () => {
-  return (
-    <div className="min-h-screen bg-soft-beige">
+  return <div className="min-h-screen bg-soft-beige">
       <Navigation />
       
       {/* Header */}
@@ -28,16 +25,12 @@ const Artists = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-warm-terracotta/20 to-light-blue/20 rounded-3xl transform rotate-3"></div>
-              <img
-                src="/lovable-uploads/1730db82-b48a-4890-a40a-92dcfb123144.png"
-                alt="Simone Oliveira"
-                className="relative w-full h-[600px] object-cover rounded-3xl shadow-elegant hover-lift-elegant"
-              />
+              <img src="/lovable-uploads/1730db82-b48a-4890-a40a-92dcfb123144.png" alt="Simone Oliveira" className="relative w-full h-[600px] object-cover rounded-3xl shadow-elegant hover-lift-elegant" />
             </div>
             
             <div className="space-y-8">
               <div>
-                <h2 className="font-semplicita text-4xl font-light text-deep-black mb-4">
+                <h2 className="font-semplicita text-4xl font-light text-deep-black mb-4 py-[25px]">
                   Simone Oliveira
                 </h2>
                 <p className="art-gallery-tag text-warm-terracotta text-lg mb-6">
@@ -103,11 +96,7 @@ const Artists = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="space-y-4">
-              <img 
-                src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" 
-                alt="Simone pintando em seu ateliê" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant"
-              />
+              <img src="/lovable-uploads/e06b8e32-b139-4ac9-9789-dd2d68767dca.png" alt="Simone pintando em seu ateliê" className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant" />
               <div className="text-center">
                 <h3 className="font-semplicita text-lg font-light text-deep-black">Criação em Andamento</h3>
                 <p className="font-helvetica text-sm text-deep-black/70">Simone trabalhando em uma de suas obras</p>
@@ -115,11 +104,7 @@ const Artists = () => {
             </div>
             
             <div className="space-y-4">
-              <img 
-                src="/lovable-uploads/79f14aaa-ddef-4045-8d3e-50714c9dc43b.png" 
-                alt="Simone em seu ateliê" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant"
-              />
+              <img src="/lovable-uploads/79f14aaa-ddef-4045-8d3e-50714c9dc43b.png" alt="Simone em seu ateliê" className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant" />
               <div className="text-center">
                 <h3 className="font-semplicita text-lg font-light text-deep-black">Momento de Inspiração</h3>
                 <p className="font-helvetica text-sm text-deep-black/70">No ambiente criativo do ateliê</p>
@@ -127,11 +112,7 @@ const Artists = () => {
             </div>
             
             <div className="space-y-4">
-              <img 
-                src="/lovable-uploads/03348f07-97c9-429b-a76d-774e1979a3e4.png" 
-                alt="Simone com seus pincéis" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant"
-              />
+              <img src="/lovable-uploads/03348f07-97c9-429b-a76d-774e1979a3e4.png" alt="Simone com seus pincéis" className="w-full h-80 object-cover rounded-2xl shadow-lg hover-lift-elegant" />
               <div className="text-center">
                 <h3 className="font-semplicita text-lg font-light text-deep-black">Ferramentas da Arte</h3>
                 <p className="font-helvetica text-sm text-deep-black/70">Com os instrumentos de sua paixão</p>
@@ -152,10 +133,7 @@ const Artists = () => {
               Entre em contato para conhecer as obras disponíveis ou encomendar uma peça personalizada 
               que reflita sua sensibilidade e estilo únicos.
             </p>
-            <Link 
-              to="/contact"
-              className="inline-flex items-center px-8 py-3 bg-soft-beige text-warm-terracotta font-helvetica font-medium rounded-full hover:bg-gentle-green/20 transition-all duration-300"
-            >
+            <Link to="/contact" className="inline-flex items-center px-8 py-3 bg-soft-beige text-warm-terracotta font-helvetica font-medium rounded-full hover:bg-gentle-green/20 transition-all duration-300">
               Entre em Contato
               <ArrowRight size={20} className="ml-2" />
             </Link>
@@ -164,8 +142,6 @@ const Artists = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Artists;
