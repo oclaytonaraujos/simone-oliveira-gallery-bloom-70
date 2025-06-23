@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -36,12 +37,12 @@ const Navigation = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
+          {/* Logo - agora visível em todas as telas */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="w-10 h-10 bg-warm-terracotta rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <span className="text-soft-beige font-semplicita font-medium text-lg">S</span>
             </div>
-            <div className="hidden sm:block">
+            <div>
               <h1 className="font-semplicita text-xl font-light text-deep-black group-hover:text-warm-terracotta transition-colors duration-300">
                 Simone Oliveira
               </h1>
