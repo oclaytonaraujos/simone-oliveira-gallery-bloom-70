@@ -99,7 +99,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-8 pt-6 text-center">
           <p className="text-gray-400 text-sm">
-            &copy; 2024 Simone Oliveira Art Gallery. Todos os direitos reservados.
+            &copy; 2025 Simone Oliveira Art Gallery. Todos os direitos reservados.
           </p>
         </div>
       </div>
