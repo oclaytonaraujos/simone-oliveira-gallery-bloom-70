@@ -13,7 +13,7 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Início', path: '/' },
-    { name: 'Exposições', path: '/expositions' },
+    { name: 'Obras e Exposições', path: '/expositions' },
     { name: 'Sobre a Artista', path: '/artists' },
     { name: 'Sobre a Galeria', path: '/about' },
     { name: 'Contato', path: '/contact' },

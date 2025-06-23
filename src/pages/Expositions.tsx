@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import ArtworkGrid from '../components/ArtworkGrid';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ interface Exhibition {
 }
 
 const Expositions = () => {
-  const [activeTab, setActiveTab] = useState<'current' | 'upcoming' | 'past'>('current');
+  const [activeTab, setActiveTab] = useState<'artworks' | 'current' | 'upcoming' | 'past'>('artworks');
 
   const exhibitions: Exhibition[] = [
     {
@@ -98,11 +99,11 @@ const Expositions = () => {
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-neutral-warm to-white">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="font-playfair text-5xl md:text-6xl font-bold text-gray-900 mb-6 fade-in">
-            Exposições
+            Obras e Exposições
           </h1>
           <p className="font-inter text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed slide-up">
-            Acompanhe a agenda de exposições das obras de Simone Oliveira em galerias e 
-            museus renomados pelo Brasil.
+            Explore o portfólio completo de Simone Oliveira e acompanhe suas exposições em 
+            galerias e museus renomados pelo Brasil.
           </p>
         </div>
       </section>
@@ -110,8 +111,9 @@ const Expositions = () => {
       {/* Tabs */}
       <section className="px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-center space-x-1 bg-gray-100 p-1 rounded-lg mb-12 max-w-md mx-auto">
+          <div className="flex justify-center space-x-1 bg-gray-100 p-1 rounded-lg mb-12 max-w-lg mx-auto">
             {[
+              { key: 'artworks', label: 'Obras' },
               { key: 'current', label: 'Em Cartaz' },
               { key: 'upcoming', label: 'Em Breve' },
               { key: 'past', label: 'Passadas' }
@@ -132,59 +134,74 @@ const Expositions = () => {
         </div>
       </section>
 
-      {/* Exhibitions Grid */}
+      {/* Content */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {filteredExhibitions.map((exhibition) => (
-              <div key={exhibition.id} className="group cursor-pointer gallery-transition hover:scale-105">
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={exhibition.image}
-                      alt={exhibition.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(exhibition.status)}`}>
-                        {getStatusText(exhibition.status)}
-                      </span>
+          {activeTab === 'artworks' ? (
+            <div>
+              <div className="text-center mb-12">
+                <h2 className="font-playfair text-3xl font-bold text-gray-900 mb-4">
+                  Coleção Completa
+                </h2>
+                <p className="font-inter text-gray-600 max-w-2xl mx-auto">
+                  Descubra as obras mais recentes e emblemáticas de Simone Oliveira, 
+                  cada uma contando uma história única através de cores e formas.
+                </p>
+              </div>
+              <ArtworkGrid />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {filteredExhibitions.map((exhibition) => (
+                <div key={exhibition.id} className="group cursor-pointer gallery-transition hover:scale-105">
+                  <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div className="relative h-64 overflow-hidden">
+                      <img
+                        src={exhibition.image}
+                        alt={exhibition.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(exhibition.status)}`}>
+                          {getStatusText(exhibition.status)}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-2">
-                      {exhibition.title}
-                    </h3>
-                    <p className="font-inter text-terracotta font-medium mb-3">
-                      Simone Oliveira
-                    </p>
-                    <p className="font-inter text-gray-600 mb-4 leading-relaxed">
-                      {exhibition.description}
-                    </p>
-                    <div className="flex items-center text-gray-500 text-sm mb-2">
-                      <Calendar size={16} className="mr-2" />
-                      <span>
-                        {formatDate(exhibition.startDate)} - {formatDate(exhibition.endDate)}
-                      </span>
+                    <div className="p-6">
+                      <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-2">
+                        {exhibition.title}
+                      </h3>
+                      <p className="font-inter text-terracotta font-medium mb-3">
+                        Simone Oliveira
+                      </p>
+                      <p className="font-inter text-gray-600 mb-4 leading-relaxed">
+                        {exhibition.description}
+                      </p>
+                      <div className="flex items-center text-gray-500 text-sm mb-2">
+                        <Calendar size={16} className="mr-2" />
+                        <span>
+                          {formatDate(exhibition.startDate)} - {formatDate(exhibition.endDate)}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-gray-500 text-sm mb-4">
+                        <MapPin size={16} className="mr-2" />
+                        <span>{exhibition.location}</span>
+                      </div>
+                      <Link 
+                        to={`/expositions/${exhibition.id}`}
+                        className="inline-flex items-center text-terracotta font-medium hover:text-terracotta/80 transition-colors"
+                      >
+                        Ver Detalhes
+                        <ArrowRight size={16} className="ml-2" />
+                      </Link>
                     </div>
-                    <div className="flex items-center text-gray-500 text-sm mb-4">
-                      <MapPin size={16} className="mr-2" />
-                      <span>{exhibition.location}</span>
-                    </div>
-                    <Link 
-                      to={`/expositions/${exhibition.id}`}
-                      className="inline-flex items-center text-terracotta font-medium hover:text-terracotta/80 transition-colors"
-                    >
-                      Ver Detalhes
-                      <ArrowRight size={16} className="ml-2" />
-                    </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
-          {filteredExhibitions.length === 0 && (
+          {activeTab !== 'artworks' && filteredExhibitions.length === 0 && (
             <div className="text-center py-16">
               <p className="font-inter text-gray-500 text-lg">
                 Nenhuma exposição encontrada nesta categoria.
