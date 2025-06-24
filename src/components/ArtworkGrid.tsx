@@ -1,17 +1,23 @@
 
 import { useState } from 'react';
-import { useArtworks, Artwork } from '../hooks/useArtworks';
+import { useArtworks, useFeaturedArtworks, Artwork } from '../hooks/useArtworks';
 import { useIsMobile } from '../hooks/use-mobile';
 import ArtworkModal from './ArtworkModal';
 
 interface ArtworkGridProps {
   exhibitionId?: string;
+  featuredOnly?: boolean;
 }
 
-const ArtworkGrid = ({ exhibitionId }: ArtworkGridProps) => {
-  const { data: artworks, isLoading, error } = useArtworks(exhibitionId);
+const ArtworkGrid = ({ exhibitionId, featuredOnly = false }: ArtworkGridProps) => {
+  const { data: allArtworks, isLoading: allLoading, error: allError } = useArtworks(exhibitionId);
+  const { data: featuredArtworks, isLoading: featuredLoading, error: featuredError } = useFeaturedArtworks();
   const isMobile = useIsMobile();
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+
+  const artworks = featuredOnly ? featuredArtworks : allArtworks;
+  const isLoading = featuredOnly ? featuredLoading : allLoading;
+  const error = featuredOnly ? featuredError : allError;
 
   if (isLoading) {
     return (
@@ -34,7 +40,9 @@ const ArtworkGrid = ({ exhibitionId }: ArtworkGridProps) => {
   if (!artworks || artworks.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-deep-black/70 font-helvetica">Nenhuma obra encontrada</p>
+        <p className="text-deep-black/70 font-helvetica">
+          {featuredOnly ? 'Nenhuma obra em destaque encontrada' : 'Nenhuma obra encontrada'}
+        </p>
       </div>
     );
   }

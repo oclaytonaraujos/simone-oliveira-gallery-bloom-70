@@ -1,12 +1,13 @@
 
+
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import AdminAuth from '../components/AdminAuth';
-import { Plus, Edit, Trash2, Save, X, Upload, Calendar, MapPin } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, Upload, Calendar, MapPin, Star } from 'lucide-react';
 import { useArtworks } from '../hooks/useArtworks';
 import { useExhibitions } from '../hooks/useExhibitions';
-import { useCreateArtwork, useUpdateArtwork, useDeleteArtwork } from '../hooks/useAdminArtworks';
+import { useCreateArtwork, useUpdateArtwork, useDeleteArtwork, useToggleFeaturedArtwork } from '../hooks/useAdminArtworks';
 import { useCreateExhibition, useUpdateExhibition, useDeleteExhibition } from '../hooks/useAdminExhibitions';
 import { toast } from 'sonner';
 
@@ -22,6 +23,7 @@ const Admin = () => {
   const createArtworkMutation = useCreateArtwork();
   const updateArtworkMutation = useUpdateArtwork();
   const deleteArtworkMutation = useDeleteArtwork();
+  const toggleFeaturedMutation = useToggleFeaturedArtwork();
   
   // Exhibition mutations
   const createExhibitionMutation = useCreateExhibition();
@@ -46,7 +48,8 @@ const Admin = () => {
       medium: artwork.medium || '',
       description: artwork.description || '',
       dimensions: artwork.dimensions || '',
-      exhibition_id: artwork.exhibition_id || ''
+      exhibition_id: artwork.exhibition_id || '',
+      featured: artwork.featured || false
     });
     setIsAddingArtwork(false);
   };
@@ -61,7 +64,8 @@ const Admin = () => {
       medium: '',
       description: '',
       dimensions: '',
-      exhibition_id: ''
+      exhibition_id: '',
+      featured: false
     });
   };
 
@@ -85,7 +89,11 @@ const Admin = () => {
       setArtworkFormData({});
     } catch (error) {
       console.error('Error saving artwork:', error);
-      toast.error('Erro ao salvar obra');
+      if (error instanceof Error && error.message.includes('Máximo de 6 obras')) {
+        toast.error('Máximo de 6 obras podem estar em destaque');
+      } else {
+        toast.error('Erro ao salvar obra');
+      }
     }
   };
 
@@ -102,6 +110,27 @@ const Admin = () => {
         toast.success('Obra excluída com sucesso!');
       } catch (error) {
         toast.error('Erro ao excluir obra');
+      }
+    }
+  };
+
+  const handleToggleFeatured = async (id: string, currentFeatured: boolean) => {
+    try {
+      await toggleFeaturedMutation.mutateAsync({ 
+        id, 
+        featured: !currentFeatured 
+      });
+      toast.success(
+        !currentFeatured 
+          ? 'Obra adicionada aos destaques!' 
+          : 'Obra removida dos destaques!'
+      );
+    } catch (error) {
+      console.error('Error toggling featured:', error);
+      if (error instanceof Error && error.message.includes('Máximo de 6 obras')) {
+        toast.error('Máximo de 6 obras podem estar em destaque');
+      } else {
+        toast.error('Erro ao alterar destaque');
       }
     }
   };
@@ -342,6 +371,24 @@ const Admin = () => {
                           ))}
                         </select>
                       </div>
+
+                      <div>
+                        <label className="flex items-center space-x-3">
+                          <input
+                            type="checkbox"
+                            checked={artworkFormData.featured || false}
+                            onChange={(e) => setArtworkFormData({ ...artworkFormData, featured: e.target.checked })}
+                            className="w-5 h-5 text-warm-terracotta bg-soft-beige border-gentle-green/30 rounded focus:ring-2 focus:ring-warm-terracotta/20"
+                          />
+                          <span className="font-helvetica text-sm font-medium text-deep-black">
+                            <Star size={16} className="inline mr-1 text-warm-terracotta" />
+                            Obra em destaque (máximo 6)
+                          </span>
+                        </label>
+                        <p className="font-helvetica text-xs text-deep-black/60 mt-1">
+                          Obras em destaque aparecem na página inicial
+                        </p>
+                      </div>
                       
                       <div>
                         <label className="block font-helvetica text-sm font-medium text-deep-black mb-2">
@@ -449,6 +496,20 @@ const Admin = () => {
                           alt={artwork.title}
                           className="w-full h-full object-cover"
                         />
+                        <div className="absolute top-4 left-4">
+                          <button
+                            onClick={() => handleToggleFeatured(artwork.id, artwork.featured || false)}
+                            disabled={toggleFeaturedMutation.isPending}
+                            className={`p-2 rounded-full transition-all duration-300 shadow-lg disabled:opacity-50 ${
+                              artwork.featured 
+                                ? 'bg-warm-terracotta text-soft-beige' 
+                                : 'bg-soft-beige/90 text-warm-terracotta hover:bg-soft-beige'
+                            }`}
+                            title={artwork.featured ? 'Remover dos destaques' : 'Adicionar aos destaques'}
+                          >
+                            <Star size={16} className={artwork.featured ? 'fill-current' : ''} />
+                          </button>
+                        </div>
                         <div className="absolute top-4 right-4 flex space-x-2">
                           <button
                             onClick={() => handleEditArtwork(artwork)}
@@ -467,9 +528,14 @@ const Admin = () => {
                       </div>
                       
                       <div className="p-6">
-                        <h3 className="font-semplicita text-xl font-light text-deep-black mb-2">
-                          {artwork.title}
-                        </h3>
+                        <div className="flex items-start justify-between mb-2">
+                          <h3 className="font-semplicita text-xl font-light text-deep-black">
+                            {artwork.title}
+                          </h3>
+                          {artwork.featured && (
+                            <Star size={16} className="text-warm-terracotta fill-current flex-shrink-0 ml-2" />
+                          )}
+                        </div>
                         <p className="font-helvetica text-sm text-deep-black/70 mb-1">
                           {artwork.year} • {artwork.medium}
                         </p>

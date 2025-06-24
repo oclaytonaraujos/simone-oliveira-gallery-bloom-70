@@ -103,7 +103,7 @@ const Index = () => {
               </h2>
             </div>
             
-            <ArtworkGrid />
+            <ArtworkGrid featuredOnly={true} />
             
             <div className="text-center mt-6 sm:mt-8">
               <Link to="/expositions" className="inline-flex items-center px-4 sm:px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 group shadow-elegant hover-lift-elegant text-sm sm:text-base touch-manipulation active:scale-95" style={{

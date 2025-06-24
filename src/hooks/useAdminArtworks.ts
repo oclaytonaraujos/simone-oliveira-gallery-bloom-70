@@ -74,3 +74,28 @@ export const useDeleteArtwork = () => {
     },
   });
 };
+
+export const useToggleFeaturedArtwork = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ id, featured }: { id: string; featured: boolean }) => {
+      const { data, error } = await supabase
+        .from('artworks')
+        .update({ featured })
+        .eq('id', id)
+        .select()
+        .single();
+      
+      if (error) {
+        console.error('Error toggling featured artwork:', error);
+        throw error;
+      }
+      
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['artworks'] });
+    },
+  });
+};

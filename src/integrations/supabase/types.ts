@@ -39,6 +39,7 @@ export type Database = {
           description: string | null
           dimensions: string | null
           exhibition_id: string | null
+          featured: boolean | null
           id: string
           image: string
           medium: string
@@ -51,6 +52,7 @@ export type Database = {
           description?: string | null
           dimensions?: string | null
           exhibition_id?: string | null
+          featured?: boolean | null
           id?: string
           image: string
           medium: string
@@ -63,6 +65,7 @@ export type Database = {
           description?: string | null
           dimensions?: string | null
           exhibition_id?: string | null
+          featured?: boolean | null
           id?: string
           image?: string
           medium?: string
