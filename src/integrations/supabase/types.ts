@@ -37,7 +37,6 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
-          dimensions: string | null
           id: string
           image: string
           medium: string
@@ -48,7 +47,6 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string | null
-          dimensions?: string | null
           id?: string
           image: string
           medium: string
@@ -59,7 +57,6 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string | null
-          dimensions?: string | null
           id?: string
           image?: string
           medium?: string

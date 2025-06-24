@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -49,7 +50,6 @@ const Admin = () => {
       image: '',
       year: new Date().getFullYear().toString(),
       medium: '',
-      dimensions: '',
       description: ''
     });
   };
@@ -297,19 +297,6 @@ const Admin = () => {
                           />
                         </div>
                       </div>
-
-                      <div>
-                        <label className="block font-helvetica text-sm font-medium text-deep-black mb-2">
-                          Dimensões
-                        </label>
-                        <input
-                          type="text"
-                          value={artworkFormData.dimensions || ''}
-                          onChange={(e) => setArtworkFormData({ ...artworkFormData, dimensions: e.target.value })}
-                          className="w-full px-4 py-3 bg-soft-beige border border-gentle-green/30 rounded-xl focus:ring-2 focus:ring-warm-terracotta/20 focus:border-warm-terracotta transition-all duration-300 font-helvetica"
-                          placeholder="ex: 100 x 80 cm"
-                        />
-                      </div>
                       
                       <div>
                         <label className="block font-helvetica text-sm font-medium text-deep-black mb-2">
@@ -441,11 +428,6 @@ const Admin = () => {
                         <p className="font-helvetica text-sm text-deep-black/70 mb-1">
                           {artwork.year} • {artwork.medium}
                         </p>
-                        {artwork.dimensions && (
-                          <p className="font-helvetica text-sm text-deep-black/70 mb-1">
-                            {artwork.dimensions}
-                          </p>
-                        )}
                         <p className="font-helvetica text-sm text-deep-black/60 line-clamp-2">
                           {artwork.description}
                         </p>

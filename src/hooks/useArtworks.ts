@@ -8,7 +8,6 @@ export interface Artwork {
   image: string;
   year: string;
   medium: string;
-  dimensions?: string;
   description?: string;
   created_at: string;
   updated_at: string;
