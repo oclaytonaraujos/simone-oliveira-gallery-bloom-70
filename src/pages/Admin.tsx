@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -36,8 +37,17 @@ const Admin = () => {
 
   // Artwork handlers
   const handleEditArtwork = (artwork: any) => {
+    console.log('Editing artwork:', artwork);
     setEditingArtworkId(artwork.id);
-    setArtworkFormData(artwork);
+    setArtworkFormData({
+      title: artwork.title || '',
+      image: artwork.image || '',
+      year: artwork.year || new Date().getFullYear().toString(),
+      medium: artwork.medium || '',
+      description: artwork.description || '',
+      dimensions: artwork.dimensions || '',
+      exhibition_id: artwork.exhibition_id || ''
+    });
     setIsAddingArtwork(false);
   };
 
@@ -57,6 +67,8 @@ const Admin = () => {
 
   const handleSaveArtwork = async () => {
     try {
+      console.log('Saving artwork:', artworkFormData);
+      
       if (isAddingArtwork) {
         await createArtworkMutation.mutateAsync(artworkFormData);
         toast.success('Obra criada com sucesso!');
@@ -72,6 +84,7 @@ const Admin = () => {
       setIsAddingArtwork(false);
       setArtworkFormData({});
     } catch (error) {
+      console.error('Error saving artwork:', error);
       toast.error('Erro ao salvar obra');
     }
   };
