@@ -9,18 +9,26 @@ export interface Artwork {
   year: string;
   medium: string;
   description?: string;
+  dimensions?: string;
+  exhibition_id?: string;
   created_at: string;
   updated_at: string;
 }
 
-export const useArtworks = () => {
+export const useArtworks = (exhibitionId?: string) => {
   return useQuery({
-    queryKey: ['artworks'],
+    queryKey: ['artworks', exhibitionId],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from('artworks')
         .select('*')
         .order('created_at', { ascending: false });
+      
+      if (exhibitionId) {
+        query = query.eq('exhibition_id', exhibitionId);
+      }
+      
+      const { data, error } = await query;
       
       if (error) {
         console.error('Error fetching artworks:', error);

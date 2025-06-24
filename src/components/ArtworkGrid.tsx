@@ -1,10 +1,17 @@
 
-import { useArtworks } from '../hooks/useArtworks';
+import { useState } from 'react';
+import { useArtworks, Artwork } from '../hooks/useArtworks';
 import { useIsMobile } from '../hooks/use-mobile';
+import ArtworkModal from './ArtworkModal';
 
-const ArtworkGrid = () => {
-  const { data: artworks, isLoading, error } = useArtworks();
+interface ArtworkGridProps {
+  exhibitionId?: string;
+}
+
+const ArtworkGrid = ({ exhibitionId }: ArtworkGridProps) => {
+  const { data: artworks, isLoading, error } = useArtworks(exhibitionId);
   const isMobile = useIsMobile();
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
   if (isLoading) {
     return (
@@ -33,41 +40,54 @@ const ArtworkGrid = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-      {artworks.map((artwork, index) => (
-        <div
-          key={artwork.id}
-          className="group cursor-pointer stagger-animation hover-lift-elegant"
-          style={{
-            animationDelay: `${index * 0.1}s`
-          }}
-        >
-          <div className="relative overflow-hidden rounded-2xl shadow-elegant bg-soft-beige aspect-[3/4]">
-            <img
-              src={artwork.image}
-              alt={artwork.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-deep-black/80 via-deep-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                <h3 className="font-semplicita text-lg sm:text-xl text-soft-beige mb-2 font-light">
-                  {artwork.title}
-                </h3>
-                <p className="font-helvetica text-soft-beige/80 text-sm mb-1">
-                  {artwork.year} • {artwork.medium}
-                </p>
-                {artwork.description && (
-                  <p className="font-helvetica text-soft-beige/70 text-sm line-clamp-2">
-                    {artwork.description}
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        {artworks.map((artwork, index) => (
+          <div
+            key={artwork.id}
+            className="group cursor-pointer stagger-animation hover-lift-elegant"
+            style={{
+              animationDelay: `${index * 0.1}s`
+            }}
+            onClick={() => setSelectedArtwork(artwork)}
+          >
+            <div className="relative overflow-hidden rounded-2xl shadow-elegant bg-soft-beige aspect-[3/4]">
+              <img
+                src={artwork.image}
+                alt={artwork.title}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-black/80 via-deep-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                  <h3 className="font-semplicita text-lg sm:text-xl text-soft-beige mb-2 font-light">
+                    {artwork.title}
+                  </h3>
+                  <p className="font-helvetica text-soft-beige/80 text-sm mb-1">
+                    {artwork.year} • {artwork.medium}
                   </p>
-                )}
+                  {artwork.dimensions && (
+                    <p className="font-helvetica text-soft-beige/70 text-sm mb-1">
+                      {artwork.dimensions}
+                    </p>
+                  )}
+                  {artwork.description && (
+                    <p className="font-helvetica text-soft-beige/70 text-sm line-clamp-2">
+                      {artwork.description}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+      
+      <ArtworkModal 
+        artwork={selectedArtwork} 
+        onClose={() => setSelectedArtwork(null)} 
+      />
+    </>
   );
 };
 

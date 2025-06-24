@@ -38,6 +38,7 @@ export type Database = {
           created_at: string
           description: string | null
           dimensions: string | null
+          exhibition_id: string | null
           id: string
           image: string
           medium: string
@@ -49,6 +50,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           dimensions?: string | null
+          exhibition_id?: string | null
           id?: string
           image: string
           medium: string
@@ -60,6 +62,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           dimensions?: string | null
+          exhibition_id?: string | null
           id?: string
           image?: string
           medium?: string
@@ -67,7 +70,15 @@ export type Database = {
           updated_at?: string
           year?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "artworks_exhibition_id_fkey"
+            columns: ["exhibition_id"]
+            isOneToOne: false
+            referencedRelation: "exhibitions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       exhibitions: {
         Row: {

@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import FloatingContactButtons from '../components/FloatingContactButtons';
+import ArtworkGrid from '../components/ArtworkGrid';
 import { useExhibitions } from '../hooks/useExhibitions';
-import { Calendar, MapPin, Clock } from 'lucide-react';
+import { Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Expositions = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [expandedExhibition, setExpandedExhibition] = useState<string | null>(null);
   const { data: exhibitions, isLoading, error } = useExhibitions();
 
   useEffect(() => {
@@ -46,6 +48,10 @@ const Expositions = () => {
       default:
         return 'Status';
     }
+  };
+
+  const toggleExhibitionArtworks = (exhibitionId: string) => {
+    setExpandedExhibition(expandedExhibition === exhibitionId ? null : exhibitionId);
   };
 
   if (isLoading) {
@@ -112,8 +118,8 @@ const Expositions = () => {
             </p>
           </div>
 
-          {/* Exhibitions Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Exhibitions List */}
+          <div className="space-y-12">
             {exhibitions?.map((exhibition, index) => (
               <div
                 key={exhibition.id}
@@ -122,47 +128,76 @@ const Expositions = () => {
                   animationDelay: `${index * 0.1}s`
                 }}
               >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={exhibition.image}
-                    alt={exhibition.title}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                  />
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`px-3 py-1 rounded-full text-sm font-helvetica font-medium ${getStatusColor(exhibition.status)}`}>
-                      {getStatusText(exhibition.status)}
-                    </span>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                  <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+                    <img
+                      src={exhibition.image}
+                      alt={exhibition.title}
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                    />
                   </div>
                   
-                  <h3 className="font-semplicita text-2xl font-light text-deep-black mb-3">
-                    {exhibition.title}
-                  </h3>
-                  
-                  {exhibition.description && (
-                    <p className="font-helvetica text-deep-black/70 mb-4 leading-relaxed">
-                      {exhibition.description}
-                    </p>
-                  )}
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center text-deep-black/60">
-                      <Calendar size={16} className="mr-2" />
-                      <span className="font-helvetica text-sm">
-                        {formatDate(exhibition.start_date)} - {formatDate(exhibition.end_date)}
+                  <div className="flex flex-col justify-center">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className={`px-3 py-1 rounded-full text-sm font-helvetica font-medium ${getStatusColor(exhibition.status)}`}>
+                        {getStatusText(exhibition.status)}
                       </span>
                     </div>
                     
-                    <div className="flex items-center text-deep-black/60">
-                      <MapPin size={16} className="mr-2" />
-                      <span className="font-helvetica text-sm">
-                        {exhibition.location}
-                      </span>
+                    <h3 className="font-semplicita text-3xl font-light text-deep-black mb-4">
+                      {exhibition.title}
+                    </h3>
+                    
+                    {exhibition.description && (
+                      <p className="font-helvetica text-deep-black/70 mb-6 leading-relaxed">
+                        {exhibition.description}
+                      </p>
+                    )}
+                    
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center text-deep-black/60">
+                        <Calendar size={16} className="mr-2" />
+                        <span className="font-helvetica text-sm">
+                          {formatDate(exhibition.start_date)} - {formatDate(exhibition.end_date)}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center text-deep-black/60">
+                        <MapPin size={16} className="mr-2" />
+                        <span className="font-helvetica text-sm">
+                          {exhibition.location}
+                        </span>
+                      </div>
                     </div>
+
+                    <button
+                      onClick={() => toggleExhibitionArtworks(exhibition.id)}
+                      className="inline-flex items-center text-warm-terracotta hover:text-warm-terracotta/80 font-helvetica font-medium transition-colors duration-300"
+                    >
+                      {expandedExhibition === exhibition.id ? (
+                        <>
+                          Ocultar obras <ChevronUp size={16} className="ml-1" />
+                        </>
+                      ) : (
+                        <>
+                          Ver obras da exposição <ChevronDown size={16} className="ml-1" />
+                        </>
+                      )}
+                    </button>
                   </div>
                 </div>
+
+                {/* Artworks Section */}
+                {expandedExhibition === exhibition.id && (
+                  <div className="px-8 pb-8">
+                    <div className="border-t border-gentle-green/20 pt-8">
+                      <h4 className="font-semplicita text-xl font-light text-deep-black mb-6">
+                        Obras da Exposição
+                      </h4>
+                      <ArtworkGrid exhibitionId={exhibition.id} />
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
