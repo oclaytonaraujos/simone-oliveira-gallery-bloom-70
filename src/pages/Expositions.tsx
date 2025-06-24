@@ -3,16 +3,26 @@ import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import FloatingContactButtons from '../components/FloatingContactButtons';
+import ExhibitionArtworks from '../components/ExhibitionArtworks';
 import { useExhibitions } from '../hooks/useExhibitions';
-import { Calendar, MapPin, Clock } from 'lucide-react';
+import { Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Expositions = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [expandedExhibitions, setExpandedExhibitions] = useState<string[]>([]);
   const { data: exhibitions, isLoading, error } = useExhibitions();
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const toggleExhibition = (exhibitionId: string) => {
+    setExpandedExhibitions(prev => 
+      prev.includes(exhibitionId) 
+        ? prev.filter(id => id !== exhibitionId)
+        : [...prev, exhibitionId]
+    );
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('pt-BR', {
@@ -113,56 +123,86 @@ const Expositions = () => {
           </div>
 
           {/* Exhibitions Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="space-y-12">
             {exhibitions?.map((exhibition, index) => (
               <div
                 key={exhibition.id}
-                className="bg-gentle-green/10 rounded-3xl overflow-hidden shadow-elegant hover-lift-elegant stagger-animation"
+                className="bg-gentle-green/10 rounded-3xl overflow-hidden shadow-elegant stagger-animation"
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
               >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={exhibition.image}
-                    alt={exhibition.title}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                  />
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`px-3 py-1 rounded-full text-sm font-helvetica font-medium ${getStatusColor(exhibition.status)}`}>
-                      {getStatusText(exhibition.status)}
-                    </span>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+                  <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+                    <img
+                      src={exhibition.image}
+                      alt={exhibition.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   
-                  <h3 className="font-semplicita text-2xl font-light text-deep-black mb-3">
-                    {exhibition.title}
-                  </h3>
-                  
-                  {exhibition.description && (
-                    <p className="font-helvetica text-deep-black/70 mb-4 leading-relaxed">
-                      {exhibition.description}
-                    </p>
-                  )}
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center text-deep-black/60">
-                      <Calendar size={16} className="mr-2" />
-                      <span className="font-helvetica text-sm">
-                        {formatDate(exhibition.start_date)} - {formatDate(exhibition.end_date)}
+                  <div className="flex flex-col justify-center space-y-6">
+                    <div className="flex items-center justify-between">
+                      <span className={`px-3 py-1 rounded-full text-sm font-helvetica font-medium ${getStatusColor(exhibition.status)}`}>
+                        {getStatusText(exhibition.status)}
                       </span>
                     </div>
                     
-                    <div className="flex items-center text-deep-black/60">
-                      <MapPin size={16} className="mr-2" />
-                      <span className="font-helvetica text-sm">
-                        {exhibition.location}
-                      </span>
+                    <h3 className="font-semplicita text-3xl font-light text-deep-black">
+                      {exhibition.title}
+                    </h3>
+                    
+                    {exhibition.description && (
+                      <p className="font-helvetica text-deep-black/70 leading-relaxed">
+                        {exhibition.description}
+                      </p>
+                    )}
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center text-deep-black/60">
+                        <Calendar size={18} className="mr-3" />
+                        <span className="font-helvetica">
+                          {formatDate(exhibition.start_date)} - {formatDate(exhibition.end_date)}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center text-deep-black/60">
+                        <MapPin size={18} className="mr-3" />
+                        <span className="font-helvetica">
+                          {exhibition.location}
+                        </span>
+                      </div>
                     </div>
+
+                    <button
+                      onClick={() => toggleExhibition(exhibition.id)}
+                      className="inline-flex items-center px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant hover-lift-elegant self-start"
+                    >
+                      {expandedExhibitions.includes(exhibition.id) ? (
+                        <>
+                          Ocultar Obras
+                          <ChevronUp size={18} className="ml-2" />
+                        </>
+                      ) : (
+                        <>
+                          Ver Obras
+                          <ChevronDown size={18} className="ml-2" />
+                        </>
+                      )}
+                    </button>
                   </div>
                 </div>
+
+                {expandedExhibitions.includes(exhibition.id) && (
+                  <div className="px-8 pb-8">
+                    <div className="border-t border-gentle-green/30 pt-8">
+                      <ExhibitionArtworks 
+                        exhibitionId={exhibition.id}
+                        exhibitionTitle={exhibition.title}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
