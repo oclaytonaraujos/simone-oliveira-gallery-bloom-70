@@ -4,82 +4,39 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import AdminAuth from '../components/AdminAuth';
 import { Plus, Edit, Trash2, Save, X, Upload, Calendar, MapPin } from 'lucide-react';
-
-interface Artwork {
-  id: number;
-  title: string;
-  image: string;
-  year: string;
-  medium: string;
-  description: string;
-}
-
-interface Exhibition {
-  id: number;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  image: string;
-  status: 'current' | 'upcoming' | 'past';
-  location: string;
-}
+import { useArtworks } from '../hooks/useArtworks';
+import { useExhibitions } from '../hooks/useExhibitions';
+import { useCreateArtwork, useUpdateArtwork, useDeleteArtwork } from '../hooks/useAdminArtworks';
+import { useCreateExhibition, useUpdateExhibition, useDeleteExhibition } from '../hooks/useAdminExhibitions';
+import { toast } from 'sonner';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState<'artworks' | 'exhibitions'>('artworks');
   
-  const [artworks, setArtworks] = useState<Artwork[]>([
-    {
-      id: 1,
-      title: "Reflexões Urbanas",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800",
-      year: "2024",
-      medium: "Óleo sobre tela",
-      description: "Uma exploração profunda dos contrastes da vida urbana moderna."
-    },
-    {
-      id: 2,
-      title: "Movimento Azul",
-      image: "https://images.unsplash.com/photo-1594736797933-d0d6a5d80b62?w=600&h=800",
-      year: "2023",
-      medium: "Acrílica sobre tela",
-      description: "Uma dança de tons azuis que captura a fluidez do movimento natural."
-    }
-  ]);
+  // Fetch data from Supabase
+  const { data: artworks = [], isLoading: artworksLoading } = useArtworks();
+  const { data: exhibitions = [], isLoading: exhibitionsLoading } = useExhibitions();
+  
+  // Artwork mutations
+  const createArtworkMutation = useCreateArtwork();
+  const updateArtworkMutation = useUpdateArtwork();
+  const deleteArtworkMutation = useDeleteArtwork();
+  
+  // Exhibition mutations
+  const createExhibitionMutation = useCreateExhibition();
+  const updateExhibitionMutation = useUpdateExhibition();
+  const deleteExhibitionMutation = useDeleteExhibition();
 
-  const [exhibitions, setExhibitions] = useState<Exhibition[]>([
-    {
-      id: 1,
-      title: "Reflexões da Modernidade",
-      description: "Uma exploração profunda das tensões urbanas através de pintura e técnica mista contemporânea.",
-      startDate: "2024-01-15",
-      endDate: "2024-03-30",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600",
-      status: 'current',
-      location: "Galeria Nacional de Arte, São Paulo"
-    },
-    {
-      id: 2,
-      title: "Geometrias Orgânicas",
-      description: "Um diálogo entre formas geométricas e elementos naturais em uma coleção única de obras.",
-      startDate: "2024-02-01",
-      endDate: "2024-04-15",
-      image: "https://images.unsplash.com/photo-1594736797933-d0d6a5d80b62?w=800&h=600",
-      status: 'current',
-      location: "Centro Cultural Vila Madalena"
-    }
-  ]);
-
-  const [editingArtworkId, setEditingArtworkId] = useState<number | null>(null);
-  const [editingExhibitionId, setEditingExhibitionId] = useState<number | null>(null);
+  const [editingArtworkId, setEditingArtworkId] = useState<string | null>(null);
+  const [editingExhibitionId, setEditingExhibitionId] = useState<string | null>(null);
   const [isAddingArtwork, setIsAddingArtwork] = useState(false);
   const [isAddingExhibition, setIsAddingExhibition] = useState(false);
-  const [artworkFormData, setArtworkFormData] = useState<Partial<Artwork>>({});
-  const [exhibitionFormData, setExhibitionFormData] = useState<Partial<Exhibition>>({});
+  const [artworkFormData, setArtworkFormData] = useState<any>({});
+  const [exhibitionFormData, setExhibitionFormData] = useState<any>({});
 
   // Artwork handlers
-  const handleEditArtwork = (artwork: Artwork) => {
+  const handleEditArtwork = (artwork: any) => {
     setEditingArtworkId(artwork.id);
     setArtworkFormData(artwork);
     setIsAddingArtwork(false);
@@ -97,27 +54,25 @@ const Admin = () => {
     });
   };
 
-  const handleSaveArtwork = () => {
-    if (isAddingArtwork) {
-      const newArtwork: Artwork = {
-        id: Math.max(...artworks.map(a => a.id)) + 1,
-        title: artworkFormData.title || '',
-        image: artworkFormData.image || '',
-        year: artworkFormData.year || '',
-        medium: artworkFormData.medium || '',
-        description: artworkFormData.description || ''
-      };
-      setArtworks([...artworks, newArtwork]);
-    } else if (editingArtworkId) {
-      setArtworks(artworks.map(artwork => 
-        artwork.id === editingArtworkId 
-          ? { ...artwork, ...artworkFormData }
-          : artwork
-      ));
+  const handleSaveArtwork = async () => {
+    try {
+      if (isAddingArtwork) {
+        await createArtworkMutation.mutateAsync(artworkFormData);
+        toast.success('Obra criada com sucesso!');
+      } else if (editingArtworkId) {
+        await updateArtworkMutation.mutateAsync({ 
+          id: editingArtworkId, 
+          ...artworkFormData 
+        });
+        toast.success('Obra atualizada com sucesso!');
+      }
+      
+      setEditingArtworkId(null);
+      setIsAddingArtwork(false);
+      setArtworkFormData({});
+    } catch (error) {
+      toast.error('Erro ao salvar obra');
     }
-    setEditingArtworkId(null);
-    setIsAddingArtwork(false);
-    setArtworkFormData({});
   };
 
   const handleCancelArtwork = () => {
@@ -126,16 +81,25 @@ const Admin = () => {
     setArtworkFormData({});
   };
 
-  const handleDeleteArtwork = (id: number) => {
+  const handleDeleteArtwork = async (id: string) => {
     if (window.confirm('Tem certeza que deseja excluir esta obra?')) {
-      setArtworks(artworks.filter(artwork => artwork.id !== id));
+      try {
+        await deleteArtworkMutation.mutateAsync(id);
+        toast.success('Obra excluída com sucesso!');
+      } catch (error) {
+        toast.error('Erro ao excluir obra');
+      }
     }
   };
 
   // Exhibition handlers
-  const handleEditExhibition = (exhibition: Exhibition) => {
+  const handleEditExhibition = (exhibition: any) => {
     setEditingExhibitionId(exhibition.id);
-    setExhibitionFormData(exhibition);
+    setExhibitionFormData({
+      ...exhibition,
+      startDate: exhibition.start_date,
+      endDate: exhibition.end_date
+    });
     setIsAddingExhibition(false);
   };
 
@@ -153,29 +117,35 @@ const Admin = () => {
     });
   };
 
-  const handleSaveExhibition = () => {
-    if (isAddingExhibition) {
-      const newExhibition: Exhibition = {
-        id: Math.max(...exhibitions.map(e => e.id)) + 1,
-        title: exhibitionFormData.title || '',
-        description: exhibitionFormData.description || '',
-        startDate: exhibitionFormData.startDate || '',
-        endDate: exhibitionFormData.endDate || '',
-        image: exhibitionFormData.image || '',
-        status: exhibitionFormData.status || 'upcoming',
-        location: exhibitionFormData.location || ''
+  const handleSaveExhibition = async () => {
+    try {
+      const formattedData = {
+        title: exhibitionFormData.title,
+        description: exhibitionFormData.description,
+        start_date: exhibitionFormData.startDate,
+        end_date: exhibitionFormData.endDate,
+        image: exhibitionFormData.image,
+        status: exhibitionFormData.status,
+        location: exhibitionFormData.location
       };
-      setExhibitions([...exhibitions, newExhibition]);
-    } else if (editingExhibitionId) {
-      setExhibitions(exhibitions.map(exhibition => 
-        exhibition.id === editingExhibitionId 
-          ? { ...exhibition, ...exhibitionFormData }
-          : exhibition
-      ));
+
+      if (isAddingExhibition) {
+        await createExhibitionMutation.mutateAsync(formattedData);
+        toast.success('Exposição criada com sucesso!');
+      } else if (editingExhibitionId) {
+        await updateExhibitionMutation.mutateAsync({ 
+          id: editingExhibitionId, 
+          ...formattedData 
+        });
+        toast.success('Exposição atualizada com sucesso!');
+      }
+      
+      setEditingExhibitionId(null);
+      setIsAddingExhibition(false);
+      setExhibitionFormData({});
+    } catch (error) {
+      toast.error('Erro ao salvar exposição');
     }
-    setEditingExhibitionId(null);
-    setIsAddingExhibition(false);
-    setExhibitionFormData({});
   };
 
   const handleCancelExhibition = () => {
@@ -184,9 +154,14 @@ const Admin = () => {
     setExhibitionFormData({});
   };
 
-  const handleDeleteExhibition = (id: number) => {
+  const handleDeleteExhibition = async (id: string) => {
     if (window.confirm('Tem certeza que deseja excluir esta exposição?')) {
-      setExhibitions(exhibitions.filter(exhibition => exhibition.id !== id));
+      try {
+        await deleteExhibitionMutation.mutateAsync(id);
+        toast.success('Exposição excluída com sucesso!');
+      } catch (error) {
+        toast.error('Erro ao excluir exposição');
+      }
     }
   };
 
@@ -207,6 +182,17 @@ const Admin = () => {
 
   if (!isAuthenticated) {
     return <AdminAuth onAuthenticated={() => setIsAuthenticated(true)} />;
+  }
+
+  if (artworksLoading || exhibitionsLoading) {
+    return (
+      <div className="min-h-screen bg-soft-beige flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-warm-terracotta border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="font-helvetica text-deep-black/70">Carregando...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -388,55 +374,68 @@ const Admin = () => {
                     </button>
                     <button
                       onClick={handleSaveArtwork}
-                      className="inline-flex items-center px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant"
+                      disabled={createArtworkMutation.isPending || updateArtworkMutation.isPending}
+                      className="inline-flex items-center px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant disabled:opacity-50"
                     >
                       <Save size={18} className="mr-2" />
-                      Salvar
+                      {(createArtworkMutation.isPending || updateArtworkMutation.isPending) ? 'Salvando...' : 'Salvar'}
                     </button>
                   </div>
                 </div>
               )}
 
               {/* Artworks List */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                {artworks.map((artwork) => (
-                  <div key={artwork.id} className="bg-soft-beige border border-gentle-green/20 rounded-3xl overflow-hidden shadow-elegant hover-lift-elegant">
-                    <div className="aspect-[4/3] relative">
-                      <img
-                        src={artwork.image}
-                        alt={artwork.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-4 right-4 flex space-x-2">
-                        <button
-                          onClick={() => handleEditArtwork(artwork)}
-                          className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg"
-                        >
-                          <Edit size={16} className="text-warm-terracotta" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteArtwork(artwork.id)}
-                          className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg"
-                        >
-                          <Trash2 size={16} className="text-warm-terracotta" />
-                        </button>
+              {artworks.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="font-helvetica text-deep-black/70 text-lg">
+                    Nenhuma obra cadastrada ainda
+                  </p>
+                  <p className="font-helvetica text-deep-black/50 text-sm mt-2">
+                    Clique no botão "Adicionar Nova Obra" para começar
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {artworks.map((artwork) => (
+                    <div key={artwork.id} className="bg-soft-beige border border-gentle-green/20 rounded-3xl overflow-hidden shadow-elegant hover-lift-elegant">
+                      <div className="aspect-[4/3] relative">
+                        <img
+                          src={artwork.image}
+                          alt={artwork.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-4 right-4 flex space-x-2">
+                          <button
+                            onClick={() => handleEditArtwork(artwork)}
+                            className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg"
+                          >
+                            <Edit size={16} className="text-warm-terracotta" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteArtwork(artwork.id)}
+                            disabled={deleteArtworkMutation.isPending}
+                            className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg disabled:opacity-50"
+                          >
+                            <Trash2 size={16} className="text-warm-terracotta" />
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6">
+                        <h3 className="font-semplicita text-xl font-light text-deep-black mb-2">
+                          {artwork.title}
+                        </h3>
+                        <p className="font-helvetica text-sm text-deep-black/70 mb-1">
+                          {artwork.year} • {artwork.medium}
+                        </p>
+                        <p className="font-helvetica text-sm text-deep-black/60 line-clamp-2">
+                          {artwork.description}
+                        </p>
                       </div>
                     </div>
-                    
-                    <div className="p-6">
-                      <h3 className="font-semplicita text-xl font-light text-deep-black mb-2">
-                        {artwork.title}
-                      </h3>
-                      <p className="font-helvetica text-sm text-deep-black/70 mb-1">
-                        {artwork.year} • {artwork.medium}
-                      </p>
-                      <p className="font-helvetica text-sm text-deep-black/60 line-clamp-2">
-                        {artwork.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </>
           )}
 
@@ -510,7 +509,7 @@ const Admin = () => {
                         </label>
                         <select
                           value={exhibitionFormData.status || 'upcoming'}
-                          onChange={(e) => setExhibitionFormData({ ...exhibitionFormData, status: e.target.value as Exhibition['status'] })}
+                          onChange={(e) => setExhibitionFormData({ ...exhibitionFormData, status: e.target.value })}
                           className="w-full px-4 py-3 bg-soft-beige border border-gentle-green/30 rounded-xl focus:ring-2 focus:ring-warm-terracotta/20 focus:border-warm-terracotta transition-all duration-300 font-helvetica"
                         >
                           <option value="upcoming">Em Breve</option>
@@ -595,71 +594,84 @@ const Admin = () => {
                     </button>
                     <button
                       onClick={handleSaveExhibition}
-                      className="inline-flex items-center px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant"
+                      disabled={createExhibitionMutation.isPending || updateExhibitionMutation.isPending}
+                      className="inline-flex items-center px-6 py-3 bg-warm-terracotta text-soft-beige font-helvetica font-medium rounded-full hover:bg-warm-terracotta/90 transition-all duration-300 shadow-elegant disabled:opacity-50"
                     >
                       <Save size={18} className="mr-2" />
-                      Salvar
+                      {(createExhibitionMutation.isPending || updateExhibitionMutation.isPending) ? 'Salvando...' : 'Salvar'}
                     </button>
                   </div>
                 </div>
               )}
 
               {/* Exhibitions List */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {exhibitions.map((exhibition) => (
-                  <div key={exhibition.id} className="bg-soft-beige border border-gentle-green/20 rounded-3xl overflow-hidden shadow-elegant hover-lift-elegant">
-                    <div className="relative h-64 overflow-hidden">
-                      <img
-                        src={exhibition.image}
-                        alt={exhibition.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          exhibition.status === 'current' ? 'text-green-600 bg-green-100' :
-                          exhibition.status === 'upcoming' ? 'text-blue-600 bg-blue-100' :
-                          'text-gray-600 bg-gray-100'
-                        }`}>
-                          {exhibition.status === 'current' ? 'Em Cartaz' :
-                           exhibition.status === 'upcoming' ? 'Em Breve' : 'Finalizada'}
-                        </span>
+              {exhibitions.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="font-helvetica text-deep-black/70 text-lg">
+                    Nenhuma exposição cadastrada ainda
+                  </p>
+                  <p className="font-helvetica text-deep-black/50 text-sm mt-2">
+                    Clique no botão "Adicionar Nova Exposição" para começar
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {exhibitions.map((exhibition) => (
+                    <div key={exhibition.id} className="bg-soft-beige border border-gentle-green/20 rounded-3xl overflow-hidden shadow-elegant hover-lift-elegant">
+                      <div className="relative h-64 overflow-hidden">
+                        <img
+                          src={exhibition.image}
+                          alt={exhibition.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-4 left-4">
+                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                            exhibition.status === 'current' ? 'text-green-600 bg-green-100' :
+                            exhibition.status === 'upcoming' ? 'text-blue-600 bg-blue-100' :
+                            'text-gray-600 bg-gray-100'
+                          }`}>
+                            {exhibition.status === 'current' ? 'Em Cartaz' :
+                             exhibition.status === 'upcoming' ? 'Em Breve' : 'Finalizada'}
+                          </span>
+                        </div>
+                        <div className="absolute top-4 right-4 flex space-x-2">
+                          <button
+                            onClick={() => handleEditExhibition(exhibition)}
+                            className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg"
+                          >
+                            <Edit size={16} className="text-warm-terracotta" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteExhibition(exhibition.id)}
+                            disabled={deleteExhibitionMutation.isPending}
+                            className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg disabled:opacity-50"
+                          >
+                            <Trash2 size={16} className="text-warm-terracotta" />
+                          </button>
+                        </div>
                       </div>
-                      <div className="absolute top-4 right-4 flex space-x-2">
-                        <button
-                          onClick={() => handleEditExhibition(exhibition)}
-                          className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg"
-                        >
-                          <Edit size={16} className="text-warm-terracotta" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteExhibition(exhibition.id)}
-                          className="p-2 bg-soft-beige/90 rounded-full hover:bg-soft-beige transition-all duration-300 shadow-lg"
-                        >
-                          <Trash2 size={16} className="text-warm-terracotta" />
-                        </button>
+                      <div className="p-6">
+                        <h3 className="font-semplicita text-xl font-light text-deep-black mb-2">
+                          {exhibition.title}
+                        </h3>
+                        <p className="font-helvetica text-sm text-deep-black/60 mb-4 leading-relaxed">
+                          {exhibition.description}
+                        </p>
+                        <div className="flex items-center text-deep-black/50 text-sm mb-2">
+                          <Calendar size={16} className="mr-2" />
+                          <span>
+                            {new Date(exhibition.start_date).toLocaleDateString('pt-BR')} - {new Date(exhibition.end_date).toLocaleDateString('pt-BR')}
+                          </span>
+                        </div>
+                        <div className="flex items-center text-deep-black/50 text-sm">
+                          <MapPin size={16} className="mr-2" />
+                          <span>{exhibition.location}</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="p-6">
-                      <h3 className="font-semplicita text-xl font-light text-deep-black mb-2">
-                        {exhibition.title}
-                      </h3>
-                      <p className="font-helvetica text-sm text-deep-black/60 mb-4 leading-relaxed">
-                        {exhibition.description}
-                      </p>
-                      <div className="flex items-center text-deep-black/50 text-sm mb-2">
-                        <Calendar size={16} className="mr-2" />
-                        <span>
-                          {new Date(exhibition.startDate).toLocaleDateString('pt-BR')} - {new Date(exhibition.endDate).toLocaleDateString('pt-BR')}
-                        </span>
-                      </div>
-                      <div className="flex items-center text-deep-black/50 text-sm">
-                        <MapPin size={16} className="mr-2" />
-                        <span>{exhibition.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </>
           )}
         </div>
