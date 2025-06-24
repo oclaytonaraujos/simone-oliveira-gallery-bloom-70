@@ -8,6 +8,8 @@ export const useCreateArtwork = () => {
   
   return useMutation({
     mutationFn: async (artwork: Omit<Artwork, 'id' | 'created_at' | 'updated_at'>) => {
+      console.log('Creating artwork with data:', artwork);
+      
       const { data, error } = await supabase
         .from('artworks')
         .insert([artwork])
@@ -19,11 +21,15 @@ export const useCreateArtwork = () => {
         throw error;
       }
       
+      console.log('Artwork created successfully:', data);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['artworks'] });
     },
+    onError: (error) => {
+      console.error('Mutation error:', error);
+    }
   });
 };
 
@@ -32,6 +38,8 @@ export const useUpdateArtwork = () => {
   
   return useMutation({
     mutationFn: async ({ id, ...artwork }: Partial<Artwork> & { id: string }) => {
+      console.log('Updating artwork:', id, artwork);
+      
       const { data, error } = await supabase
         .from('artworks')
         .update(artwork)
@@ -44,11 +52,15 @@ export const useUpdateArtwork = () => {
         throw error;
       }
       
+      console.log('Artwork updated successfully:', data);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['artworks'] });
     },
+    onError: (error) => {
+      console.error('Update mutation error:', error);
+    }
   });
 };
 
@@ -57,6 +69,8 @@ export const useDeleteArtwork = () => {
   
   return useMutation({
     mutationFn: async (id: string) => {
+      console.log('Deleting artwork:', id);
+      
       const { error } = await supabase
         .from('artworks')
         .delete()
@@ -67,11 +81,15 @@ export const useDeleteArtwork = () => {
         throw error;
       }
       
+      console.log('Artwork deleted successfully');
       return id;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['artworks'] });
     },
+    onError: (error) => {
+      console.error('Delete mutation error:', error);
+    }
   });
 };
 
@@ -80,6 +98,8 @@ export const useToggleFeaturedArtwork = () => {
   
   return useMutation({
     mutationFn: async ({ id, featured }: { id: string; featured: boolean }) => {
+      console.log('Toggling featured status:', id, featured);
+      
       const { data, error } = await supabase
         .from('artworks')
         .update({ featured })
@@ -92,10 +112,14 @@ export const useToggleFeaturedArtwork = () => {
         throw error;
       }
       
+      console.log('Featured status updated successfully:', data);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['artworks'] });
     },
+    onError: (error) => {
+      console.error('Toggle featured mutation error:', error);
+    }
   });
 };

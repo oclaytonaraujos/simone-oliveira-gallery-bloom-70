@@ -20,6 +20,8 @@ export const useCreateExhibition = () => {
   
   return useMutation({
     mutationFn: async (exhibition: Omit<Exhibition, 'id' | 'created_at' | 'updated_at'>) => {
+      console.log('Creating exhibition with data:', exhibition);
+      
       const { data, error } = await supabase
         .from('exhibitions')
         .insert([exhibition])
@@ -31,11 +33,15 @@ export const useCreateExhibition = () => {
         throw error;
       }
       
+      console.log('Exhibition created successfully:', data);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['exhibitions'] });
     },
+    onError: (error) => {
+      console.error('Create exhibition mutation error:', error);
+    }
   });
 };
 
@@ -44,6 +50,8 @@ export const useUpdateExhibition = () => {
   
   return useMutation({
     mutationFn: async ({ id, ...exhibition }: Partial<Exhibition> & { id: string }) => {
+      console.log('Updating exhibition:', id, exhibition);
+      
       const { data, error } = await supabase
         .from('exhibitions')
         .update(exhibition)
@@ -56,11 +64,15 @@ export const useUpdateExhibition = () => {
         throw error;
       }
       
+      console.log('Exhibition updated successfully:', data);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['exhibitions'] });
     },
+    onError: (error) => {
+      console.error('Update exhibition mutation error:', error);
+    }
   });
 };
 
@@ -69,6 +81,8 @@ export const useDeleteExhibition = () => {
   
   return useMutation({
     mutationFn: async (id: string) => {
+      console.log('Deleting exhibition:', id);
+      
       const { error } = await supabase
         .from('exhibitions')
         .delete()
@@ -79,10 +93,14 @@ export const useDeleteExhibition = () => {
         throw error;
       }
       
+      console.log('Exhibition deleted successfully');
       return id;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['exhibitions'] });
     },
+    onError: (error) => {
+      console.error('Delete exhibition mutation error:', error);
+    }
   });
 };
