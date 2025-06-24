@@ -10,9 +10,17 @@ export const useCreateArtwork = () => {
     mutationFn: async (artwork: Omit<Artwork, 'id' | 'created_at' | 'updated_at'>) => {
       console.log('Creating artwork with data:', artwork);
       
+      // Clean the artwork data to handle empty strings for UUID fields
+      const cleanedArtwork = {
+        ...artwork,
+        exhibition_id: artwork.exhibition_id === '' ? null : artwork.exhibition_id,
+      };
+      
+      console.log('Cleaned artwork data:', cleanedArtwork);
+      
       const { data, error } = await supabase
         .from('artworks')
-        .insert([artwork])
+        .insert([cleanedArtwork])
         .select()
         .single();
       
@@ -40,9 +48,17 @@ export const useUpdateArtwork = () => {
     mutationFn: async ({ id, ...artwork }: Partial<Artwork> & { id: string }) => {
       console.log('Updating artwork:', id, artwork);
       
+      // Clean the artwork data to handle empty strings for UUID fields
+      const cleanedArtwork = {
+        ...artwork,
+        exhibition_id: artwork.exhibition_id === '' ? null : artwork.exhibition_id,
+      };
+      
+      console.log('Cleaned update data:', cleanedArtwork);
+      
       const { data, error } = await supabase
         .from('artworks')
-        .update(artwork)
+        .update(cleanedArtwork)
         .eq('id', id)
         .select()
         .single();

@@ -22,9 +22,17 @@ export const useCreateExhibition = () => {
     mutationFn: async (exhibition: Omit<Exhibition, 'id' | 'created_at' | 'updated_at'>) => {
       console.log('Creating exhibition with data:', exhibition);
       
+      // Ensure dates are in the correct format and required fields are present
+      const cleanedExhibition = {
+        ...exhibition,
+        description: exhibition.description || null,
+      };
+      
+      console.log('Cleaned exhibition data:', cleanedExhibition);
+      
       const { data, error } = await supabase
         .from('exhibitions')
-        .insert([exhibition])
+        .insert([cleanedExhibition])
         .select()
         .single();
       
