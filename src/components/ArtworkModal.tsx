@@ -1,6 +1,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { X } from 'lucide-react';
+import { X, Mail } from 'lucide-react';
+import { BsWhatsapp } from "react-icons/bs";
 import { Artwork } from '../hooks/useArtworks';
 
 interface ArtworkModalProps {
@@ -10,6 +11,20 @@ interface ArtworkModalProps {
 
 const ArtworkModal = ({ artwork, onClose }: ArtworkModalProps) => {
   if (!artwork) return null;
+
+  const whatsappNumber = "5511987654321"; // Número da Simone
+  const email = "contato@simoneoliveira.art";
+
+  const handleWhatsApp = () => {
+    const message = encodeURIComponent(`Olá! Gostaria de saber mais sobre a obra "${artwork.title}" e seu preço. Poderia me fornecer mais informações?`);
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+  };
+
+  const handleEmail = () => {
+    const subject = encodeURIComponent(`Interesse na obra: ${artwork.title}`);
+    const body = encodeURIComponent(`Olá Simone,\n\nGostaria de saber mais sobre a obra "${artwork.title}" (${artwork.year}).\n\nPoderia me informar:\n- Preço da obra\n- Disponibilidade\n- Formas de pagamento\n- Outras informações relevantes\n\nAguardo seu contato.\n\nObrigado(a)!`);
+    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
+  };
 
   return (
     <Dialog open={!!artwork} onOpenChange={() => onClose()}>
@@ -67,6 +82,34 @@ const ArtworkModal = ({ artwork, onClose }: ArtworkModalProps) => {
                     <p className="font-helvetica text-deep-black leading-relaxed">{artwork.description}</p>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Botões de Contato */}
+            <div className="border-t border-gentle-green/20 pt-6">
+              <h4 className="font-semplicita text-lg font-light text-deep-black mb-4">
+                Interessado nesta obra?
+              </h4>
+              <p className="font-helvetica text-sm text-deep-black/70 mb-4">
+                Entre em contato para saber mais sobre preço e disponibilidade
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={handleWhatsApp}
+                  className="flex items-center justify-center px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-helvetica font-medium transition-all duration-300 group shadow-lg hover-lift-elegant"
+                >
+                  <BsWhatsapp size={18} className="mr-2 group-hover:scale-110 transition-transform duration-300" />
+                  WhatsApp
+                </button>
+                
+                <button
+                  onClick={handleEmail}
+                  className="flex items-center justify-center px-4 py-3 bg-warm-terracotta hover:bg-warm-terracotta/90 text-soft-beige rounded-xl font-helvetica font-medium transition-all duration-300 group shadow-lg hover-lift-elegant"
+                >
+                  <Mail size={18} className="mr-2 group-hover:scale-110 transition-transform duration-300" />
+                  E-mail
+                </button>
               </div>
             </div>
           </div>
