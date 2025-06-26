@@ -12,8 +12,8 @@ interface ArtworkModalProps {
 const ArtworkModal = ({ artwork, onClose }: ArtworkModalProps) => {
   if (!artwork) return null;
 
-  const whatsappNumber = "5511987654321"; // Número da Simone
-  const email = "contato@simoneoliveira.art";
+  const whatsappNumber = "5534991101007";
+  const email = "gallery@simoneoliveiragallery.com";
 
   const handleWhatsApp = () => {
     const message = encodeURIComponent(`Olá! Gostaria de saber mais sobre a obra "${artwork.title}" e seu preço. Poderia me fornecer mais informações?`);

@@ -3,8 +3,8 @@ import { Mail } from 'lucide-react';
 import { BsWhatsapp } from "react-icons/bs";
 
 const FloatingContactButtons = () => {
-  const whatsappNumber = "5511987654321"; // Número da Simone (ajuste conforme necessário)
-  const email = "contato@simoneoliveira.art";
+  const whatsappNumber = "5534991101007";
+  const email = "gallery@simoneoliveiragallery.com";
   
   const handleWhatsApp = () => {
     const message = encodeURIComponent("Olá! Gostaria de saber mais sobre as obras de Simone Oliveira.");

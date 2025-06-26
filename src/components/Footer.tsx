@@ -37,7 +37,7 @@ const Footer = () => {
                 <Twitter size={20} />
               </a>
               <a 
-                href="https://wa.me/5511987654321" 
+                href="https://wa.me/5534991101007" 
                 className="text-gray-400 hover:text-green-500 transition-colors duration-300"
                 aria-label="WhatsApp"
                 target="_blank"
@@ -55,22 +55,19 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin size={16} className="text-warm-terracotta mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 text-sm">Vila Madalena</p>
-                  <p className="text-gray-300 text-sm">São Paulo, SP</p>
+                  <p className="text-gray-300 text-sm">Rua Elias Alves da Cunha, 73</p>
+                  <p className="text-gray-300 text-sm">São Lucas - Patrocínio, MG</p>
+                  <p className="text-gray-300 text-sm">CEP: 38747-506</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone size={16} className="text-warm-terracotta flex-shrink-0" />
-                <span className="text-gray-300 text-sm">(11) 3456-7890</span>
-              </div>
-              <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-warm-terracotta flex-shrink-0" />
-                <span className="text-gray-300 text-sm">contato@gallery.com</span>
+                <span className="text-gray-300 text-sm">gallery@simoneoliveiragallery.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <BsWhatsapp size={16} className="text-green-500 flex-shrink-0" />
-                <a href="https://wa.me/5511987654321" className="text-gray-300 text-sm hover:text-green-500 transition-colors">
-                  (11) 98765-4321
+                <a href="https://wa.me/5534991101007" className="text-gray-300 text-sm hover:text-green-500 transition-colors">
+                  (34) 99110-1007
                 </a>
               </div>
             </div>
@@ -81,16 +78,11 @@ const Footer = () => {
             <h3 className="font-playfair text-lg font-semibold text-white">Horários de Funcionamento</h3>
             <div className="space-y-2">
               <div className="flex justify-between items-center py-1">
-                <span className="text-gray-300 text-sm">Segunda - Sexta</span>
-                <span className="text-white text-sm font-medium">10h - 19h</span>
+                <span className="text-gray-300 text-sm">Visitação</span>
+                <span className="text-white text-sm font-medium">Mediante agendamento</span>
               </div>
-              <div className="flex justify-between items-center py-1">
-                <span className="text-gray-300 text-sm">Sábado</span>
-                <span className="text-white text-sm font-medium">10h - 17h</span>
-              </div>
-              <div className="flex justify-between items-center py-1">
-                <span className="text-gray-300 text-sm">Domingo</span>
-                <span className="text-white text-sm font-medium">12h - 17h</span>
+              <div className="text-gray-300 text-sm">
+                <p>Entre em contato para agendar sua visita</p>
               </div>
             </div>
           </div>
