@@ -1,3 +1,4 @@
+
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { ArrowRight } from 'lucide-react';
@@ -60,11 +61,11 @@ const Artists = () => {
               
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
-                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">200+</div>
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">35+</div>
                   <div className="font-helvetica text-sm text-deep-black/70">Obras Criadas</div>
                 </div>
                 <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
-                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">25+</div>
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">4</div>
                   <div className="font-helvetica text-sm text-deep-black/70">Exposições</div>
                 </div>
                 <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
@@ -72,7 +73,7 @@ const Artists = () => {
                   <div className="font-helvetica text-sm text-deep-black/70">Anos de Carreira</div>
                 </div>
                 <div className="text-center p-6 bg-gentle-green/20 rounded-xl shadow-lg">
-                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">50+</div>
+                  <div className="font-semplicita text-3xl font-light text-warm-terracotta mb-2">15+</div>
                   <div className="font-helvetica text-sm text-deep-black/70">Colecionadores</div>
                 </div>
               </div>
