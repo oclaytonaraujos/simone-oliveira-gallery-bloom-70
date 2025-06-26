@@ -4,19 +4,19 @@ import { Award, Users, Calendar, Heart, Palette, Eye, Target, Globe } from 'luci
 const About = () => {
   const stats = [{
     icon: Calendar,
-    number: "12",
+    number: "15+",
     label: "Anos de Experiência"
   }, {
     icon: Palette,
-    number: "100+",
+    number: "35+",
     label: "Obras Criadas"
   }, {
     icon: Eye,
-    number: "25+",
+    number: "4",
     label: "Exposições Realizadas"
   }, {
     icon: Heart,
-    number: "500+",
+    number: "15+",
     label: "Colecionadores Alcançados"
   }];
   const galleryFeatures = [{
